@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        /* 
+            padding：[ <length> | <percentage> ]{1,4}
+            默认值：看每个独立属性
+            适用于：所有元素，除 table-row-group | table-header-group | table-footer-group | table-column-group | table-row 外
+            继承性：无
+            动画性：是
+            计算值：看每个独立属性
+            相关属性：[ padding-top ] || [ padding-right ] || [ padding-bottom ] || [ padding-left ]
+            如果提供全部四个参数值，将按上、右、下、左的顺序作用于四边。 
+            如果只提供一个，将用于全部的四边。 
+            如果提供两个，第一个用于上、下，第二个用于左、右。 
+            如果提供三个，第一个用于上，第二个用于左、右，第三个用于下。 
+            非替代(non-Replaced)行内元素可以使用该属性设置左、右两边的内补丁；若要设置上、下两边的内补丁，必须先使该对象表现为块级或内联块级。 
+            对应的脚本特性为padding。 
+        */
+        div {
+            width: 200px;
+            height: 200px;
+            border: 1px solid red;
+            padding-left: 20px; /* 左内边距 */
+            padding-top: 20px;   /* 上内边距 */
+            padding: 20px; /* padding 如果只写一个值，表示 上下左右都是20px */
+            padding: 10px 30px; /* 上下10px 左右30px */
+            padding: 10px 30px 50px; /* 上10 左右30px 下50px*/
+            padding: 10px 30px 40px 50px; /* 上右下左*/
+        }
+    </style>
+</head>
+<body>
+    <div>内边距就是内容距离边框的距离</div>
+</body>
+</html>

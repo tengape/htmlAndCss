@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        /*
+            border：<line-width> || <line-style> || <color>
+            分拆简写属性语法：
+            border-*：<line-width> || <line-style> || <color>
+            border-* = border-top,border-right,border-bottom,border-left
+            默认值：看每个独立属性
+            适用于：所有元素
+            继承性：无
+            动画性：看每个独立属性
+            计算值：看每个独立属性
+            媒　体：视觉
+            下属独立属性：border-*-width || border-*-style || border-*-color
+            <line-width> = <length> | thin | medium | thick <line-style> = none | hidden | dotted | dashed | solid | double | groove | ridge | inset | outset
+        */
+        div {
+            width: 200px;
+            height: 200px;
+            border-width: 10px; /* 边框精细 */
+            border-color: pink;
+            /* border-style: solid; 实线 */
+            /* border-style: dashed; 虚线 */
+            /* border-style: dotted; 点线 */
+            border-style: double; /* 双实线 */
+        }
+        /* border 综合写法 */
+        input {
+            border: 0; /* 先取消所有的边框 */
+        }
+        .user {
+            border-width: 1px;
+            border-color: pink;
+            border-style: solid;
+        }
+        .nc {
+            /* 上边框 */
+            border-top-width: 1px;
+            border-top-color: pink;
+            border-top-style: solid;
+            /* 下边框 */
+            border-bottom-width: 1px;
+            border-bottom-color: pink;
+            border-bottom-style: solid;
+        }
+    </style>
+</head>
+<body>
+    <div>
+        我是一个盒子
+    </div>
+    用户名：<input type="text" class="user"><br><br>
+    用户名：<input type="text" class="nc"><br><br>
+    用户名：<input type="text"><br><br>
+</body>
+</html>

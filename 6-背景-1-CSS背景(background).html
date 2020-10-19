@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        div:first-child {
+            width: 400px;
+            height: 500px;
+            /* 背景颜色 */
+            background-color: pink; 
+            /* 
+                背景图片 
+                none： 无背景图。 <image>： 使用绝对或相对地址指或者创建渐变色来确定图像。
+                定义元素使用的背景图像。
+                在同一组背景定义中，如果背景颜色和背景图像都设置了，那么背景图像会覆盖在背景颜色之上。
+                如果设置了background-image，同时也建议设置background-color用于当背景图像不可见时保持与文本颜色有一定的对比度。
+                对应的脚本特性为：backgroundImage。
+            */
+            background-image: url(images/liudehua.jpg),
+                              url(images/xiaomi-img.png);
+            /* 背景如何平铺 repeat-x | repeat-y | [repeat | no-repeat | space | round]{1,2} */
+            background-repeat: no-repeat;
+            /* 背景位置 
+                [ left | center | right | top | bottom | <percentage> | <length> ] | 
+                [ left | center | right | <percentage> | <length> ] 
+                [ top | center | bottom | <percentage> | <length> ] | 
+                [ center | [ left |  right ] [ <percentage> | <length> ]? ] && 
+                [ center | [ top | bottom ] [ <percentage>| <length> ]? ]
+                默认值：0% 0%，效果等同于left top
+                <percentage>： 用百分比指定背景图像在元素中出现的位置。可以为负值。参考容器尺寸减去背景图尺寸进行换算。 
+                <length>： 用长度值指定背景图像在元素中出现的位置。可以为负值。 center： 背景图像横向或纵向居中。
+                left： 背景图像从元素左边开始出现。 
+                right： 背景图像从元素右边开始出现。 
+                top： 背景图像从元素顶部开始出现。 
+                bottom： 背景图像从元素底部开始出现。
+
+                示例：假设要定义背景图像在容器中右下方，并且距离右边和底部各有20px
+                background: url(test1.jpg) no-repeat right 20px bottom 20px;
+                如果方位名词只写一个，另外一个默认为center
+            */
+            /* background-position: center; */
+            /* background-position: right 20px bottom 20px; */
+            /* background-position: right top; */
+            /* background-position: bottom; */
+            /* background-position: right 50% bottom 50%; */
+            /* background-position: center; */
+            /* background-position: 10px 100px; 第1个值是X坐标， 第二个值是Y坐标*/
+            /* background-position: center; */
+            background-position: 10px center;
+        }
+        div:last-child {
+            width: 400px;
+            height: 400px;
+            background: deeppink url(images/liudehua.jpg) no-repeat right 20% bottom 20%;
+        }
+    </style>
+</head>
+<body>
+    <div></div>
+    <div></div>
+</body>
+</html>

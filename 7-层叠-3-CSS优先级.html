@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        div {
+            /* 标签选择器 */
+            color: pink;
+        }
+
+        .king {
+            /* 类选择器 */
+            color: blue;
+        }
+
+        /* 通配选择<元素选择<类元素<ID元素<行内<!important */
+        /* 
+            * 为 0，0，0，0；
+            标签：0，0，0，1；
+            类：0，0，1，0； 
+            id: 0,1,0,0;
+            行内：1，0，0，0
+            !important:无穷大
+        */
+        :first-child {
+            color: green
+        }
+
+        #wang {
+            color: red;
+        }
+
+        /* 最大的，不是选择器  */
+        div {
+            color: orange !important;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="king" id="wang" style="color: royalblue;">王者荣耀</div>
+</body>
+
+</html>

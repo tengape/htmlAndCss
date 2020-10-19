@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        span {
+            background-color: pink;
+            /* width: 100px;
+            height: 100px; */
+
+        }
+        /*  
+            常见块级元素有 h1-h6 p div ul ol li
+            块级元素特点：
+            1、总是从新行开始，
+            2、高度行高外边距及内边距都可以控制，
+            3、宽度默认是容器的100%，
+            4、可以容纳内联元素及其他块元素
+
+            常见行内元素有 a strong b  em i del s ins u span 等
+            行内元素特点：
+            1、和相邻行内元素在一行上
+            2、高、宽无效，但水平方向的pading和margin可以设置，垂直方向的无效
+            3、默认宽度就是它本身内容的宽度
+            4、行内元素只能容纳文本或其他行内元素 （a特殊）
+            注意
+            1、只有文字才能组成段落因此p里面不能放块级元素，同理还有这些标段 h1-h6,dt，他们都是文字类块级标签，里面不能放其他的块级元素。
+            2、链接里面不能再放链接
+            
+        */
+    </style>
+</head>
+<body>
+    <span>123</span>
+    <span>456</span>
+    <span>789</span>
+    <p><div></div></p> <!-- 这样写是错误的 -->
+</body>
+</html>

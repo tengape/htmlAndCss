@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        h2 {
+            font-size: 14px;
+            color: purple;
+            font-family: "microsoft yahei" tahoma,Arial, Helvetica, sans-serif; /* 多个字体用逗号隔开 中文字体需要加引号 中文字体放在英文字体后面*/
+            
+        }
+
+        h2:first-child {
+            font-size: 30px;
+            color: pink;
+            font-family: "微软雅黑", "\5B8B\4F53"; /* unicode 字体编码，用于兼容较老一点的浏览器 \5B8B\4F53 就等价于字体 */
+            font-style: initial; /* 让字体倾斜 */
+        }
+        p {
+            font-size: 14px;
+            font-family: "\9ED1\4F53"; /* 我们以后尽量只写unicode字体  */
+        }
+        span {
+            font-weight: bold; /* 字体加粗 */
+            font-weight: 700; /* 字体加粗 700 = bold*/
+            font-weight: 400; /* 字体加粗 400 = normal*/
+        }
+        strong {
+            font-weight: normal;    /* 让粗体不加粗 */
+        }
+        em {
+            font-style: normal; /* 让斜体不倾斜 */
+            color: lawngreen;
+        }
+        /* font 连写 选择器 {font: font-style font-weight font-size/line-height font-family}  必须按顺序来书写
+        font-size和font-family属性必须保留，否则不起作用*/
+        h4 {
+            font: initial 700 18px "宋体","微软雅黑";
+            font: normal 600 20px "微软雅黑";
+        }
+    </style>
+</head>
+
+<body>
+    <h2>4.4、遏制超定员生产</h2>
+    <p>通过监控<span>入洞人数，进入工作面的人数，</span>遏制超 <strong>定员生</strong> 产。</p>
+    <h2>4.5、防止人员进入危险区域</h2>
+    <p>通过对进入危 <em>险区域人</em> 员监控，及时发现误入危险区域人员，防止发生伤亡事故。</p>
+    <h2>4.6、及时发现未按时出洞人员</h2>
+    <p>通过对人员出/入洞时刻监测，可及时发现超时作业和未出洞人员，以便及时采取措施，防止发生意外。</p>
+    <h2>4.7加强特种作业人员管理</h2>
+    <p>通过对瓦斯检查员等特种作业人员巡检路径及到达时间监测，及时掌握检查员等特种作业人员是否按规定的时间和线路巡检。</p>
+    <h4>4.8、加强干部带班管理</h4>
+    <p>通过对带班干部出入洞及路径监测，及时掌握干部下井带班情况，加强干部下井带班管理。</p>
+</body>
+
+</html>

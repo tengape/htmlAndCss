@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        /* 子元素选择器 .class>h3 {color: red; font-size: 25px}   */
+        .nav li {
+            /* 空格是后代选择器，可以选择儿子，孙子，重孙子 */
+            color: red;
+        }
+
+        .nav>li {
+            /* 大于号是子元素选择器只选择新儿子 */
+            color: rgb(16, 172, 245);
+        }
+    </style>
+</head>
+
+<body>
+    <ul class="nav">
+        <li>一级菜单
+            <ul>
+                <li>二级菜单</li>
+                <li>二级菜单</li>
+                <li>二级菜单</li>
+            </ul>
+        </li>
+        <li>一级菜单
+            <ul>
+                <li>二级菜单</li>
+                <li>二级菜单</li>
+                <li>二级菜单</li>
+            </ul>
+        </li>
+        <li>一级菜单
+            <ul>
+                <li>二级菜单</li>
+                <li>二级菜单</li>
+                <li>二级菜单</li>
+            </ul>
+        </li>
+    </ul>
+</body>
+
+</html>

@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        .red {
+            color: red;
+        }
+        /* 
+            交集选择器由两个选择器构成，其中第一个为标签选择器，第二个为class选择器，两个选择器之间不能有空格如h3.class
+            交集先择器 h3.class{color: red; font-size: 25px;}
+            交集是及和又的关系。
+         */
+        p.red { /* 这个的意思为只有p标签里面类为red的标签 */
+            font-size: 25px;
+        }
+        div.red {
+            font-size: 15px;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="red">123</div>
+    <div>456</div>
+    <div>789</div>
+    <p>A</p>
+    <p>B</p>
+    <p class="red">C</p>
+</body>
+
+</html>

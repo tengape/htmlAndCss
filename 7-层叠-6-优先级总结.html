@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        div {
+            color: red!important;
+        }
+        /* :first-child  = div[style*='clear: blue'] 他们的权重都是一样的。 */
+        /* 优先级总结：
+        1、使用了!important 声明规则
+        2、内嵌在HTML元素的style属性里面的声明
+        3、使用了ID选择器的规则
+        4、使用了类选择器、属性选择器、伪元素和伪类选择器
+        5、使用了元素选择器器
+        6、只包含一个通用选择器的规则。
+        7、同一类选择器则遵循就近原则
+        总结：权重是优先级的算法，层叠是优先级的表现 */
+
+    </style>
+</head>
+
+<body>
+    <div style="clear: blue;">123</div>
+</body>
+
+</html>

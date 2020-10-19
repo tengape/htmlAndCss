@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        /*  text-decoration：text-decoration-line || text-decoration-style || text-decoration-color
+            text-decoration-line： 指定文本装饰的种类。相当于CSS2.1的text-decoration属性，可取值：none | underline | overline | line-through | blink
+            text-decoration-style： 指定文本装饰的样式。 solid： 实线 double： 双线 dotted： 点状线条 dashed： 虚线 wavy： 波浪线
+            text-decoration-color： 指定文本装饰的颜色。
+            text-decoration-skip：none | [ objects || spaces || ink || edges || box-decoration ] 目前很多浏览器不支持
+            none： 不跳过：文本装饰将绘制在所有文本及原子内联级盒上。 
+            objects： 跳过原子内联级盒（例如图片或内联块） 
+            spaces：跳过空白：包括常规空白（U+0020）、制表符（U+0009）以及不间断空格（U+00A0）、表意空格（U+3000）、所有固定宽度空格（U+2000至U+200A、U+202F和U+205F）、以及相邻的字母间隔或单词间隔。 
+            ink：跳过字符绘制处：中断装饰线，以显示文本装饰件将穿过该字形的文本。用户代理可能还会在该字形轮廓的两侧额外的跳过一段距离。 
+            edges：用户代理应当将装饰线的起始、结束放置在文本内容边缘更靠内的位置，使得诸如两个紧密相邻的元素的下划线不会显示为一条下划线。（这在中文里很重要，对于中文，下划线是一种标点符号。） 
+            box-decoration： 跳过盒子的 margin,border, padding 区域。需要注意的是，这只针对祖先的装饰效果，装饰盒不会绘制自身的装饰。
+         */
+        p:first-child {
+            text-decoration: underline double red;
+        }
+        p:nth-child(2) {
+            text-decoration: line-through wavy green;
+        }
+    </style>
+</head>
+<body>
+    <p>123123123</p>
+    <p>123 12 31 23</p>
+    <p>123123123</p>
+</body>
+</html>

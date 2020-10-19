@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        /*
+            简写属性语法：
+            border-radius：[ <length> | <percentage> ]{1,4} [ / [ <length> | <percentage> ]{1,4} ]?
+            默认值：看每个独立属性
+            适用于：所有元素
+            继承性：无
+            动画性：看每个独立属性
+            计算值：看每个独立属性
+            媒　体：视觉
+            分拆独立属性语法：
+            border-*-radius：[ <length> | <percentage> ]{1,2}
+            border-*-radius =
+            border-top-left-radius,border-top-right-radius,border-bottom-right-radius,border-bottom-left-radius
+            默认值：0
+            适用于：所有元素
+            继承性：无
+            动画性：是
+            计算值：绝对值或百分比
+            媒　体：视觉
+            取值：
+            <length>： 用长度值定义圆形半径或椭圆的半长轴，半短轴。不允许负值 <percentage>：
+                    用百分比定义圆形半径或椭圆的半长轴，半短轴。水平方向百分比参照元素宽度（非内容宽度），垂直方向参照元素高度。不允许负值
+        */
+        div {
+            width: 200px;
+            height: 200px;
+            border: 1px solid red;
+            white-space: nowrap;
+        }
+        div:first-child { /* 结构伪类选择器 */
+            border-radius: 10px; /* 一个数值表示四个角都是相同的 10px 的弧度 */
+        }
+        div:nth-child(2) {
+            border-radius: 50%; /* 50%为一个圆 取宽度和高度的一半就是一个圆形 */
+        }
+        div:nth-child(3) {
+            border-radius: 10px 40px; /* 2个参数 是左上 和 右下 是10 右上 和 左下角 是40 对角线 */
+        }
+        div:nth-child(4) {
+            border-radius: 10px 40px 80px; /* 3个参数 左上 10 右上 和左下 是40 右下是80 */
+        }
+        div:nth-child(5){
+            border-radius: 10px 40px 80px 100px; /* 4个参数 左上10 右上40 右下80 左下100 */
+        }
+        div:nth-child(6) { /* 胶囊形式 */
+            border-radius: 100px;
+            height: 100px;
+        }
+        div:nth-child(7){ /* 叶状 */
+            border-radius: 100px 0;
+        }
+    </style>
+</head>
+<body>
+    <div>border-radius: 10px</div>
+    <div>border-radius: 50%</div>
+    <div>border-radius: 10px 40px</div>
+    <div>border-radius: 10px 40px 80px</div>
+    <div>border-radius: 10px 40px 80px 100px;</div>
+    <div> border-radius: 100px;
+        height: 100px;</div>
+    <div> border-radius: 100px 0;</div>
+</body>
+</html>

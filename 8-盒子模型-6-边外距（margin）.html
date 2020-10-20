@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        /*
+        margin：[ <length> | <percentage> | auto ]{1,4}
+        默认值：看每个独立属性
+        适用于：所有元素，除非 table | inline-table | table-caption 的表格类元素之外
+        继承性：无
+        动画性：是
+        计算值：看每个独立属性
+        相关属性：[ margin-top ] || [ margin-right ] || [ margin-bottom ] || [ margin-left ]
+        auto： 水平（默认）书写模式下，margin-top/margin-bottom计算值为0，margin-left/margin-right取决于可用空间。详见：margin系列之keyword auto 
+        <length>： 用长度值来定义外补白。可以为负值 
+        <percentage>： 用百分比来定义外补白。水平（默认）书写模式下，参照其包含块 width 进行计算，其它情况参照 height ，可以为负值 
+        检索或设置对象四边的外延边距。 
+        如果提供全部四个参数值，将按上、右、下、左的顺序作用于四边。 
+        如果只提供一个，将用于全部的四边。 
+        如果提供两个，第一个用于上、下，第二个用于左、右。 
+        如果提供三个，第一个用于上，第二个用于左、右，第三个用于下。 
+        非替代(non-Replaced)行内元素可以使用该属性设置左、右两边的外补丁；若要设置上、下两边的外补丁，必须先使该对象表现为块级或内联块级。 
+        外延边距始终透明。 
+        某些相邻的margin会发生合并，我们称之为margin折叠： 
+        */
+        div {
+            width: 200px;
+            height: 200px;
+            background-color: pink;
+            margin-top: 100px;
+            margin: 30px;
+            padding: 4px;
+            /* 可以让一个盒子实现水平居中，需要满足一下两个条件：
+            1、必须是块级元素
+            2、盒子必须指定了宽度（width）
+            然后给左右边距都设置为auto，就可使块级元素水平居中
+            */
+            margin: 30px auto;
+        }
+        header {
+            width: 900px;
+            height: 120px;
+            background-color: black;
+            margin: 0 auto; /* 左右一定是 auto */
+        }
+    </style>
+</head>
+<body>
+    <div></div>
+    <header></header>
+</body>
+</html>

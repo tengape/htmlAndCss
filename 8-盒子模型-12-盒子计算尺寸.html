@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        /*
+            外盒子尺寸计算
+            element 高度 = content height + padding + border + margin 
+            element 宽度 = content width + padding + border + margin
+            内盒子尺寸计算
+            element height = content height + padding + border
+            element width = content width + padding + border 
+
+        */
+        div {
+            width: 100px;
+            height: 100px;
+            background-color: pink;
+            border: 5px solid red;
+            padding: 10px;
+            margin: 20px;
+            /* 外盒尺寸：width = 100 + 10 +20 + 40 = 170*/
+            /* 内盒尺寸：width = 100 + 10 +20 = 130
+                padding 会撑大盒子大小
+            */
+        }
+    </style>
+</head>
+<body>
+    <div></div>
+    <div></div>
+</body>
+</html>

@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        div {
+            height: 30px;
+            border: 1px solid red;
+            padding-left: 20px;
+             /* 如果一个盒子没有经定宽度和高或者继承父亲的宽度/高度，则padding不会影响盒子的大小 因为这个盒子没有宽度 所以padding 不会影响盒子的宽度 */
+            /*width: 100%;  加了100% 也会影响*/
+            padding-top: 10px; /* 这个他会影响，因为设置了高度  */
+        }
+        nav {
+            width: 300px;
+            height: 40px;
+            border: 1px solid pink;
+        }
+        p {
+            /* 因为p没有指定宽度，刚会默认和父亲一样宽 块级元素 */
+            height: 20px;
+            background-color: pink;
+            padding-left: 30px; /* 此时Padding 也不会影响盒子的宽度 本质就在于没有给宽度 */
+        }
+    </style>
+</head>
+<body>
+    <div>奔跑吧，兄弟</div>
+    <nav>
+        <p>摔跤吧，爸爸！</p>
+    </nav>
+</body>
+</html>

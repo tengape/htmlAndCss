@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        /*
+            开始学盒子模型，同学们最大的困惑就是分不清内外边距的使用，什么情况下使用内边距，什么情况下使用外边距？
+            答案是：其实他大部分情况下是可以混用的。就是说，你用内边距也可以，用外边距也可以。你觉得哪个方便，就用哪个。
+            便是，总有一个最好用的，我们根据稳定性来分，建义如果：
+            按照优先使用 宽度（width）其次 使用内边距（padding）再次使用外边距（margin）
+            width > padding > maring
+            原因：
+            1、margin 会有外边距合并 还有ie6下面maring 加倍的bug 所以最好使用
+            2、padding 会影响盒子大小，需要进行加减计算（麻烦）其次使用
+            3、width 没有问题，我们经常使用宽度剩余法 高度剩余法来做
+        */
+        div {
+            width: 300px;
+            height: 50px;
+            border: 1px solid pink;
+        }
+        h3 {
+            /* margin-left: 10px; */
+            /* padding-left: 10px; */
+            background-color: purple;
+        }
+    </style>
+</head>
+
+<body>
+    <div>
+        <h3>稳住，我们能赢</h3>
+    </div>
+</body>
+</html>

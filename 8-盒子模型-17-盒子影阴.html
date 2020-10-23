@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        h1 {
+            font-size: 100px;
+            /*
+                text-shadow：none | <shadow> [ , <shadow> ]*<shadow> = <length>{2,3} && <color>?
+                默认值：none
+                适用于：所有元素
+                继承性：有
+                动画性：是
+                计算值：1个颜色加3个绝对长度
+                媒　体：视觉
+                none： 无阴影 
+
+                <length>①： 第1个长度值用来设置对象的阴影水平偏移值。可以为负值 
+                <length>②： 第2个长度值用来设置对象的阴影垂直偏移值。可以为负值 
+                <length>③：如果提供了第3个长度值则用来设置对象的阴影模糊值。不允许负值 
+                <color>： 设置对象的阴影的颜色。
+
+                定义文字是否有阴影及模糊效果。参阅box-shadow属性。
+                可以设定多组效果，每组参数值以逗号分隔。多组阴影特殊效果，Demo: 火焰文字 霓虹文字
+                如果定义了多组阴影效果，它们的 z-ordering 和多个box-shadow规则相同，第一个阴影在最上面，以此类推。
+                对应的脚本特性为：textShadow。
+            */
+            /* text-shadow: 水平距离 垂直距离 模糊距离 阴影颜色; */
+            text-shadow: 3px 3px 3px rgba(0, 0, 0, .5);
+        }
+        div {
+            width: 200px;
+            height: 200px;
+            border: 10px solid #000;
+            /* 
+            box-shadow：none | <shadow> [ , <shadow> ]*<shadow> = inset? && <length>{2,4} && <color>?
+            默认值：none
+            适用于：所有元素
+            继承性：无
+            动画性：是，除了内、外阴影切换时
+            计算值：指定值
+            媒　体：视觉
+
+            none： 无阴影 
+            <length>①： 第 1 个长度值定义元素的阴影水平偏移值。正值，阴影出现在元素右侧；负值，则阴影出现在元素左侧 
+            <length>②： 第 2个长度值定义元素的阴影垂直偏移值。正值，阴影出现在元素底部；负值，则阴影出现在元素顶部 
+            <length>③： 第 3 个长度值定义元素的阴影模糊值半径（如果提供了）。该值越大阴影边缘越模糊，若该值为0，阴影边缘不出现模糊。不允许负值 
+            <length>④： 第 4 个长度值定义元素的阴影外延值（如果提供了）。正值，阴影将向四面扩展；负值，则阴影向里收缩 
+            <color>： 定义元素阴影的颜色。如果该值未定义，阴影颜色将默认取当前最近的文本颜色 
+            inset：定义元素的阴影类型为内阴影。该值为空时，则元素的阴影类型为外阴影
+
+             */
+             /* box-shadow: 水平位置 垂直位置 模糊距离 阴影尺寸(影子大小) 阴影颜色 内/外阴影 ; */
+             /* box-shadow: 5px 5px 3px 4px rgba(0, 0, 0, .85); 默认为outset 外阴影 */
+             box-shadow: 0px 15px 30px rgba(0, 0, 0, .4);
+        }
+    </style>
+</head>
+<body>
+    <h1>稳住，我们能赢！</h1>
+    <div></div>
+</body>
+</html>

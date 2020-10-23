@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+
+        /*
+        box-sizing：content-box | border-box
+        默认值：content-box
+        适用于：所有接受 <' width '> 和 <' height '> 的元素
+        继承性：无
+        动画性：否
+        计算值：指定值
+        content-box： padding和border不被包含在定义的width和height之内。对象的实际宽度等于设置的width值和border、padding之和，即 ( Element width = width
+        + border + padding ) 此属性表现为标准模式下的盒模型。 
+        border-box：padding和border被包含在定义的width和height之内。对象的实际宽度就等于设置的width值，即使定义有border和padding也不会改变对象的实际宽度，即 ( Element width =
+        width ) 此属性表现为怪异模式下的盒模型。
+        */
+        div:first-child {
+            width: 200px;
+            height: 200px;
+            background-color: pink;
+            box-sizing: content-box; /* 就是以前的盒模型 w3c */
+            padding: 10px; /* padding 会撑开盒子 */
+            border: 15px solid red; /* border 也会撑大盒子 */
+        }
+        div:nth-child(2) {
+            width: 200px;
+            height: 200px;
+            background-color: purple;
+            box-sizing: border-box;
+            padding: 10px;
+            border: 15px solid red;
+            margin-top: 5px;
+        }
+    </style>
+</head>
+<body>
+    <div>box-sizing: content-box; /* 就是以前的盒模型 w3c */</div>
+    <div></div>
+</body>
+</html>

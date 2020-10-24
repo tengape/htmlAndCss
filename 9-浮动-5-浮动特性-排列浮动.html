@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <style>
+      /*
+            浮动的元素排列位置，跟上一个元素（块级）有关系。如果上一个元素有浮动，则A元素的顶部对齐，如果上一个元素是标准流，则A元素的顶部会和上一个元素的底部对齐。
+        */
+        section {
+            width: 800px;
+            height: 500px;
+            background-color: pink;
+        }
+        div:first-child {
+            width: 200px;
+            height: 200px;
+            background-color: purple;
+        }
+        div:last-child {
+            width: 249px;
+            height: 300px;
+            background-color: skyblue;
+            float: left;
+            /* 如果熊大和熊二都浮动，则盒子会顶对齐 */
+            /* 
+            如果熊大不浮动熊二浮动，则盒子会低部对齐 
+            1、由2可以推断出，一个父盒子的子盒子，如果其中一个子级有浮动的，则其他子级都需要浮动。这样才能一行对齐显示。
+            2、元素添加浮动后，元素会具有行内块元素特性。元素的大小完全取廖于定义的大小或者默认的内容多少。
+            3、浮动根据元素书写的位置来显示相应的浮动。
+            */
+
+        }
+    </style>
+  </head>
+  <body>
+    <section>
+      <div>熊大</div>
+      <div>熊二</div>
+    </section>
+  </body>
+</html>

@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        div {
+            width: 200px;
+            height: 200px;
+            background-color: pink;
+            /* bdisplay: inline-block;  转换成行内块就可以放在同一行，但是有一个缺点，元素之间有缝隙，不放便处理 */
+            /*
+            float：none | left | right
+            默认值：none
+            适用于：所有元素
+            继承性：无
+            动画性：否
+            计算值：指定值
+
+            none： 设置对象不浮动 
+            left： 设置对象浮在左边 
+            right： 设置对象浮在右边
+
+            该属性的值指出了对象是否及如何浮动。请参阅clear属性 
+            如果float不是none，当display:inline-table时，display的计算值为table；当display:inline | inline-block | run-in | table-* 系时，display的计算值为block，其它情况为指定值； 
+            float在绝对定位和display为none时不生效。 
+            对应的脚本特性为styleFloat（IE）或cssFloat（非IE）。(注意这里为styleFloat或cssFloat，而不是float) 
+
+            */
+            float: left;
+        }
+        div:nth-child(2) {
+            background-color: hotpink;
+        }
+        div:last-child {
+            background-color: deeppink;
+        }
+    </style>
+</head>
+<body>
+    <div></div>
+    <div></div>
+    <div></div>
+</body>
+</html>

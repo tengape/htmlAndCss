@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        /* 浮动脱离标准流，不占位置，会影响标准流。浮动只有左右浮动。 浮体现在漂浮的概念上。漂在标准流的上面，压住标准流。*/
+        div:first-child {
+            width: 200px;
+            height: 200px;
+            background-color: pink;
+            float: left;
+            /*float: right;  left默认值 */
+        }
+        div:last-child {
+            height: 300px;
+            width: 140px;
+            background-color: skyblue;
+        }
+    </style>
+</head>
+<body>
+    <div></div>
+    <div></div>
+    如果2个盒子都不加浮动，就是标准流，块级元素自上而下
+</body>
+</html>

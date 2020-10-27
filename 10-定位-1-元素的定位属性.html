@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        /*
+            元素的定位属性
+            元素的定位属性主要包括定位模式和边偏移两部分
+            1、边偏移
+            top 顶端偏移量，定义元素相对于父元素上边线的距离
+            top: auto | <length> | <percentage>
+            默认值：auto
+            适用于：定位元素。即定义了position为非static的元素
+            继承性：无
+            动画性：当值为<length> | <percentage>时
+            计算值：当position为static时，计算值是auto。
+            为relative时，如果top和bottom都是auto，则它们的计算值是0；如果top和bottom其中一个为auto，则auto相当于另一个的负值，即top = -bottom；如果top和bottom的值都不为auto，则忽略bottom。
+            否则在其它情况下，当指定值为<length>时，计算值为指定值，当指定值为<percentage>时，计算值为计算后的绝对值。除去这些情况，都为auto
+            媒体：视觉
+            取值：
+            auto： 无特殊定位，根据HTML定位规则在文档流中分配 
+            <length>： 用长度值来定义距离顶部的偏移量。可以为负值。 
+            <percentage>： 用百分比来定义距离顶部的偏移量。百分比参照包含块的高度。可以为负值。 说明：
+            检索或设置对象参照相对物顶边界向下偏移位置。 
+            该属性用来指定盒子参照相对物顶边界向下偏移。相对定位元素的相对物是自身，绝对定位和居中定位元素是从包含块的padding边界开始计算偏移值 
+            对应的脚本特性为top。 
+            bottom 底部偏移量，定义元素相对于父元素下边线的距离
+            bottom: auto | <length> | <percentage>
+            默认值：auto
+            适用于：定位元素。即定义了 <' position '> 为「非static」的元素
+            继承性：无
+            动画性：当值为<length> | <percentage>时
+            计算值：当position为static时，计算值是auto。
+            为relative时，如果top和bottom都是auto，则它们的计算值是0；如果top和bottom其中一个为auto，则auto相当于另一个的负值，即top = -bottom；如果top和bottom的值都不为auto，则忽略bottom。
+            否则在其它情况下，当指定值为<length>时，计算值为指定值，当指定值为<percentage>时，计算值为计算后的绝对值。除去这些情况，都为auto
+            媒体：视觉
+            取值：
+            auto： 无特殊定位，根据HTML定位规则在文档流中分配 
+            <length>： 用长度值来定义距离底部的偏移量。可以为负值。 
+            <percentage>： 用百分比来定义距离底部的偏移量。百分比参照包含块的高度。可以为负值。 说明：
+            检索或设置对象参照相对物底边界向上偏移位置。 
+            该属性用来指定盒子参照相对物底边界向上偏移。相对定位元素的相对物是自身，绝对定位和居中定位元素是从包含块的padding边界开始计算偏移值 
+            对应的脚本特性为bottom。 
+
+            left 左侧偏移量，定义元素相对于父元素左边线的距离
+            left: auto | <length> | <percentage>
+            默认值：auto
+            适用于：定位元素。即定义了 <' position '> 为「非static」的元素
+            继承性：无
+            动画性：当值为<length> | <percentage>时
+            计算值：当position为static时，计算值是auto。
+            为relative时，如果right和left都是auto，则它们的计算值是0；如果right和left其中一个为auto，则auto相当于另一个的负值，即left = -right；如果right和left的值都不为auto，则忽略right。
+            否则在其它情况下，当指定值为<length>时，计算值为指定值，当指定值为<percentage>时，计算值为计算后的绝对值。除去这些情况，都为auto
+            媒体：视觉
+            取值：
+            auto： 无特殊定位，根据HTML定位规则在文档流中分配 
+            <length>： 用长度值来定义距离左边的偏移量。可以为负值。 
+            <percentage>： 用百分比来定义距离左边的偏移量。百分比参照包含块的宽度。可以为负值。 说明：
+            检索或设置对象参照相对物左边界向右偏移位置。 
+            该属性用来指定盒子参照相对物左边界向右偏移。相对定位元素的相对物是自身，绝对定位和居中定位元素是从包含块的padding边界开始计算偏移值 
+            对应的脚本特性为left。 
+
+            right 右部偏移量，定义元素相对于父元素右边线的距离
+            right：auto | <length> | <percentage>
+            默认值：auto
+            适用于：定位元素。即定义了 <' position '> 为「非static」的元素
+            继承性：无
+            动画性：当值为<length> | <percentage>时
+            计算值：当position为static时，计算值是auto。
+            为relative时，如果right和left都是auto，则它们的计算值是0；如果right和left其中一个为auto，则auto相当于另一个的负值，即left = -right；如果right和left的值都不为auto，则忽略right。
+            否则在其它情况下，当指定值为<length>时，计算值为指定值，当指定值为<percentage>时，计算值为计算后的绝对值。除去这些情况，都为auto
+            媒体：视觉
+            取值：
+            auto： 无特殊定位，根据HTML定位规则在文档流中分配 
+            <length>： 用长度值来定义距离右边的偏移量。可以为负值。 
+            <percentage>： 用百分比来定义距离右边的偏移量。百分比参照包含块的宽度。可以为负值。 说明：
+            检索或设置对象参照相对物右边界向左偏移位置。 
+            该属性用来指定盒子参照相对物右边界向左偏移。相对定位元素的相对物是自身，绝对定位和居中定位元素是从包含块的padding边界开始计算偏移值 
+            对应的脚本特性为right。 
+            也就是说，以后定位要和这边偏移搭配使用，比如 top: 100px; left: 30px;等等
+            2、定位模式
+            在CSS中，postion属性用于定义元素的定位模式，其基本语法格式如下：
+            选择器{postion:属性值}
+
+            position：static | relative | absolute | fixed | center | page | sticky
+            默认值：static
+            适用于：除display属性定义为table-column-group | table-column之外的所有元素
+            继承性：无
+            动画性：否
+            计算值：指定值
+            媒体：视觉
+            取值：
+            static： 对象遵循常规流。此时4个定位偏移属性不会被应用。 
+            relative： 对象遵循常规流，并且参照自身在常规流中的位置通过top，right，bottom，left这4个定位偏移属性进行偏移时不会影响常规流中的任何元素。 
+            absolute： 对象脱离常规流，此时偏移属性参照的是离自身最近的定位祖先元素，如果没有定位的祖先元素，则一直回溯到body元素。盒子的偏移位置不影响常规流中的任何元素，其margin不与其他任何margin折叠。 
+            fixed： 与absolute一致，但偏移定位是以窗口为参考。当出现滚动条时，对象不会随着滚动。 
+            center： 与absolute一致，但偏移定位是以定位祖先元素的中心点为参考。盒子在其包含容器垂直水平居中。（CSS3） 
+            page： 与absolute一致。元素在分页媒体或者区域块内，元素的包含块始终是初始包含块，否则取决于每个absolute模式。（CSS3） 
+            sticky： 对象在常态时遵循常规流。它就像是relative和fixed的合体，当在屏幕中时按常规流排版，当卷动到屏幕外时则表现如fixed。该属性的表现是现实中你见到的吸附效果。（CSS3） * CSS3新增属性可能存在描述错误及变更，仅供参考，持续更新
+            说明：
+            检索对象的定位方式。 
+            当position的值为非static时，其层叠级别通过z-index属性定义。 
+            绝对定位的元素，在top，right，bottom，left属性未设置时，会紧随在其前面的兄弟元素之后，但在位置上不影响常规流中的任何元素。用这个特性你或许会干这样的事：demo 
+            对应的脚本特性为position。 
+        */
+        div {
+            width: 100px;
+            height: 100px;
+            background-color: pink;
+            top: 100px; /*边偏移*/
+            left: 100px;
+            position: absolute; /* 定位模式（绝对定位）*/
+        }
+    </style>
+</head>
+<body>
+    <div></div>
+</body>
+</html>

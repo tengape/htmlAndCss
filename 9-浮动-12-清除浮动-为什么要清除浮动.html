@@ -8,10 +8,65 @@
         /*
             为什么要清除浮动？
             我们前面说过，浮动本质是用来做一些文字混排列效果的，但是被我们拿来做布局用，则会有很多的问题出现，但是，你不能说浮动不好，由于浮动元素再占原文档流的位置，所以它会对后面的元素排版产生影响，为了解决这些问题，此时就需要在该元素中清除浮动。准确地说，并不是清除浮动，而是清除浮动后造成的影响。
+
+            清除浮动的本质 就是为了解决父级元素因为子级浮动后引起内部度高为0的问题。
+
+            清除浮动的方法
+            其实本质叫做闭合浮动更好一些，记住，清除浮动就是把浮动的盒子圈到里面，让父盒子闭合出口入口不让他们出来影响其他元素，在CSS中，clear属性用于清除浮动，其基本语法为：
+            clear:属性值;
+            left 不允许左侧有浮动元素（清除左侧浮动的影响）
+            right 不允许右侧有浮动元素（清除右侧浮动的影响）
+            both 同时清除左右两侧浮动的影响
+            
+            clear：none | left | right | both
+            默认值：none
+            适用于：块级元素
+            继承性：无
+            动画性：否
+            计算值：指定值
+            媒体：视觉
+            取值：
+            none： 允许两边都可以有浮动对象 
+            both： 不允许有浮动对象 
+            left： 不允许左边有浮动对象 
+            right： 不允许右边有浮动对象 
+            说明：
+            定义了一个元素是否可以放置在它之前的浮动元素旁边，或者必须向下移动在新行中放置。
+            请参阅float属性 当一个元素定义了clear值不为none时，可以被用来清除其之前的浮动元素对自身的影响（不同的取值，对应不同方向的浮动）。
+            对应的脚本特性为clear。
+
         */
+        .box1 {
+            /* height: 200px; 很多情况下，我们父级盒子，不方便给高度，因为考虑孩子高度会变 */
+            width: 600px;
+            background-color: pink;
+        }
+        .box2 {
+            width: 600px;
+            height: 240px;
+            background-color: purple;
+        }
+        /* son1 和 son2是标准流会撑开盒子 */
+        .son1 {
+            width: 150px;
+            height: 100px;
+            background-color: skyblue;
+            float: left;
+        }
+        .son2 {
+            width: 300px;
+            height: 100px;
+            background-color: hotpink;
+            float: left;
+        }
+        /* 如果son1 和son2都浮动了，浮动元素不占有位置，父亲有没有高度，此时 底下盒子就会跑上来 */
     </style>
 </head>
 <body>
-    
+    <div class="box1">
+        <div class="son1"></div>
+        <div class="son2"></div>
+    </div>
+    <div class="box2"></div>  
 </body>
 </html>

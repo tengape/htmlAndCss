@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        /* 
+            父级添加overflow方法
+            可以级父级添加：overflow为hidden|auto|scroll 都可以实现
+            优点：代码简洁
+            缺点：内容增多时候容易造成不会自动换行导致内容被隐藏掉，无法显示需要溢出的元素。
+        */
+        .box1 {
+            /* height: 200px; 很多情况下，我们父级盒子，不方便给高度，因为考虑孩子高度会变 */
+            width: 600px;
+            background-color: pink;
+
+            /* 简写属性语法：
+            overflow：visible | hidden | scroll | auto | clip
+            默认值：看每个独立属性
+            适用于：块容器，伸缩盒容器，grid容器
+            继承性：无
+            动画性：否
+            计算值：看每个独立属性
+            媒　体：视觉
+            分拆独立属性语法：
+            overflow-*：visible | hidden | scroll | auto | clip
+            overflow-* = overflow-x,overflow-y
+            默认值：visible
+            适用于：块容器，伸缩盒容器，grid容器
+            继承性：无
+            动画性：否
+            计算值：指定值，除了当overflow-x,overflow-y之一设置为非 visible时另一个属性会自动将默认值visible计算为auto外
+            媒　体：视觉
+            取值：
+            visible： 对溢出内容不做处理，内容可能会超出容器。 
+            hidden： 隐藏溢出容器的内容且不出现滚动条。 
+            scroll： 隐藏溢出容器的内容，溢出的内容可以通过滚动呈现。 
+            auto：当内容没有溢出容器时不出现滚动条，当内容溢出容器时出现滚动条，按需出现滚动条。textarea元素的overflow默认值就是auto。 
+            clip：与hidden一样，clip也被用来隐藏溢出容器的内容且不出现滚动条。不同的地方在于，clip是一个完全禁止滚动的容器，而hidden仍然可以通过编程机制让内容可以滚动。 */
+
+            overflow: hidden;   /* 触发BFC BFC 可以清除浮动，这是一个解决方案 */
+        }
+
+        .box2 {
+            width: 600px;
+            height: 240px;
+            background-color: purple;
+        }
+
+        /* son1 和 son2是标准流会撑开盒子 */
+        .son1 {
+            width: 150px;
+            height: 100px;
+            background-color: skyblue;
+            float: left;
+        }
+
+        .son2 {
+            width: 300px;
+            height: 100px;
+            background-color: hotpink;
+            float: left;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="box1">
+        <div class="son1"></div>
+        <div class="son2"></div>
+    </div>
+    <div class="box2"></div>
+</body>
+
+</html>

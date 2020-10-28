@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        .father {
+            width: 800px;
+            height: 400px;
+            background-color: pink;
+            margin: 40px auto;
+            position: relative;
+        }
+        .son {
+            width: 100px;
+            height: 40px;
+            background-color: purple;
+            position: absolute; 
+            margin: 0 auto; /* 加了绝对定位后 margin 0 auto 就无效了 */
+            top: calc(50% - 20px);
+            left: 50%; /* 父盒子的一半 */
+            margin-left: -50px; /* 自己盒子的一半 */
+        }
+    </style>
+</head>
+<body>
+    <div class="father">
+        <div class="son"></div>
+    </div>
+</body>
+</html>

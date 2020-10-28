@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        /*
+            当postion 属性的取值为absolute时，可以将元素的定位模式绝对定位。
+            注意：绝对定位最重要的一点是，它可以通过边偏移移动位置，但是它完全脱标，完全不占位置。
+        */
+        div:first-child {
+            width: 100px;
+            height: 200px;
+            background-color: pink;
+            position: absolute; /* 定位模式 绝对定位 */
+            top: 20px;
+            left: 20px;
+        }
+        div:last-child {
+            width: 200px;
+            height: 150px;
+            background-color: purple;
+        }
+    </style>
+</head>
+<body>
+    <div></div>
+    <div></div>
+</body>
+</html>

@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+        }
+        .top {
+            height: 44px;
+            background: url(images/top.png) no-repeat top center;
+            width: 100%; /* 固定定位的盒子一定要写宽和高 除非有内容撑开不用写 元素添加了绝对定位和固定定位之后，会转变为行内块元素 */
+            position: fixed;
+            top:0;
+            left: 0;
+        }
+        .ad-l,
+        .ad-r {
+            position: fixed;
+            top: 100px;
+        }
+        .ad-l {
+            left: 0;
+        }
+        .ad-r {
+            right: 0;
+        }
+        .box {
+            width: 1002px;
+            margin: 44px auto;
+        }
+    </style>
+</head>
+<body>
+    <div class="top"></div>
+    <div class="ad-l"><img src="images/sina.png" alt=""></div>
+    <div class="ad-r"><img src="images/sina.png" alt=""></div>
+    <div class="box">
+        <img src="images/box.png" alt="">
+    </div>
+</body>
+</html>

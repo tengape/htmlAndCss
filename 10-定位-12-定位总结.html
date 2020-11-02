@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        table {
+            border: 1px solid skyblue;
+            border-collapse:collapse;
+            font-size: 14px
+        }
+        table td {
+            border: 1px solid skyblue;
+            padding: 8px;
+        }
+    </style>
+</head>
+<body>
+    四种定位
+    <table>
+        <thead>
+            <tr>
+                <td>定位模式</td>
+                <td>是否脱标占有位置</td>
+                <td>是否可以使用边偏移</td>
+                <td>移动位置基准</td>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>静态static</td>
+                <td>不脱标，正常模式</td>
+                <td>不可以</td>
+                <td>正常模式</td>
+            </tr>
+            <tr>
+                <td>相对定位relative</td>
+                <td>不脱标，占有位置</td>
+                <td>可以</td>
+                <td>相对自身位置移动(自恋型)</td>
+            </tr>
+            <tr>
+                <td>绝对定位absolute</td>
+                <td>完全脱标，不占有位置</td>
+                <td>可以</td>
+                <td>相对于定位父级移动位置(拼爹型)</td>
+            </tr>
+            <tr>
+                <td>固定定位fixed</td>
+                <td>完全脱标，不占位置</td>
+                <td>可以</td>
+                <td>相对于浏览器移动位置（认死理）</td>
+            </tr>
+        </tbody>
+    </table>
+</body>
+</html>

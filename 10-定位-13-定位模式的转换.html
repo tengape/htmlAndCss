@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        div {
+            height: 100px;
+            background-color: pink;
+            /* float: left; 浮动的盒子有模式转换的情况 ，转为行内块 宽度为内容的宽度 */
+            /* position: absolute; 定位也会有模式转换的情况，转为行内块 但定位为relactive 就不会转换模式 只有absolute和fixed才会转换。 */
+        }
+        span {
+            background-color: purple;
+            width: 100px;
+            height: 100px;
+            /* float: left;  如果盒子本身就需要添加浮动或者绝对固定定位就不需要转换了 */
+            position: absolute; /* 如果盒子本身就需要添加定位或者绝对固定定位就不需要转换了 */
+        }
+    </style>
+</head>
+<body>
+    <h3>定位模式转换</h3>
+    跟浮动一亲，元素添加了绝对定位和固定定位之后，元素模式也会发生转换，都转转换为 <strong>行内块模式</strong>
+    <small>因此 比如 行内元素 如果添加了 绝对定位或者固定定位，可以不用转换模式，直接给高度和宽度不可以了</small>
+    <div>稳住，定位不难，我们能赢！</div>
+    <span>我是行内元素</span>
+</body>
+</html>

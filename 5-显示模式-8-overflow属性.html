@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        /*
+        简写属性语法：
+        overflow：visible | hidden | scroll | auto | clip
+        默认值：看每个独立属性
+        适用于：块容器，伸缩盒容器，grid容器
+        继承性：无
+        动画性：否
+        计算值：看每个独立属性
+        媒　体：视觉
+        分拆独立属性语法：
+        overflow-*：visible | hidden | scroll | auto | clip
+        overflow-* = overflow-x,overflow-y
+        默认值：visible
+        适用于：块容器，伸缩盒容器，grid容器
+        继承性：无
+        动画性：否
+        计算值：指定值，除了当overflow-x,overflow-y之一设置为非 visible时另一个属性会自动将默认值visible计算为auto外
+        媒　体：视觉
+        取值：
+        visible： 对溢出内容不做处理，内容可能会超出容器。 
+        hidden： 隐藏溢出容器的内容且不出现滚动条。 
+        scroll： 隐藏溢出容器的内容，溢出的内容可以通过滚动呈现。 
+        auto：当内容没有溢出容器时不出现滚动条，当内容溢出容器时出现滚动条，按需出现滚动条。textarea元素的overflow默认值就是auto。 
+        clip：与hidden一样，clip也被用来隐藏溢出容器的内容且不出现滚动条。不同的地方在于，clip是一个完全禁止滚动的容器，而hidden仍然可以通过编程机制让内容可以滚动。 * CSS3新增属性可能存在描述错误及变更，仅供参考，持续更新
+        说明：
+        定义了元素处理溢出内容的方式。
+        overflow的效果等同于overflow-x + overflow-y。
+
+        举个例子：
+        .demo {
+            overflow: hidden;
+        }
+        等同于：
+        .demo {
+            overflow-x: hidden;
+            oveflow-y: hidden;
+        }
+        当块级元素定义了overflow属性（包括overflow-x与overflow-y）值为非 visibile时，将会为它的内容创建一个新的块格式化上下文（BFC）。
+        对于table元素来说，假如其table-layout属性设置为fixed，则td、th元素支持将overflow设为hidden、scroll或auto，此时超出单元格尺寸的内容将被剪切。如果设为visible，将导致额外的文本溢出到右边或左边（视direction属性设置而定）的单元格。
+        overflow-x属性用于指定元素水平方向上的内容溢出时的处理方式，overflow-y属性用于指定元素垂直方向上的内容溢出时的处理方式。
+        当overflow-x,overflow-y中任意一个属性值的定义为非 visible时，另一个属性会自动将默认值visible计算为auto。
+        举个例子：
+
+        .demo {
+            overflow-x: hidden;
+        }
+        等同于：
+        .demo {
+            overflow-x: hidden;
+            oveflow-y: auto;
+        }
+        对应的脚本特性分别为：overflow, overflowX, overflowY。
+
+        */
+        div {
+            width: 100px;
+            height: 200px;
+            border: 1px solid red;
+            /* overflow: visible; 默认人的 显示不做处理 */
+            /* overflow: auto; 自动，超出就显示滚动条，不超出不显示 */
+            /* overflow: scroll;  一直显示滚动条 */
+            overflow: hidden; /* 超出的部份切割掉 溢出隐藏 */
+        }
+    </style>
+</head>
+<body>
+    <div>
+        检索或设置当对象的内容超过其指定高度及宽度时如何管理内容
+        检索或设置当对象的内容超过其指定高度及宽度时如何管理内容
+        检索或设置当对象的内容超过其指定高度及宽度时如何管理内容
+    </div>
+</body>
+</html>

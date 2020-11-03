@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        /*
+        语法：
+        display：none | inline | block | list-item | inline-block | table | inline-table | table-caption | table-cell | table-row| table-row-group | table-column | table-column-group | table-footer-group | table-header-group | run-in | box |inline-box | flexbox | inline-flexbox | flex | inline-flex
+        默认值：inline
+        适用于：所有元素
+        继承性：无
+        动画性：否
+        计算值：指定值，除浮动，绝对定位和根元素外
+        媒体：视觉
+        取值：
+        none： 隐藏对象。与visibility属性的hidden值不同，其不为被隐藏的对象保留其物理空间 
+        inline： 指定对象为内联元素。 
+        block： 指定对象为块元素。同时还有显示元素的作用 
+        list-item： 指定对象为列表项目。
+        inline-block： 指定对象为内联块元素。（CSS2） 
+        table： 指定对象作为块元素级的表格。类同于html标签<table>（CSS2） 
+        inline-table： 指定对象作为内联元素级的表格。类同于html标签 <table>（CSS2） 
+        table-caption： 指定对象作为表格标题。类同于html标签<caption>（CSS2） table-cell： 指定对象作为表格单元格。类同于html标签<td>（CSS2）
+        table-row： 指定对象作为表格行。类同于html标签<tr>（CSS2） 
+        table-row-group： 指定对象作为表格行组。类同于html标签<tbody>（CSS2） 
+        table-column： 指定对象作为表格列。类同于html标签<col>（CSS2） 
+        table-column-group： 指定对象作为表格列组显示。类同于html标签<colgroup>（CSS2） 
+        table-header-group：指定对象作为表格标题组。类同于html标签<thead>（CSS2） 
+        table-footer-group： 指定对象作为表格脚注组。类同于html标签<tfoot>（CSS2） 
+        run-in： 根据上下文决定对象是内联对象还是块级对象。（CSS3） 
+        box： 将对象作为弹性伸缩盒显示。（伸缩盒最老版本）（CSS3） 
+        inline-box：将对象作为内联块级弹性伸缩盒显示。（伸缩盒最老版本）（CSS3） 
+        flexbox： 将对象作为弹性伸缩盒显示。（伸缩盒过渡版本）（CSS3） 
+        inline-flexbox：将对象作为内联块级弹性伸缩盒显示。（伸缩盒过渡版本）（CSS3） 
+        flex： 将对象作为弹性伸缩盒显示。（伸缩盒最新版本）（CSS3） 
+        inline-flex：将对象作为内联块级弹性伸缩盒显示。（伸缩盒最新版本）（CSS3） 
+        * CSS3新增属性可能存在描述错误及变更，仅供参考，持续更新
+        说明：
+        设置或检索对象是否及如何显示。
+        如果display设置为none，float及position属性定义将不生效；
+        如果position既不是static也不是relative或者float不是none或者该元素是根元素，当display:inline-table时，display的计算值为table；当display: inline | inline-block | run-in | table-*系时，display的计算值为block，其它情况为指定值；
+        对应的脚本特性为display。
+        */
+
+
+        /*
+        语法：
+        visibility：visible | hidden | collapse
+        默认值：visible
+        适用于：所有元素
+        继承性：有
+        动画性：是
+        计算值：指定值
+        媒体：视觉
+        取值：
+        visible： 设置对象可视 
+        hidden： 设置对象隐藏 
+        collapse： 主要用来隐藏表格的行或列。隐藏的行或列能够被其他内容使用。对于表格外的其他对象，其作用等同于hidden。 
+        说明：
+        定义了元素是否可见。与display属性不同，visibility会为隐藏的元素保留其占据的物理空间
+        如果希望某个元素为可见，其父元素也必须是可见的。
+        对应的脚本特性为visibility。
+
+            
+        */
+        div {
+            width: 100px;
+            height: 100px;
+            background-color: pink;
+        }
+        div:first-child {
+            /* display: none; 隐藏元素，不是删除 看不见了而已，但是元素一直在元素里面 不保留位置 */
+            /* display: block; 除了把元素转换成块级元素以外，还有显示元素的作用 */
+            /* visibility: hidden; 隐藏元素，保留位置 他和display none 最大的区别是保留位置  */
+            visibility: visible; /* 显示元素 */
+        }
+        div:last-child {
+            background-color: purple;
+        }
+    </style>
+</head>
+<body>
+    <div></div>
+    <div></div>
+</body>
+</html>

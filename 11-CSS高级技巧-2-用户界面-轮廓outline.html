@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        /*
+语法：
+outline：<' outline-width '> || <' outline-style '> || <' outline-color '>
+默认值：看每个独立属性
+适用于：所有元素
+继承性：无
+动画性：看每个独立属性
+计算值：看每个独立属性
+相关属性: <' outline-offset '>
+取值：
+<' outline-width '>： 指定轮廓边框的宽度。 
+<' outline-style '>： 指定轮廓边框的样式。 
+<' outline-color '>： 指定轮廓边框的颜色。 
+说明：复合属性。设置或检索对象外的线条轮廓。outline画在 <' border '> 外面 
+outlines相关属性不占据布局空间，不会影响元素的尺寸； 
+outlines可能是非矩形； 
+不允许类似 <' border '> 属性那样能将自身拆分为 <' border-top '> , <' border-right '> , <' border-bottom '> , <' border-left '> 
+对应的脚本特性为outline。 
+        */
+        input {
+            /* outline 和 border 是不会冲突的 */
+            outline: 5px solid red;
+            border: 1px solid blue;
+            outline: 0; /* 取消轮廓线 或者是 none 都可以*/
+        }
+    </style>
+</head>
+<body>
+    <input type="text">
+</body>
+</html>

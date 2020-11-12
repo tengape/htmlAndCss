@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        div {
+            width: 322px;
+            height: 188px;
+            background-color: pink;
+        }
+        img {
+            display: block; /* 转换成块级元素，就没有这个问题 */
+            vertical-align: top; /* middle,top 只要不是baseline 就不会有这个问题 这是用的最好的方案 */
+        }
+    </style>
+</head>
+<body>
+    有个很重要特性我们要记住：图片或者表单等行内块元素，他的底线会和父级盒子的基线对齐。这样会造成一个问题，就是图片底侧会有一个空白缝隙。
+    不过这个问题只在低版本的浏览器才有。现在的浏览基本没有这个问题
+    <div>
+    <img src="images/3.png" alt="">
+    </div>
+</body>
+</html>

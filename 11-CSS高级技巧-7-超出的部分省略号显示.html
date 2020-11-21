@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        /*
+        语法：
+        text-overflow：clip | ellipsis
+        默认值：clip
+        适用于：块级容器元素
+        继承性：无
+        动画性：否
+        计算值：指定值
+        取值：
+        clip： 当内联内容溢出块容器时，将溢出部分裁切掉。 
+        ellipsis： 当内联内容溢出块容器时，将溢出部分替换为（...）。 说明：
+        当块容器 <' overflow '> 为非visible时，定义内联内容溢出其块容器是否截断或者添加(...)及自定义字符 
+        要使得 <' text-overflow '> 属性生效，块容器必须显式定义 <' overflow '> 为非visible值，同时显式或者隐式的定义 <' width '> 为非auto值， <' white-space '> 为nowrap值。 
+        用代码来解释这段话：
+
+        */
+        div {
+            width: 120px;
+            height: 20px;
+            border: 1px solid #f00;
+            white-space: nowrap; /* 首先需要添加这句话 强制一行显示 */
+            overflow: hidden;
+            text-overflow: clip; /* 直接裁剪 */
+            text-overflow: ellipsis; /*  省略号 */
+        }
+    </style>
+</head>
+<body>
+    <div>我的名字是安迪，楚乔的男朋友</div>
+</body>
+</html>

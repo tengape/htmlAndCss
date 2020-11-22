@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        /*
+            字体图标流程
+            1、UI人员设计字体图标效果图（SVG）
+            2、前端人员上传生成兼容性字体文件包
+            3、前端人员下载兼容字体文件包到本地
+            4、把字体文件包引入到HTML页面中
+
+            每一步：在样式里面声明字体：告诉别人我人自己定义的字体
+            @font-face {
+            font-family: 'icomoon';
+            src:  url('fonts/icomoon.eot?7kkyc2');
+            src:  url('fonts/icomoon.eot?7kkyc2#iefix') format('embedded-opentype'),
+                url('fonts/icomoon.ttf?7kkyc2') format('truetype'),
+                url('fonts/icomoon.woff?7kkyc2') format('woff'),
+                url('fonts/icomoon.svg?7kkyc2#icomoon') format('svg');
+            font-weight: normal;
+            font-style: normal;
+            }
+            第二步：给盒子使用字体
+            span {
+                    font-family:'icomoon';
+            }
+            第三步：盒子里面添加结构
+            span::before {
+                content:'\e900'
+            }
+        */
+        @font-face { /* 电脑中没有的字体，我们需要声明 */
+            font-family: 'icomoon';
+            src:  url('fonts/icomoon.eot?7kkyc2');
+            src:  url('fonts/icomoon.eot?7kkyc2#iefix') format('embedded-opentype'),
+                url('fonts/icomoon.ttf?7kkyc2') format('truetype'),
+                url('fonts/icomoon.woff?7kkyc2') format('woff'),
+                url('fonts/icomoon.svg?7kkyc2#icomoon') format('svg');
+            font-weight: normal;
+            font-style: normal;
+        }
+
+        span {
+            font-family: 'icomoon'; /* 一定要保证和上面的font-family相同 */
+            font-size: 100px;
+            color: pink;
+        }
+        .icon-home::before {
+            font-family: 'icomoon';
+            content: '\e900';
+        }
+    </style>
+</head>
+<body>
+    <span></span>
+    <span class="icon-home"></span>
+    <div class="icon-home"></div>
+</body>
+</html>

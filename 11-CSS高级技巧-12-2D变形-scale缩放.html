@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        div {
+            width: 100px;
+            height: 100px;
+            background-color: pink;
+            margin: 100px auto;
+            transition: all 0.5s;
+        }
+        div:hover {
+            /* transform: scale(1.2,1.5); X 水平缩放 Y 垂直缩放  */
+            transform: scale(2); /* 如果只写一个参数，宽度和高度都缩放 */
+        }
+        section {
+            width: 255px;
+            height: 255px;
+            margin: 0 auto;
+            overflow: hidden; /* 溢出隐藏 */
+            border: 1px solid gray;
+        }
+        section img {
+            transition: all 0.5s; /* 因为是图片缩放了，实际图片做动画，所以过渡要给img加，谁做动画，谁加过渡 */
+        }
+        section:hover img { /* 鼠标经过section 的时候，里面的Img缩放 */
+            transform: scale(3);
+        }
+    </style>
+</head>
+<body>
+    <div></div>
+    <section>
+        <img src="images/liudehua.jpg" alt="" width="255" height="255">
+    </section>
+</body>
+</html>

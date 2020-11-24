@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        /*
+            语法：
+            perspective：none | <length>
+            默认值：none
+            适用于：变换元素
+            继承性：无
+            动画性：当值为<length>时
+            计算值：绝对长度或「none」
+            媒体：视觉
+            取值：
+            none： 不指定透视 <length>： 指定观察者距离「z=0」平面的距离，为元素及其内容应用透视变换。不允许负值
+            说明：
+            指定观察者与「z=0」平面的距离，使具有三维位置变换的元素产生透视效果。「z>0」的三维元素比正常大，而「z<0」时则比正常小，大小程度由该属性的值决定。 当该属性值为「非none」时，元素将会创建局部堆叠上下文。
+                对应的脚本特性为perspective。
+
+            语法：
+            perspective-origin：[ <percentage> | <length> | left | center① | right ] [ <percentage> | <length> | top | center② |
+                            bottom ]?
+            默认值：50% 50%，效果等同于center center
+            适用于：变换元素
+            继承性：无
+            动画性：当值为数值时
+            计算值：除了指定绝对值，否则都为百分比
+            媒体：视觉
+            取值：
+            <percentage>： 用百分比指定透视点坐标值，相对于元素宽度。可以为负值。 
+            <length>： 用长度值指定透视点坐标值。可以为负值。 
+            left： 指定透视点的横坐标为left 
+            center①： 指定透视点的横坐标为center
+            right： 指定透视点的横坐标为right 
+            top： 指定透视点的纵坐标为top 
+            center②： 指定透视点的纵坐标为center 
+            bottom： 指定透视点的纵坐标为bottom
+
+            说明：
+            指定透视点的位置。
+            该属性提供2个参数值。
+            如果提供两个，第一个用于横坐标，第二个用于纵坐标。
+            如果只提供一个，该值将用于横坐标；纵坐标将默认为center。
+            对应的脚本特性为perspactiveOrigin。
+
+            透视可以将一个2D平面，在转换的过程当中，呈现3D效果
+            1、透视原理：近大远小
+            2、浏览器透视：把近大远小的所有图像，透视在屏幕上。
+            3、perspective:视距，表示视频距离屏幕的长短。视点，用于模拟透视效果时人眼位置
+            注：并非任何情况下需要透视效果，根据开发需要进行设置
+            perspective一般作为一个属性，设置给父元素，作用于所有3D转换的子元素。
+        */
+        body {
+            perspective: 600px; /* 视距 眼睛到屏幕的距离 视距越大效果越不明显，视距越小效果透视越明显*/
+        }
+        img {
+            margin: 200px 800px;
+            transition: all 5s;
+            transform-origin: left; /* 设置变形中心点 */
+        }
+        img:hover {
+            transform: rotateY(80deg);
+        }
+    </style>
+</head>
+<body>
+    <img src="images/toushi.jpg" alt="">
+</body>
+</html>

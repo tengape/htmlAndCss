@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        div {
+            width: 200px;
+            height: 200px;
+            background-color: pink;
+            /* transform: translate(100px); 水平移动100px */
+            /* transform: translate(50%); translate 移动距离如果是 % 不是以父级宽度为准，而是以自己的宽度为准 50% 是自身宽度的一半 */
+            position: absolute;
+            left: 50%;
+            /* transform: translate(-50%); */
+            top: 50%;
+            transform: translate(-50%,-50%);
+        }
+    </style>
+</head>
+<body>
+    <div></div>
+</body>
+</html>

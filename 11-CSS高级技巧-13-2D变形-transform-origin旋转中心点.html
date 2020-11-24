@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        /*
+        语法：
+        transform-origin：[ <percentage> | <length> | left | center① | right ] [ <percentage> | <length> | top | center② | bottom]?
+        默认值：50% 50%，效果等同于center center
+        适用于：所有块级元素及某些内联元素
+        继承性：无
+        动画性：当值为数值时
+        计算值：除了指定绝对值，否则都为百分比
+        媒体：视觉
+        取值：
+        <percentage>： 用百分比指定坐标值。可以为负值。 
+        <length>： 用长度值指定坐标值。可以为负值。 
+        left： 指定原点的横坐标为left 
+        center①： 指定原点的横坐标为center 
+        right：指定原点的横坐标为right 
+        top： 指定原点的纵坐标为top 
+        center②： 指定原点的纵坐标为center 
+        bottom： 指定原点的纵坐标为bottom
+
+        说明：
+        设置或检索对象以某个原点进行转换。
+        该属性提供2个参数值。
+        如果提供两个，第一个用于横坐标，第二个用于纵坐标。
+        如果只提供一个，该值将用于横坐标；纵坐标将默认为50%。
+        对应的脚本特性为transformOrigin。
+        */
+        img {
+            width: 255px;
+            height: 255px;
+            margin: 100px;
+            transition: all 0.6s;
+            transform-origin: top left;
+        }
+        img:hover {
+            transform: rotate(90deg);
+        }
+    </style>
+</head>
+<body>
+    <img src="images/liudehua.jpg" alt="">
+</body>
+</html>

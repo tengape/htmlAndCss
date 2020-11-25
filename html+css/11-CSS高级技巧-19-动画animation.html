@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        /*
+            语法：
+            animation：<single-animation>[,<single-animation>]*<single-animation> = <single-animation-name> || <time> || <single-animation-timing-function> || <time> || <single-animation-iteration-count> || <single-animation-direction> || <single-animation-fill-mode> || <single-animation-play-state>
+            默认值：看每个独立属性
+            适用于：所有元素，包含伪对象:after和:before
+            继承性：无
+            动画性：否
+            计算值：看每个独立属性
+            媒体：视觉
+            <' animation-name '>： 检索或设置对象所应用的动画名称 
+            <' animation-duration '>： 检索或设置对象动画的持续时间 
+            <' animation-timing-function '>： 检索或设置对象动画的过渡类型 
+            <' animation-delay '>： 检索或设置对象动画延迟的时间 
+            
+            <' animation-iteration-count '>： 检索或设置对象动画的循环次数 
+                语法：
+                animation-iteration-count：<single-animation-iteration-count>[,<single-animation-iteration-count>]*<single-animation-iteration-count> = infinite | <number>
+                默认值：1
+                适用于：所有元素，包含伪对象:after和:before
+                继承性：无
+                动画性：否
+                计算值：指定值
+                媒体：视觉
+                取值：
+                infinite： 无限循环 
+                <number>： 指定对象动画的具体循环次数
+                说明：
+                检索或设置对象动画的循环次数
+                如果提供多个属性值，以逗号进行分隔。
+                对应的脚本特性为animationIterationCount。
+
+            <' animation-direction '>： 检索或设置对象动画在循环中是否反向运动 
+                语法：
+                animation-direction：<single-animation-direction>[,<single-animation-direction>]* <single-animation-direction> = normal | reverse | alternate | alternate-reverse
+                默认值：normal
+                适用于：所有元素，包含伪对象:after和:before
+                继承性：无
+                动画性：否
+                计算值：指定值
+                媒体：视觉
+                取值：
+                normal： 正常方向 
+                reverse： 反方向运行 
+                alternate： 动画先正常运行再反方向运行，并持续交替运行 
+                alternate-reverse： 动画先反运行再正方向运行，并持续交替运行
+                说明：
+                检索或设置对象动画在循环中是否反向运动
+                如果提供多个属性值，以逗号进行分隔。
+                对应的脚本特性为animationDirection。
+
+            <' animation-fill-mode '>： 检索或设置对象动画时间之外的状态 
+                语法：animation-fill-mode：<single-animation-fill-mode>[,<single-animation-fill-mode>]*<single-animation-fill-mode> = none | forwards | backwards | both
+                默认值：none
+                适用于：所有元素，包含伪对象:after和:before
+                继承性：无
+                动画性：否
+                计算值：指定值
+                媒体：视觉
+                取值：
+                none： 默认值。不设置对象动画之外的状态 
+                forwards： 设置对象状态为动画结束时的状态 
+                backwards： 设置对象状态为动画开始时的状态 
+                both： 设置对象状态为动画结束或开始的状态
+                说明：
+                检索或设置对象动画时间之外的状态
+                如果提供多个属性值，以逗号进行分隔。
+                对应的脚本特性为animationFillMode。
+
+            <' animation-play-state '>： 检索或设置对象动画的状态。w3c正考虑是否将该属性移除，因为动画的状态可以通过其它的方式实现，比如重设样式 复合属性。检索或设置对象所应用的动画特效。
+                animation-play-state：<single-animation-play-state>[,<single-animation-play-state>]*<single-animation-play-state> = running | paused
+                默认值：running
+                适用于：所有元素，包含伪对象:after和:before
+                继承性：无
+                动画性：否
+                计算值：指定值
+                媒体：视觉
+                取值：
+                running： 运动 
+                paused： 暂停
+                说明：
+                检索或设置对象动画的状态
+                    如果提供多个属性值，以逗号进行分隔。
+                    对应的脚本特性为animationPlayState。
+
+
+            如果提供多组属性值，以逗号进行分隔。
+            注意：如果只提供一个<time>参数，则为 <' animation-duration '> 的值定义；如果提供二个<time>参数，则第一个为 <' animation-duration '> 的值定义，第二个为 <'
+                    animation-delay '> 的值定义 
+            对应的脚本特性为animation。 
+            animation:动画名称 动画时间 运动曲线 何时开始 播放次数 是否返方向；
+            @keyframes 规定动画
+        */
+        div {
+            width: 100px;
+            height: 100px;
+            background-color: pink;
+            /* 动画名称是自定义的 */
+            animation: go 2s ease 0s infinite alternate;
+            /* animation:动画名称 动画时间 运动曲线 何时开始 播放次数 是否返方向； */
+            /* 一般情况下我们都有前两个参数就可以了。 */
+        }
+        @keyframes go {
+            from {
+                transform: translateX(0);
+            }
+            to {
+                transform: translateX(600px);
+            }
+
+        }
+    </style>
+</head>
+<body>
+    <div></div>
+</body>
+</html>

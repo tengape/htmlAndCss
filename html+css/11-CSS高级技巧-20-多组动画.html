@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        div {
+            width: 100px;
+            height: 100px;
+            background-color: pink;
+            /* 动画名称是自定义的 */
+            animation: go 5s infinite;
+            /* animation:动画名称 动画时间 运动曲线 何时开始 播放次数 是否返方向； */
+            /* 一般情况下我们都有前两个参数就可以了。 */
+        }
+
+        @keyframes go {
+            0% {
+                /* 起始位置，等价于刚才的 from */
+                transform: translate3d(0, 0, 0);
+            }
+            25% {
+                transform: translate3d(800px, 0, 0);
+            }
+
+            50% {
+                transform: translate3d(800px, 400px, 0);
+            }
+
+            75% {
+                transform: translate3d(0, 400px, 0);
+            }
+
+            100% {
+                transform: translate3d(0, 0, 0);
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div></div>
+</body>
+
+</html>

@@ -1,0 +1,19 @@
+{
+    "metadata": {
+        "version": 4.5,
+        "type": "BufferGeometry",
+        "generator": "BufferGeometry.toJSON"
+    },
+    "uuid": "BA6AD2BD-9215-4B72-A3D9-D41D718189D6",
+    "type": "BufferGeometry",
+    "data": {
+        "attributes": {
+            "position": {
+                "itemSize": 3,
+                "type": "Float32Array",
+                "array": [0, 0, 0, 50, 0, 0, 0, 100, 0, 0, 0, 10, 0, 0, 100, 50, 0, 10],
+                "normalized": false
+            }
+        }
+    }
+}

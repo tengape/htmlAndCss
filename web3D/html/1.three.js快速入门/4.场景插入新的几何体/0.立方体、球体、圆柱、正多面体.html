@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        body {
+            margin: 0;
+            overflow: hidden;
+        }
+    </style>
+</head>
+
+<body>
+    <script src="../../../three/build/three.min.js"></script>
+    <script src="../../../three/examples/js/controls/OrbitControls.js"></script>
+    <script>
+        /**
+         *
+         */
+
+        /**
+         * 创建场景对象Scene
+         * */
+        var scene = new THREE.Scene();
+        /**
+         * 创建网格模型
+         */
+        // 长方体 参数：长，宽，高
+        // var geometry = new THREE.BoxGeometry(100, 100, 100); /* BoxGeometry 正方形 */
+        // 球形 参数：半径60， 经纬度细分数 40，40
+        // var geometry = new THREE.SphereGeometry(60, 10, 10); /* SphereGeometry 球形*/
+        // 圆柱 参数：圆柱顶部、底部直径50，50，高度100 圆周分段数
+        // var geometry = new THREE.CylinderGeometry(50,50,200,50);
+        // // 正八面体
+        // var geometry = new THREE.OctahedronGeometry(50);
+        // // 正十面体
+        // var geometry = new THREE.DodecahedronGeometry(50);
+        // 正二十面体
+        // var geometry = new THREE.IcosahedronGeometry(50);
+
+
+        //设置材质
+        var material = new THREE.MeshLambertMaterial({
+            color: 0x00ffff
+        });
+        //网格模型对象,
+        var mesh = new THREE.Mesh(geometry, material);
+        //将网格模型添加到场景中
+        scene.add(mesh);
+
+
+        /**
+         * 光源设置
+         * 注：基础材质 MeshBasicMaterial 不会对光源产生反应，因此要改用 MeshLambertMaterial 或 MeshPhongMaterial 材质才有效果
+         */
+        //点光源
+        var point = new THREE.PointLight(0xffffff);
+        //点光源位置
+        point.position.set(400, 200, 300);
+        //点光源添加到场景中
+        scene.add(point);
+        //环境光
+        var ambient = new THREE.AmbientLight(0x404040);
+        scene.add(ambient);
+
+
+        /**
+         * 相机设置
+         */
+        var width = window.innerWidth;
+        var height = window.innerHeight;
+        var k = width / height; //窗口宽高比
+        var s = 200; // 三维场景显示范围控制系统，系数越大，显示的范围就越大
+
+        //创建相机对象
+        var camera = new THREE.OrthographicCamera(-s * k, s * k, s, -s, 1, 1000);
+        camera.position.set(200, 100, 100);
+        camera.lookAt(scene.position); //设置相机方向（指向的场景对象）
+
+        /**
+         * 创建渲染器对象
+         */
+        var renderer = new THREE.WebGLRenderer();
+        renderer.setSize(width, height); // 设置渲染区域尺寸
+        renderer.setClearColor(0xb9d3ff, 1) //设置背景颜色
+        document.body.appendChild(renderer.domElement);
+
+        //执行渲染操作，指定场景、相机作为参数
+        //渲染函数
+        function render() {
+            renderer.render(scene, camera);
+            //mesh.rotateX(0.01);
+            //requestAnimationFrame(render);
+        }
+        render();
+
+        //创建控件对象 相对对象camera作为参数 控件可以监听鼠标的变化，改变相机对象的属性
+        const controls = new THREE.OrbitControls(camera, renderer.domElement);
+        controls.addEventListener('change', render);
+    </script>
+</body>
+
+</html>

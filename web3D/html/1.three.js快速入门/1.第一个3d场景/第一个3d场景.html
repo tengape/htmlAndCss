@@ -32,6 +32,17 @@
          */
         // 创建一个球型，几何体对象
         // var geometry = new THREE.SphereGeometry(60, 40, 40);
+        /**
+         * 
+         * BoxGeometry(width : Float, height : Float, depth : Float, widthSegments : Integer, heightSegments : Integer,
+            depthSegments : Integer)
+            width — X轴上面的宽度，默认值为1。
+            height — Y轴上面的高度，默认值为1。
+            depth — Z轴上面的深度，默认值为1。
+            widthSegments — （可选）宽度的分段数，默认值是1。
+            heightSegments — （可选）宽度的分段数，默认值是1。
+            depthSegments — （可选）宽度的分段数，默认值是1。
+         */
         var geometry = new THREE.BoxGeometry(20,100,100);
         //设置材质
         var material = new THREE.MeshLambertMaterial({ color: 0x00ffff });

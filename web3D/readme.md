@@ -80,6 +80,12 @@
 ```
 ## 2.1.3 BufferAttribute 缓冲区属性构造函数
 
+
+
+
+
+
+
 # A.BoxGeometry
 ```
 BoxGeometry是四边形的原始几何类，它通常使用构造函数所提供的“width”、“height”、“depth”参数来创建立方体或者不规则四边形。

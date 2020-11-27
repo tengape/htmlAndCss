@@ -42,10 +42,22 @@
          * 对象加载器
          */
         var loader = new THREE.ObjectLoader();
-        loader.load('scenetongdao.json', function (obj) { //louceng bufferGeometry model1
-            //console.log(typeof JSON.parse(obj))
-            scene.add(obj);
-        });
+        loader.load('app.json',
+            function (obj) { //louceng bufferGeometry model1
+                //console.log(typeof JSON.parse(obj))
+                //console.log(obj);
+                
+                scene.add(obj);
+                console.log(loader.Mesh);
+            },
+            function (xhr) {
+                console.log((xhr.loaded / xhr.total * 100) + '% loaded');
+            },
+        );
+
+        // Alternatively, to parse a previously loaded JSON structure
+        // const object = loader.parse( a_json_object );
+        // scene.add( object );
 
         //辅助坐标系
         var axisHelper = new THREE.AxisHelper(250);

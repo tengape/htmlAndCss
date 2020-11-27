@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <script>
+        /**
+         * new 做了哪些操作
+         * 1.创建一个空对象
+         * 2.将构造函数的prototype属性赋值给新对象的__proto__属性
+         * 3.将构造函数的this指向新对象
+         * 4.执行构造函数的代码
+         * 5.将新对象返回
+         * ()()自运行函数
+         */
+        // 在声明函数的时候，会自动创建一个prototype属性，我们管他叫做原型。一般用来存放实例公用的方法
+        //    function CreateCat(name){
+        //        this.name = name;
+        //     //    this.eat = function(){
+        //     //        console.log('asdf');
+        //     //    }
+        //    }
+        //    // console.log(CreateCat.prototype);
+        //    CreateCat.prototype.eat = function(something){
+        //        console.log(this.name + ' eat ' + something);
+        //    }
+        //    var catA = new CreateCat('xiaoA');
+        //    catA.eat('fish');
+        //    /*
+        //     catA={
+        //         __proto__:CreateCat.prototype,
+        //         name:'xiaoA'
+        //     }
+        //    */
+        //   console.log(catA);
+        //   // 在js里规定，访问对象属性的时候，如果对象下面没有这个属性，则去下面的__proto__去寻找，如果还没有就一直向寻找，至到没有__proto__为止。
+
+        // 类式继承
+        // function A(name){
+        //     this.name = name;
+        //     this.list = [1,2,3];
+        // }
+        // A.prototype.getName = function(){
+        //     console.log(this.name);
+        // }
+        // function SubA(name){
+        //     this.subName = 'sub' + this.name;
+        // }
+        // SubA.prototype = new A();
+        // var sa1 = new SubA('sa1');
+        // console.log(sa1.list, sa1.name); // [1,2,3] undefined
+        /*
+            new A() -> {
+                name:undefind,
+                list:[1,2,3],
+                __proto__:{
+                    getName: fn,
+                    constructor,
+                    __proto__:
+                }
+            },
+            sa1 = new SubA('sa1') -> {
+                subNmae: 'sub sa1',
+                __proto__:{
+                    name:undefind,
+                    list:[1,2,3],
+                    __proto__:{
+                        getName: fn,
+                        constructor,
+                        __proto__:
+                    }
+                }
+            }
+            /**
+             * 类式继承的问题
+             * 1. 这种方法不支持交构造函数带参数。
+             * 2. 父构造函数里的方法和属性都会变成共有属性。
+        */
+        // var sa1 = new SubA('sa1');
+        // var sa2 = new SubA('sa2');
+        // A.prototype.getName = function(){
+        //     console.log('fixed getName');
+        // }
+        // A.prototype.newFn = function(){
+        //     console.log('new fn')
+        // }
+        // sa1.getName();
+        // sa2.newFn();
+
+        // 构造函数继承
+        function A(name) {
+            this.name = name;
+            this.list = [1, 2, 3];
+        }
+        A.prototype.getName = function () {
+            console.log(this.name);
+        }
+
+        function SubA(name) {
+            this.subName = 'sub' + this.name;
+        }
+    </script>
+</body>
+
+</html>

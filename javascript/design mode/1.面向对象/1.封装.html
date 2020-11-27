@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <script>
+        var catA = {
+            name: 'xiaoA',
+            eat: function () {
+                console.log('xiaoA eat something!');
+            }
+        }
+
+        var catB = {
+            name: 'xiaoA',
+            eat: function () {
+                console.log('xiaoA eat something!');
+            }
+        }
+
+        var catC = {
+            name: 'xiaoC',
+            eat: function () {
+                console.log('xiaoC eat something!');
+            }
+        }
+
+        //封装
+        //工厂模式进行封装
+        function createCate(name){
+            var obj = {};
+            obj.name = name;
+            obj.eat = function(){
+                console.log(name + 'eat something');
+            }
+            return obj;
+        }
+        var catA = createCate('xiaoA');
+        var catB = createCate('xiaoB');
+        var catC = createCate('xiaoC');
+        
+        // 使用面向对象的方式进行封装
+        /**
+         * CreateCate 称为构造函数 catA 称为实例
+         * 为了区分构造函数和一般函数，所以构造函数首字母都大写
+         */
+        function CreateCate(name){
+            this.name = name;
+            this.eat = function(){
+                console.log(this.name + 'eat something');
+            }
+        }
+        var catA = new CreateCate('xiaoA');
+        var catB = new CreateCate('xiaoB');
+        var catC = new CreateCate('xiaoC');
+        
+
+    </script>
+</body>
+
+</html>

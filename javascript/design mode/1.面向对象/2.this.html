@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <script>
+        // this 是什么  
+        /**
+         * 1、在函数执行的时候会生成两个变量
+         * 2、argements 存储着实参的一个类数组对象
+         * 3、this 函数执行上下文 （this 谁调的函数，这个this就指向谁。）
+         * 
+         */
+        function aaa(a, b) {
+            console.log(arguments);
+        }
+        aaa(1, 2, 3, 4);
+
+        function bbb(){
+            console.log(this);
+        }
+        var objA = {
+            b : bbb,
+            c: {
+                d:bbb,
+            }
+        }
+        bbb();          // window对象
+        objA.b();       // objA对象
+        objA.c.d();     // objA.c对象
+
+        
+    </script>
+</body>
+
+</html>

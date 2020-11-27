@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+        function CreateCat(name){
+            this.name = name;
+        }
+        var catA = new CreateCat('xiaoA');
+        console.log(catA.name);
+
+        /**
+         * new 做了哪些操作
+         * 1.创建一个空对象
+         * 2.将构造函数的prototype属性赋值给新对象的__proto__属性
+         * 3.将构造函数的this指向新对象
+         * 4.执行构造函数的代码
+         * 5.将新对象返回
+         * ()()自运行函数
+         * 
+         * __proto__, prototype和constructor
+         下面这三个属性的定义非常重要，始终贯穿在原型中。
+         prototype：此属性只有构造函数才有，它指向的是当前构造函数的原型对象。
+         __proto__：此属性是任何对象在创建时都会有的一个属性，它指向了产生当前对象的构造函数的原型对象，由于并非标准规定属性，不要随便去更改这个属性的值，以免破坏原型链，但是可以借助这个属性来学习，所谓的原型链就是由__proto__连接而成的链。
+         constructor：此属性只有原型对象才有，它默认指回prototype属性所在的构造函数。
+         * 
+         *  1、prototype只有构造函数才有，指向构造函数的原型。
+            2、__proto__任何对象都有，指向产生当前对象的构造函数的原型。
+            3、constructor只有原型对象才有，默认指回prototype属性所在的构造函数，使用原型链继承之后，要给新的原型对象添加constructor属性并指向构造函数。
+            4、任何对象都有产生自己的构造函数，包括构造函数自己。
+         */
+        var catB = (function(){
+            var obj = {};
+            obj.__proto__ = CreateCat.prototype;
+            CreateCat.call(obj, 'xiaoB');
+            return obj;
+        })();
+        console.log(catB.name);
+         
+    </script>
+</body>
+</html>

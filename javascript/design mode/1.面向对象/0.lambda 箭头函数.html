@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+        // ()=>{
+        //     console.log('yefeng');
+        // }
+        (function(){
+            console.log('yefeng');
+        })();
+        (()=>{
+            return 'asdf';
+        })();
+        (()=>{
+            console.log('123123123');
+        })();
+
+        let yefng = ()=>{
+            let i = 1;
+            let j = 3;
+            return i + j;
+        };
+        console.log(typeof yefng);
+        console.log(yefng());
+        function Y(){};
+        Y.prototype.zhou = function(){
+            console.log(this, arguments);
+        }
+        let xie = {};
+        xie.__proto__ = Y.prototype;
+        xie.zhou();
+        xie.zhou.call(window,1,2,3);
+
+        /* js lambda函数 */
+        () => 'js lambda';
+
+        /*
+            当箭头函数有一个参数的时候，参数可以不加括号，没有参数的时候就必须要加。
+            定义 函数名 = 参数 => 函数体
+
+
+            (param1, param2, …, paramN) => { statements } 
+            (param1, param2, …, paramN) => expression
+            //相当于：(param1, param2, …, paramN) =>{ return expression; }
+
+            // 当只有一个参数时，圆括号是可选的：
+            (singleParam) => { statements }
+            singleParam => { statements }
+
+            // 没有参数的函数应该写成一对圆括号。
+            () => { statements }
+        */
+        let student = name => 'my name is ' + name;
+        console.log(student('zhou'));
+        /*
+            如果函数体不止一行，应该用花括号括起来，这时就要显示地返回。
+            定义 函数名 = （参数，参数） => {
+
+            　　函数体；
+
+            　　return 返回值；　　　　
+
+            }
+        */
+
+        let rongHua = (name, age) => {
+            console.log('this is '+name+', she is '+age);
+        };
+
+        rongHua('ronghua', 34);
+
+        () => console.log('123123');
+
+        const y = () => console.log(arguments);
+        // y();
+        const x = (name, age) => {
+            console.log(name, age);
+        }
+        x(1,2,3,4,5);
+
+        (() =>{
+            console.log(1);
+        })();
+        (()=> 'foobar')();
+        
+        let simple = a => a > 15 ? 15 : a;
+        console.log(simple(18));
+        // () => ({console.log(123123123)});
+        var func = () => ({foo:1});
+        console.log(func().foo);
+
+        setInterval(() => {
+            (()=>{console.log(1)})();
+        }, 2000);
+
+    </script>
+</body>
+</html>

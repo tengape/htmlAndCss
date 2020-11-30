@@ -47,30 +47,35 @@
          .rotateX() 旋转
          */
         var loader = new THREE.ObjectLoader();
-        loader.load('app.json',
+        loader.load('tunnel_2.json',
             function (obj) { //louceng bufferGeometry model1
-                // console.log(typeof JSON.parse(obj))
+                
+                obj.children[5].material.transparent = true;
+                obj.children[5].material.opacity = 0.6;
+                obj.children[6].material.color = {
+                    r:0.1,
+                    g:0.08,
+                    b:0.1,
+                };
+                
+                obj.scale = {
+                    x:5,
+                    y:5,
+                    z:5,
+                };
+                console.log(obj.scale);
                 console.log(obj);
-                console.log(obj.children[11]);
-                //设置位置
-                obj.children[11].position.set(0, 10, 0);
-                // obj.scale(2, 2, 2);
-                // obj.rotateX(100);
-                // console.log(obj.children[4].name);
-                // console.log();
-                scene.add(obj);
-                // console.log(loader.Mesh);
 
-                var geometry = new THREE.BoxGeometry(10, 10, 10);
-                geometry.scale(0.08, 0.08, 0.08);
-                geometry.translate(-100, 0, 0);
+                scene.add(obj);
+                var geometry = new THREE.BoxGeometry(5, 5, 5);
+                geometry.scale(0.05, 0.05, 0.05);
                 //设置材质
                 var material = new THREE.MeshLambertMaterial({
                     color: 0x00ffff
                 });
                 //网格模型对象,
                 var mesh = new THREE.Mesh(geometry, material);
-                mesh.position.set(100, 16, 0);
+                mesh.position.set(3, 0.5, 0);
                 //将网格模型添加到场景中
                 scene.add(mesh);
 
@@ -84,7 +89,7 @@
                 scene.add(axisHelper);
 
                 //点光源
-                const point = new THREE.PointLight(0xffffff);
+                const point = new THREE.PointLight(0x000000);
                 point.position.set(400, 200, 300);
                 scene.add(point);
 
@@ -114,9 +119,9 @@
                 function render() {
                     renderer.render(scene, camera);
                     mesh.rotateX(-0.02);
-                    obj.children[11].rotateX(0.01);
-                    obj.children[11].rotateY(0.01);
-                    obj.children[11].rotateZ(0.01);
+                    // obj.children[11].rotateX(0.01);
+                    // obj.children[11].rotateY(0.01);
+                    // obj.children[11].rotateZ(0.01);
                     //scene.rotateX(0.01);
                     //console.log( 'scene' ,scene);
                     //_obj.rotateX(0.01);

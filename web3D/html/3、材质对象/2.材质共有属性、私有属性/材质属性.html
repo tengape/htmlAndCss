@@ -27,14 +27,28 @@
      * 创建网格模型
      */
     var geometry = new THREE.BoxGeometry(100, 100, 100); //创建一个立方体几何对象Geometry
+    // var geometry = new THREE.PlaneGeometry(100, 100, 100); //创建一个立方体几何对象Geometry
+
     var material = new THREE.MeshPhongMaterial({
-      color: 0xdd00ff,
+      //color: 0xdd00ff,
       // wireframe:true,//将几何图形渲染为线框
       // transparent:true,//开启透明
       // opacity:0.5,//透明度0.5
       // 前面FrontSide  背面：BackSide 双面：DoubleSide
       // side:THREE.DoubleSide,
     }); //材质对象Material
+
+    // material.color = {
+    //   r:0.1256,
+    //   g:0.4582,
+    //   b:0.12562,
+    // }
+    // material.color.setRGB(0.155,0.123,0.586);
+    // material.color.r = 0.5;
+    // material.color.g = 1;
+    // material.color.b = 0;
+
+    console.log(material.color);
     var mesh = new THREE.Mesh(geometry, material); //网格模型对象Mesh
     scene.add(mesh); //网格模型添加到场景中
     /**

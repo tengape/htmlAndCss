@@ -28,7 +28,7 @@
         /**
          * 缓冲几何体数据加载器
          */
-        
+
 
         // var loader = new THREE.BufferGeometryLoader();
         // loader.load('bufferGeometry.json', function (geometry) { //louceng bufferGeometry
@@ -46,24 +46,50 @@
          .translate() 平移
          .rotateX() 旋转
          */
+        /**
+        1、几何体对象可以进旋转缩放，模型也可以旋转平移缩放
+        */
+
         var loader = new THREE.ObjectLoader();
         loader.load('tunnel_2.json',
             function (obj) { //louceng bufferGeometry model1
-                
+
                 obj.children[5].material.transparent = true;
                 obj.children[5].material.opacity = 0.6;
-                obj.children[6].material.color = {
-                    r:0.1,
-                    g:0.08,
-                    b:0.1,
-                };
-                
-                obj.scale = {
-                    x:5,
-                    y:5,
-                    z:5,
-                };
-                console.log(obj.scale);
+                // obj.children[6].material.color = {
+                //     r: 0.1,
+                //     g: 0.08,
+                //     b: 0.1,
+                // };
+
+                //获取第一个隧道
+                let mesh1 = obj.children[5];
+                let geometry1 = mesh1.geometry;
+                geometry1.scale(20, 20, 20);  // 几何体缩放
+                let material1 = mesh1.material;
+                // material1 = new THREE.MeshLambertMaterial({
+                //     color: 0x00ffff
+                // });
+                let material2 = new THREE.MeshLambertMaterial({
+                    color: 0xff00ff, //三角面颜色
+                    transparent: true,
+                    opacity: 0.6,
+                    // wireframe:true,//网格模型以线条的模式渲染
+                }); //材质对象
+
+                //重新定义材质
+                mesh1.material = material2;
+
+                material1.color.setRGB(0.5586, 0.386, 0.96);    //设置材质颜色
+
+                mesh1.scale.set(0.5, 1.5, 2);       // 网格模型缩放
+                mesh1.translateX(150);              // 网格模型平移
+                mesh1.position.set(50, 0, 0);       // 网格模型位置属性
+                mesh1.rotateY(Math.PI / 2);         // 网格模型旋转
+
+                // mesh1 = new THREE.Mesh(geometry1, material1);
+                //scene.add(mesh1);
+
                 console.log(obj);
 
                 scene.add(obj);
@@ -119,6 +145,7 @@
                 function render() {
                     renderer.render(scene, camera);
                     mesh.rotateX(-0.02);
+                    mesh1.rotateX(0.01);
                     // obj.children[11].rotateX(0.01);
                     // obj.children[11].rotateY(0.01);
                     // obj.children[11].rotateZ(0.01);
@@ -138,7 +165,6 @@
                 console.log((xhr.loaded / xhr.total * 100) + '% loaded');
             },
         );
-        
     </script>
 </body>
 

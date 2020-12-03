@@ -27,12 +27,25 @@
      * 创建网格模型
      */
     var geometry = new THREE.BoxGeometry(100, 100, 100); //创建一个立方体几何对象Geometry
+    var geometry2 = new THREE.PlaneGeometry(100, 100, 5); //创建一个平面几何对象Geometry
     // 三角面(网格)渲染模式   MeshLambertMaterial  MeshBasicMaterial
-    var material = new THREE.MeshBasicMaterial({
+    var material = new THREE.MeshLambertMaterial({
       color: 0x0000ff, //三角面颜色
       // wireframe:true,//网格模型以线条的模式渲染
     }); //材质对象
+
+    var material2 = new THREE.MeshLambertMaterial({
+      color: 0xff00ff, //三角面颜色
+      wireframe:true,//网格模型以线条的模式渲染
+    }); //材质对象
+
     var mesh = new THREE.Mesh(geometry, material); //网格模型对象Mesh
+
+    // 重新赋值切换材质
+    mesh.material = material2;
+    console.log(mesh);
+    // 重新赋值几何体
+    mesh.geometry = geometry2;
     scene.add(mesh); //网格模型添加到场景中
     /**
      * 光源设置
@@ -69,7 +82,7 @@
     }
     render();
     //创建控件对象  相机对象camera作为参数   控件可以监听鼠标的变化，改变相机对象的属性
-    var controls = new THREE.OrbitControls(camera,renderer.domElement);
+    var controls = new THREE.OrbitControls(camera, renderer.domElement);
     //监听鼠标事件，触发渲染函数，更新canvas画布渲染效果
     controls.addEventListener('change', render);
   </script>

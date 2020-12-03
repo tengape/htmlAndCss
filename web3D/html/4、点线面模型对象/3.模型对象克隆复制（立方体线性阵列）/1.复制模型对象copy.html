@@ -41,6 +41,7 @@
     var material2 = new THREE.MeshLambertMaterial({
       color: 0xff00ff
     }); //材质对象Material
+    
     var newMesh = new THREE.Mesh(geometry2, material2);
     // 复制mesh的位置、旋转、矩阵等属性(不包含geometry和material属性)
     newMesh.copy(mesh);

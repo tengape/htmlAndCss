@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        section {
+            width: 80%;
+            height: 200px;
+            border: 1px solid pink;
+            margin: 100px auto;
+            /* 父级盒子添加 flex */
+            display: flex;
+            min-width: 500px;
+            /* flex-direction: column;  row 横向 column 纵向  排列方式 水平 垂直 * 给父盒子添加/
+            /* flex-direction: row-reverse; 水平翻转 */
+            flex-direction: column;
+        }
+
+        section div:nth-child(1) {
+            background-color: pink;
+            flex: 1;
+        }
+
+        section div:nth-child(2) {
+            background-color: purple;
+            flex: 1;
+        }
+
+        section div:nth-child(3) {
+            background-color: pink;
+            flex: 1;
+        }
+    </style>
+</head>
+
+<body>
+    <section>
+        <div>1</div>
+        <div>2</div>
+        <div>3</div>
+    </section>
+</body>
+
+</html>

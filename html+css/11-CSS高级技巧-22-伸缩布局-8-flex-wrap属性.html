@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        section {
+            width: 1000px;
+            height: 600px;
+            border: 2px solid pink;
+            margin: 100px auto;
+            display: flex;
+            /* justify-content: flex-start; 让子元素从父容器的开头开始排序 但是盒子顺序不变*/
+            /* justify-content: flex-end; 让子元素从父容器的结束开始排序  但是盒子顺序不变 */
+            /* justify-content: center; 让子元素在父容器中间显示 */
+            /* justify-content: space-between; 左右的盒子贴近父盒子，中间的平均分布空白间距 */
+            /* justify-content: space-around; 让子元素在父容器四周都空隙或者是理解成 在每个盒子添加了margin */
+            justify-content: space-around;
+
+            /* align-items: flex-start; 上对齐 */
+            /* align-items: flex-end; 底对齐 */
+            /* align-items: center; 垂直居中 */
+            align-items: stretch;
+            /*  相当于height: 100%; 让子元素的高度拉伸适用父容器（子元素不给高度的前提下） */
+
+            flex-wrap: nowrap; /* 默认参数 规定灵活的项目不拆行或不拆列，不换行，则收缩显示 强制一行显示 */
+            flex-wrap: wrap; /* 换行 */
+            flex-wrap: wrap-reverse; /* 翻转 */
+
+
+
+        }
+
+        section div {
+            width: 250px;
+            /* height: 200px; */
+        }
+
+        section div:nth-child(1) {
+            background-color: pink;
+        }
+
+        section div:nth-child(2) {
+            background-color: purple;
+        }
+
+        section div:nth-child(3) {
+            background-color: skyblue;
+        }
+
+        section div:nth-child(4) {
+            background-color: hotpink;
+        }
+
+        section div:nth-child(5) {
+            background-color: deeppink;
+        }
+    </style>
+</head>
+
+<body>
+    <section>
+        <div>1</div>
+        <div>2</div>
+        <div>3</div>
+        <div>4</div>
+        <div>5</div>
+    </section>
+</body>
+
+</html>

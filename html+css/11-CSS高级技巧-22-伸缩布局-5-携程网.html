@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        * {
+            padding: 0;
+            margin: 0;
+        }
+
+        ul {
+            list-style: none;
+        }
+
+        body {
+            min-width: 320px;
+            /* 最小宽度 */
+            max-width: 540px;
+            /* 最大宽度 */
+            margin: 0 auto;
+        }
+
+        header {
+            width: 100%;
+            /* 继承 body 的宽度 body max-width 540 */
+            height: 100px;
+        }
+
+        header img {
+            width: 100%;
+            /* 继承 header 父级的宽度 */
+            height: 100%;
+        }
+
+        nav {
+            padding: 5px;
+        }
+
+        .row {
+            height: 90px;
+            width: 100%;
+            background-color: #ff697a;
+            border-radius: 8px;
+            display: flex;
+            /* 伸缩布局 父亲加 */
+            margin-bottom: 5px;
+        }
+        nav .row:nth-child(2) {
+            background-color: #3d98ff;
+        }
+        nav .row:nth-child(3) {
+        background-color: #44c522;
+        }
+        nav .row:nth-child(4) {
+        background-color: #fc9720;
+        }
+        .row3 {
+            flex: 1;
+            /* 孩子每人占1份 */
+            border: 1px solid #ffffff;
+        }
+
+        .row div:first-child {
+            border-left-width: 0;
+        }
+        .hotel {
+            display: flex;
+            flex-direction: column; /* 垂直排列 */
+        }
+        .hotel a {
+            flex: 1;
+            font-size: 16px;
+            color: #ffffff;
+            text-align: center;
+            line-height: 45px;
+            text-decoration: none;
+            text-shadow: 0 2px 1px rgba(0, 0, 0, 0.3);
+        }
+        .hotel a:first-child {
+            border-bottom: 1px solid #ffffff;
+        }
+    </style>
+</head>
+
+<body>
+    <header>
+        <img src="../img/xiecheng.png" alt="">
+    </header>
+    <nav>
+        <div class="row">
+            <div class="row3"></div>
+            <div class="row3 hotel">
+                <a href="#">海外酒店</a>
+                <a href="#">特价酒店</a>
+            </div>
+            <div class="row3 hotel">
+                <a href="#">团购</a>
+                <a href="#">同福客栈</a>
+            </div>
+        </div>
+        <div class="row">
+            <div class="row3"></div>
+            <div class="row3 hotel">
+                <a href="#">海外酒店</a>
+                <a href="#">特价酒店</a>
+            </div>
+            <div class="row3 hotel">
+                <a href="#">团购</a>
+                <a href="#">同福客栈</a>
+            </div>
+        </div>
+        <div class="row">
+            <div class="row3"></div>
+            <div class="row3 hotel">
+                <a href="#">海外酒店</a>
+                <a href="#">特价酒店</a>
+            </div>
+            <div class="row3 hotel">
+                <a href="#">团购</a>
+                <a href="#">同福客栈</a>
+            </div>
+        </div>
+        <div class="row">
+            <div class="row3 hotel">
+                <a href="#">海外酒店</a>
+                <a href="#">特价酒店</a>
+            </div>
+            <div class="row3 hotel">
+                <a href="#">团购</a>
+                <a href="#">同福客栈</a>
+            </div>
+            <div class="row3 hotel">
+                <a href="#">团购</a>
+                <a href="#">同福客栈</a>
+            </div>
+    </nav>
+</body>
+
+</html>

@@ -355,6 +355,245 @@ console.log(testNum(-5)); // undefined
 console.log(testNum(15)); // true
 
 /**
- * 函数表达式
+ * 3、函数表达式
  */
 
+console.log(add); // 不加小括号就是打印函数本身
+var plus = add ;
+var res = plus(5, 6);
+console.log(res);
+
+var multiply = function (a, b){ // 匿名函数
+    return a * b;
+}
+
+console.log(multiply(b, 2));
+
+/**
+ * 4、变量和函数提升 (hoisting) 函数声明在低部，在上面使用
+ */
+console.clear();
+x = 5;
+console.log(x);
+var x ;
+
+
+console.log(divide(8, 2));
+
+function divide(a, b){
+    return a / b;
+}
+
+/**
+ * 5、默认参数
+ */
+
+greetings();
+greetings("张三");
+
+function greetings(name = '峰华'){
+    console.log('你好，' + name);
+}
+
+greetingWithWeather(undefined, '晴天'); // 你好，峰华， 今天是：晴天
+
+/**
+ * 
+ * @param {*} name 
+ * @param {*} weather 
+ */
+function greetingWithWeather(name = "峰华", weather){
+    console.log("你好，" + name + "， 今天是：" + weather);
+}
+
+/**
+ * 6、递归
+ */
+
+console.log(sum(10));
+ /**
+  * 计算某个数 1到n的和
+  * @param {*} n 
+  */
+ function sum(n){
+     if (n === 1){
+         return 1;
+     }
+     return n + sum(n - 1);
+ }
+
+ console.log(fib(5)); // 8
+
+/**
+ * 非波拉列
+ * @param {*} num 
+ */
+function fib(num){
+    if(num <=1){
+        return 1;
+    }
+    return fib(num - 1) + fib(num -2);
+}
+
+/**
+ * 7、arguments
+ */
+
+ log('abc','123','峰华');
+
+ function log(){
+     for(let i = 0; i < arguments.length ;i++ ){
+        console.log(arguments[i]);
+     }
+ }
+
+ /**
+  * 8、作用域  全局作用域 或者局部作用域
+  */
+ var x = 5; // 这个就是全局作用域的变量
+ 
+
+
+ function add(a) {
+     var yy = 10;
+     console.log("y=" + y);
+     return a + x;
+ }
+
+ console.log(add(8)); // 13
+
+ x = 20;
+console.log(add(8)); // 28
+
+// console.log(yy); 不能访问内部变量
+
+
+var num = 100;
+function multiplya(num) {
+    return num * 10;
+}
+console.log(multiplya(4)); // 40
+
+/**
+ * 9、var/let的区别
+ */
+console.clear();
+var z = 6;
+if(z > 2) {
+    console.log(z);
+    let innerZ = 17;
+}
+
+// console.log(innerZ);
+/**
+ * 10、箭头函数 匿名函数
+ */
+var greeting = () => {
+    console.log("hello");
+}
+
+greeting();
+
+var xGreeting = name => { // 一个参数的时候可以不用写括号
+    console.log(name);
+}
+
+xGreeting('峰华');
+
+var dGreeting = (name, weather) => { // 两个参数
+    console.log("hello "+name, "今天是：" + weather);
+}
+dGreeting('峰华', "晴天");
+
+var increment = x  => x +1; // 只有一个参数，并且只有一行返回可以不需要 括号以及 return 
+console.log(increment(6));
+
+
+/**
+ * 11、闭包，是函数里面再定义函数
+ */
+console.clear();
+
+function squareSum(a, b){
+    function square(x) {
+        return x * x;
+    }
+    return square(a) + square(b);
+}
+
+console.log(squareSum(2, 3)); // 13;
+// 高级函数 higher-order function 返回函数的一个函数 , 这样外部函数就只能访问值，不能修改值，起到了保护的作用。
+function person(){
+    let name = '峰华';
+    function getName(){
+        return name;
+    }
+    return getName;
+}
+
+var getName = person();
+console.log(getName); // 函数本身
+console.log(getName());  // 调用函数
+
+
+/**
+ * 12、柯里化
+ */
+console.clear();
+function addThreeNums(a, b, c) {
+    return a+ b +c;
+}
+console.log(addThreeNums(1, 2, 3));
+
+// 改成柯里化的形式
+function addThreeNumsCurry(a){
+    return function(b){
+        return function(c){
+            return a+b+c
+        }
+    }
+}
+
+console.log(addThreeNumsCurry(1)(2)(3));
+
+var fixedTwo = addThreeNumsCurry(1)(2); // 先计算前面两个值 并保存起来。
+console.log(fixedTwo(4)); // 7 再同第三个数相加 计算第三个值。
+console.log(fixedTwo(5)); // 8
+console.log(fixedTwo(6)); // 9
+
+/**
+ * 13、自执行函数
+ * 函数在定义完以后直接执行操作
+ * 内部代码，外部绝对是访问不到的。防止被篡改。
+ * 行成自己的作用域，防止自内部的变量同外部的变量发生冲突。
+ */
+var num1 = 10;
+(function(){
+    var num1 = 20;
+    console.log(num1); // 20;
+})();
+console.log(num1); // 10;
+
+/**
+ * 14、回调函数
+ */
+function request(cb){
+    console.log('请求数据');
+    cb("success");
+    console.log('请求结束');
+}
+
+function callback(result){
+    console.log("执行回调");
+    console.log("执行结果是：" + result);
+}
+
+request(callback);
+
+// 使用箭头函数
+request( result => {
+        console.log("执行回调");
+        console.log("执行结果是：" + result);
+});
+
+/*第五章 数组******************************************************************************************************/

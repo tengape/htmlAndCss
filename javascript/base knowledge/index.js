@@ -332,7 +332,7 @@ function putAnythinInfrigerator(something) {
  * @param {*} a 
  * @param {*} b 
  */
-function add(a, b){
+function add(a, b) {
     return a + b;
 }
 
@@ -340,8 +340,8 @@ function add(a, b){
  * 
  * @param {*} num 
  */
-function testNum(num){
-    if(num < 0) return;
+function testNum(num) {
+    if (num < 0) return;
     return num > 10;
 }
 
@@ -350,7 +350,7 @@ function testNum(num){
  */
 putInRefrigerator();
 putAnythinInfrigerator('兔子');
-console.log(add(1,2));
+console.log(add(1, 2));
 console.log(testNum(-5)); // undefined
 console.log(testNum(15)); // true
 
@@ -359,11 +359,11 @@ console.log(testNum(15)); // true
  */
 
 console.log(add); // 不加小括号就是打印函数本身
-var plus = add ;
+var plus = add;
 var res = plus(5, 6);
 console.log(res);
 
-var multiply = function (a, b){ // 匿名函数
+var multiply = function (a, b) { // 匿名函数
     return a * b;
 }
 
@@ -375,12 +375,12 @@ console.log(multiply(b, 2));
 console.clear();
 x = 5;
 console.log(x);
-var x ;
+var x;
 
 
 console.log(divide(8, 2));
 
-function divide(a, b){
+function divide(a, b) {
     return a / b;
 }
 
@@ -391,7 +391,7 @@ function divide(a, b){
 greetings();
 greetings("张三");
 
-function greetings(name = '峰华'){
+function greetings(name = '峰华') {
     console.log('你好，' + name);
 }
 
@@ -402,7 +402,7 @@ greetingWithWeather(undefined, '晴天'); // 你好，峰华， 今天是：晴�
  * @param {*} name 
  * @param {*} weather 
  */
-function greetingWithWeather(name = "峰华", weather){
+function greetingWithWeather(name = "峰华", weather) {
     console.log("你好，" + name + "， 今天是：" + weather);
 }
 
@@ -411,64 +411,65 @@ function greetingWithWeather(name = "峰华", weather){
  */
 
 console.log(sum(10));
- /**
-  * 计算某个数 1到n的和
-  * @param {*} n 
-  */
- function sum(n){
-     if (n === 1){
-         return 1;
-     }
-     return n + sum(n - 1);
- }
+/**
+ * 计算某个数 1到n的和
+ * @param {*} n 
+ */
+function sum(n) {
+    if (n === 1) {
+        return 1;
+    }
+    return n + sum(n - 1);
+}
 
- console.log(fib(5)); // 8
+console.log(fib(5)); // 8
 
 /**
  * 非波拉列
  * @param {*} num 
  */
-function fib(num){
-    if(num <=1){
+function fib(num) {
+    if (num <= 1) {
         return 1;
     }
-    return fib(num - 1) + fib(num -2);
+    return fib(num - 1) + fib(num - 2);
 }
 
 /**
  * 7、arguments
  */
 
- log('abc','123','峰华');
+log('abc', '123', '峰华');
 
- function log(){
-     for(let i = 0; i < arguments.length ;i++ ){
+function log() {
+    for (let i = 0; i < arguments.length; i++) {
         console.log(arguments[i]);
-     }
- }
+    }
+}
 
- /**
-  * 8、作用域  全局作用域 或者局部作用域
-  */
- var x = 5; // 这个就是全局作用域的变量
- 
+/**
+ * 8、作用域  全局作用域 或者局部作用域
+ */
+var x = 5; // 这个就是全局作用域的变量
 
 
- function add(a) {
-     var yy = 10;
-     console.log("y=" + y);
-     return a + x;
- }
 
- console.log(add(8)); // 13
+function add(a) {
+    var yy = 10;
+    console.log("y=" + y);
+    return a + x;
+}
 
- x = 20;
+console.log(add(8)); // 13
+
+x = 20;
 console.log(add(8)); // 28
 
 // console.log(yy); 不能访问内部变量
 
 
 var num = 100;
+
 function multiplya(num) {
     return num * 10;
 }
@@ -479,7 +480,7 @@ console.log(multiplya(4)); // 40
  */
 console.clear();
 var z = 6;
-if(z > 2) {
+if (z > 2) {
     console.log(z);
     let innerZ = 17;
 }
@@ -501,11 +502,11 @@ var xGreeting = name => { // 一个参数的时候可以不用写括号
 xGreeting('峰华');
 
 var dGreeting = (name, weather) => { // 两个参数
-    console.log("hello "+name, "今天是：" + weather);
+    console.log("hello " + name, "今天是：" + weather);
 }
 dGreeting('峰华', "晴天");
 
-var increment = x  => x +1; // 只有一个参数，并且只有一行返回可以不需要 括号以及 return 
+var increment = x => x + 1; // 只有一个参数，并且只有一行返回可以不需要 括号以及 return 
 console.log(increment(6));
 
 
@@ -514,7 +515,7 @@ console.log(increment(6));
  */
 console.clear();
 
-function squareSum(a, b){
+function squareSum(a, b) {
     function square(x) {
         return x * x;
     }
@@ -523,9 +524,10 @@ function squareSum(a, b){
 
 console.log(squareSum(2, 3)); // 13;
 // 高级函数 higher-order function 返回函数的一个函数 , 这样外部函数就只能访问值，不能修改值，起到了保护的作用。
-function person(){
+function person() {
     let name = '峰华';
-    function getName(){
+
+    function getName() {
         return name;
     }
     return getName;
@@ -533,23 +535,24 @@ function person(){
 
 var getName = person();
 console.log(getName); // 函数本身
-console.log(getName());  // 调用函数
+console.log(getName()); // 调用函数
 
 
 /**
  * 12、柯里化
  */
 console.clear();
+
 function addThreeNums(a, b, c) {
-    return a+ b +c;
+    return a + b + c;
 }
 console.log(addThreeNums(1, 2, 3));
 
 // 改成柯里化的形式
-function addThreeNumsCurry(a){
-    return function(b){
-        return function(c){
-            return a+b+c
+function addThreeNumsCurry(a) {
+    return function (b) {
+        return function (c) {
+            return a + b + c
         }
     }
 }
@@ -568,7 +571,7 @@ console.log(fixedTwo(6)); // 9
  * 行成自己的作用域，防止自内部的变量同外部的变量发生冲突。
  */
 var num1 = 10;
-(function(){
+(function () {
     var num1 = 20;
     console.log(num1); // 20;
 })();
@@ -577,13 +580,13 @@ console.log(num1); // 10;
 /**
  * 14、回调函数
  */
-function request(cb){
+function request(cb) {
     console.log('请求数据');
     cb("success");
     console.log('请求结束');
 }
 
-function callback(result){
+function callback(result) {
     console.log("执行回调");
     console.log("执行结果是：" + result);
 }
@@ -591,9 +594,281 @@ function callback(result){
 request(callback);
 
 // 使用箭头函数
-request( result => {
-        console.log("执行回调");
-        console.log("执行结果是：" + result);
+request(result => {
+    console.log("执行回调");
+    console.log("执行结果是：" + result);
 });
 
 /*第五章 数组******************************************************************************************************/
+/**
+ * 1、创建数组
+ */
+console.clear();
+var arr1 = [1, 2, 3];
+console.log(arr1);
+var arr2 = new Array(4, 5, 6);
+console.log(arr2);
+var arr3 = Array(7, 8, 9);
+console.log(arr3);
+var arr4 = Array.of(10, 11, 12);
+console.log(arr4);
+
+//如果创建数组只有一个元素的话我们只能用 [] , Array.of
+var arrSingle = Array(6); // 定义有几个空元素的数组
+console.log(arrSingle);
+var arrSingle2 = Array(7); // 定义有几个空元素的数组
+console.log(arrSingle2);
+
+var arrSingle3 = Array.of(4);
+console.log(arrSingle3);
+var arrSingle4 = [9];
+console.log(arrSingle4);
+/**
+ * 2、访问数组
+ */
+console.clear();
+var arr = [1, 2, 3];
+console.log(arr.__proto__);
+console.log(arr.length);
+console.log(arr[0]);
+
+/**
+ * 3、添加元素
+ */
+var arr = [1, 2, 3];
+arr[0] = 4;
+console.log(arr); //[4, 2, 3]
+arr[3] = 5;
+console.log(arr); //index.js:639 (4) [4, 2, 3, 5]
+arr[8] = 9;
+console.log(arr); //index.js:641 (9) [4, 2, 3, 5, empty × 4, 9]
+console.log(arr[6]); //index.js:642 undefined 还没有值
+/**
+ * 4、删除元素
+ */
+var arr = [1, 2, 3];
+arr.length = 2;
+console.log(arr); //index.js:648 (2) [1, 2]
+arr.length = 0;
+console.log(arr); //[] 这样就直接清空了。
+
+// 删除任意位置的数组元素
+var arr = [1, 2, 3, 4, 5, 6];
+arr.splice(2, 1); //splice(位置, 个数),直接更改原数组
+console.log(arr); //index.js:655 (5) [1, 2, 4, 5, 6]
+
+arr.splice(1, 2, 3, 7, 8);
+console.log(arr); //index.js:658 (6) [1, 3, 7, 8, 5, 6] 删除 2，4 并添加 3,7,8
+
+arr.splice(1, 0, 9, 10); // 在第2个元素后面添加 9和10
+console.log(arr); //index.js:661 (8) [1, 9, 10, 3, 7, 8, 5, 6]
+
+/**
+ * 5、数组遍历
+ */
+console.clear();
+var arr = [1, 3, 5, 7, 9];
+for (let i = 0; i < arr.length; i++) {
+    console.log(arr[i]);
+}
+
+console.log("for.....of");
+
+for (let ele of arr) {
+    console.log(ele);
+}
+
+console.log('.forEach');
+
+/**
+ * ele 访问到的元素
+ * index 索引
+ * self 数组本身
+ */
+arr.forEach((ele, index, self) => {
+    console.log(ele, index, self);
+});
+/*
+index.js: 686 1 0(5)[1, 3, 5, 7, 9]
+index.js: 686 3 1(5)[1, 3, 5, 7, 9]
+index.js: 686 5 2(5)[1, 3, 5, 7, 9]
+index.js: 686 7 3(5)[1, 3, 5, 7, 9]
+index.js: 686 9 4(5)[1, 3, 5, 7, 9]
+*/
+
+/**
+ * 6、栈模式
+ */
+console.clear();
+var stack = [1, 2, 3];
+stack.push(4); // 压入元素在末尾
+console.log(stack); //index.js:702 (4) [1, 2, 3, 4]
+stack.push(5, 6, 7); // 在末尾压入多个元素
+console.log(stack); // index.js:704 (7) [1, 2, 3, 4, 5, 6, 7]
+
+var last = stack.pop(); //取出最后一个
+console.log(last); // 7;
+console.log(stack); // index.js:708 (6) [1, 2, 3, 4, 5, 6]
+
+console.log(stack[stack.length - 1]);
+/**
+ * 7、队列模式
+ */
+var queue = [1, 2, 3];
+queue.push(4, 5, 6); // 从尾部插入数据
+console.log(queue); // index.js:716 (6) [1, 2, 3, 4, 5, 6]
+var first = queue.shift();
+console.log(first); // 1
+console.log(queue); //index.js:719 (5) [2, 3, 4, 5, 6]
+queue.unshift(10, 11, 12); // 从头部添加数据
+console.log(queue); //index.js:721 (8) [10, 11, 12, 2, 3, 4, 5, 6]
+
+/**
+ * 8、反转数组
+ */
+console.clear();
+var arr = [1, 2, 3];
+console.log(arr.reverse()); // (3) [3, 2, 1]
+console.log(arr); //index.js:729 (3) [3, 2, 1] // 原数组也改变了。
+
+console.log("hello".split("")); //index.js:731 (5) ["h", "e", "l", "l", "o"]
+console.log("hello".split("").reverse().join("")); //index.js:732 olleh
+
+/**
+ * 9、数组排序
+ */
+console.clear();
+var arr = [1, 5, 3, 2, 4];
+arr.sort();
+console.log(arr); //index.js:743 (5) [1, 2, 3, 4, 5]
+
+// 降序排列
+// arr.sort((a, b) => {
+//     if(a > b) {
+//         return -1;
+//     }else if (a < b) {
+//         return 1;
+//     }else {
+//         return 0;
+//     }
+// });
+arr.sort((a, b) => b - a);
+console.log(arr); //index.js:755 (5) [5, 4, 3, 2, 1]
+
+/**
+ * 10、数组的连接
+ */
+var arr1 = [1, 2, 3];
+var arr2 = [4, 5, 6];
+console.log(arr1.concat(arr2)); //index.js:763 (6) [1, 2, 3, 4, 5, 6]
+
+/**
+ * 11、数组的裁切 返回数据的一部份
+ */
+var arr = [1, 2, 3, 4, 5];
+console.log(arr.slice(1)); // index.js:769 (4) [2, 3, 4, 5]
+console.log(arr.slice(1, 3)); // index.js:770 (2) [2, 3]
+console.log(arr.slice(1, -1)); //index.js:771 (3) [2, 3, 4]
+
+/**
+ * 12、map 数组
+ */
+var arr = [1, 2, 3, 4];
+var mappedArr = arr.map(ele => ele * 2);
+console.log(mappedArr); //index.js:778 (4) [2, 4, 6, 8]
+console.log(arr); //index.js:779 (4) [1, 2, 3, 4]
+
+/**
+ * 13、reduce 数组
+ */
+
+var arr = [1, 2, 3, 4];
+var result = arr.reduce((previous, current) => previous + current, 0);
+console.log(result); // index.js:787 10
+
+var result2 = arr.reduce((first, second) => first + second);
+console.log(result2);
+
+/**
+ * 13、数组过滤
+ */
+var arr = [1, 2, 3, 4, 5, 6];
+var filteredArr = arr.filter(item => item > 4);
+console.log(filteredArr); //index.js:797 (2) [5, 6]
+/**
+ * 14、数组测试
+ */
+var arr = [1, 2, 3, 4, 5, 6];
+var result = arr.every(item => item > 0); // 所有的元素为true 就返回true
+console.log(result); //index.js:803 true
+
+var resultSome = arr.some(item => item > 5); // 只要有一个元素为true 就返回true
+console.log(resultSome); //index.js:803 true
+
+/**
+ * 15、数组 destructuring 解构操作符， 是把数组的 元素赋值给变量
+ */
+var arr = [1, 2, 3];
+var [a, b, c] = arr;
+console.log(a, b, c); //index.js:813 1 2 3
+var [d, e] = arr;
+console.log(d, e); // index.js:815 1 2
+var [, f] = arr
+console.log(f); //2
+
+
+function multipleReturns() {
+    let name = '峰华';
+    let positon = '前端工程师';
+    return [name, positon];
+}
+
+var [myName, myPostion] = multipleReturns();
+console.log(myName, myPostion); //index.js:827 峰华 前端工程师
+
+/**
+ * 16、rest 操作符，取了部份数据，想把剩余的元素以数组的形式返回
+ */
+
+console.clear();
+
+var arr = [1, 2, 3, 4, 5, 6, 7, 8, 9];
+var [a, b, ...rest] = arr; // 这里的rest 只就是一个变量名称
+console.log(a, b, rest); // index.js:837 1 2 (7) [3, 4, 5, 6, 7, 8, 9]
+
+// 如果调过一个元素 rest 是否还包含这个元素
+var [a, , b, ...rest] = arr;
+console.log(a, b, rest); // 1 3 (6) [4, 5, 6, 7, 8, 9] 2不会被保留
+
+
+// 可以用于接收多个参数
+function variousArgs(...args) {
+    console.log(args); // index.js:846 (5) [1, 2, 3, 4, 5]
+}
+
+variousArgs(1, 2, 3, 4, 5);
+
+/**
+ * 17、多维数组
+ */
+//创建一个5行4列的数组
+var arr = [];
+for (let i = 0; i < 5; i++) {
+    arr[i] = [];
+    for(let j = 0; j < 4; j++){
+        arr[i][j] = i + j;
+    }
+}
+console.log(arr);
+
+/*
+(5)[Array(4), Array(4), Array(4), Array(4), Array(4)]
+0: (4)[0, 1, 2, 3]
+1: (4)[1, 2, 3, 4]
+2: (4)[2, 3, 4, 5]
+3: (4)[3, 4, 5, 6]
+4: (4)[4, 5, 6, 7]
+ */
+
+
+ /*第六章 对象******************************************************************************************************/

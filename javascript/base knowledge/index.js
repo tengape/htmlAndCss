@@ -855,7 +855,7 @@ variousArgs(1, 2, 3, 4, 5);
 var arr = [];
 for (let i = 0; i < 5; i++) {
     arr[i] = [];
-    for(let j = 0; j < 4; j++){
+    for (let j = 0; j < 4; j++) {
         arr[i][j] = i + j;
     }
 }
@@ -871,4 +871,352 @@ console.log(arr);
  */
 
 
- /*第六章 对象******************************************************************************************************/
+/*第六章 对象******************************************************************************************************/
+/**
+ * 1、创建对象 js对象是基于设计原型来的
+ */
+// 第一种创建对象的方式 字面值 对象初始化器 键值对 Key:value
+console.clear();
+var employee = {
+    name: '张三',
+    age: 20,
+    positon: '前端工程师',
+    signIn: function () {
+        console.log("张三打卡");
+    }
+}
+// 第二种 用new Object
+var employee2 = new Object();
+employee2.name = '李四';
+employee2.signIn = function () {
+    console.log("李四打卡");
+}
+/**
+ * 2、对象属性
+ */
+console.log(employee.name);
+console.log(employee['name']);
+// 更新对象属性
+employee.name = '张五';
+console.log(employee.name); // index.js:901 张五
+employee["name"] = "张六";
+console.log(employee.name); //index.js:903 张六
+console.log(employee2.age); // index.js:904 undefined
+employee2.age = 22;
+console.log(employee2.age); // 22
+
+employee3 = {
+    name: '王五',
+    "birth-data": '1990-03-02' // 中间有短横线 只能用引号  尽量不用这种，而是用birthData 不加引号的方式
+};
+console.log(employee3['birth-data']); // index.js:912 1990-03-02  中间有短横线 只能用中括号
+console.clear();
+/**
+ * 3、省略 key
+ */
+var name = "李四";
+var employee4 = {
+    // name : name, // 这样两个重复的名字可以只写成一个。 
+    // name ,如果是函数的话也可以直接把 function 省略写成
+    name,
+    signIn() {
+        console.log("李四打卡")
+    }
+}
+console.log(employee4.name); // 李四
+employee4.signIn(); // 李四打卡
+
+/**
+ * 4、 遍历对象所有属性
+ */
+//第一种
+console.log(Object.keys(employee)); // ["name", "age", "positon", "signIn"]
+//第二种
+for (key in employee) {
+    console.log(key);
+}
+/**
+name
+age
+positon
+signIn
+ */
+
+/**
+ * 5、 删除对象属性 delete
+ */
+console.clear();
+delete employee.name
+console.log(employee);
+console.log(Object.keys(employee)); //  ["age", "positon", "signIn"]
+
+/**
+ * 6、 使用构造函数创建对象
+ * 图纸就是Prototype 原型
+ * 工厂就是构造函数
+ * 汽车就是实例
+ */
+
+/**
+ * 
+ * @param {*} name 
+ * @param {*} postion 
+ */
+// function Employee(name, postion){
+//     this.name = name;
+//     this.postion = postion;
+// }
+
+// var emp1 = new Employee('峰华', '前端工程师');
+// console.log(emp1.name);
+// var emp2 = new Employee('张三', '后端工程师');
+// console.log(emp2.name);
+
+/**
+ * 7、this 
+ */
+console.clear();
+var emp3 = {
+    name: '李四',
+    postion: '后端工程师',
+    signIn() {
+        console.log(this.name + '上班打卡');
+    }
+}
+emp3.signIn(); // index.js:982 李四上班打卡
+emp3.goToWork = function () { // 这里的this 不能使用 箭头函数 => 如果这里使用 this的话是this指向的是window
+    console.log(this.name + '去上班'); // 李四去上班
+    console.log(this);
+    /*
+    {
+        name: "李四",
+        postion: "后端工程师",
+        signIn: ƒ,
+        goToWork: ƒ
+    }
+    */
+}
+emp3.goToWork();
+
+function Employee(name, postion) {
+    this.name = name;
+    this.postion = postion;
+    this.signIn = () => { // 这里可以用this.name ，这里的this 指向的是构造函数本身，箭头函数不审核用在构造函数
+        console.log(this.name + '去上班');
+        console.log(this); /** Employee */
+    }
+}
+var emp4 = new Employee('王五', '前端工程师');
+emp4.signIn();
+
+/**
+ * 8、getters 和 setters 可以让我们写一些逻辑让我们取出来或者赋给某个属性
+ */
+var person = {
+    firstName: '三',
+    lastName: '张',
+    get fullName() { // 获取属性
+        return this.lastName + this.firstName;
+    },
+    set fullName(fullName) { // 设置属性 这个只能接受一个参数
+        let [lastName, firstName] = fullName.split(',');
+        this.lastName = lastName;
+        this.firstName = firstName;
+    }
+}
+console.log(person.fullName); // 张三
+person.fullName = '张,四';
+console.log(person.fullName); // 张四
+
+
+function Employee2(name, position) {
+    this.name = name;
+    this.position = position;
+}
+
+var emp5 = new Employee2("赵六", "前端工程师");
+Object.defineProperty(emp5, 'info', {
+    get: function () {
+        return this.name + ' ' + this.position;
+    },
+    set: function (info) {
+        let [name, position] = info.split(' ');
+        this.name = name;
+        this.position = position;
+    }
+});
+
+console.log(emp5.info); //index.js:1049 赵六 前端工程师
+emp5.info = '赵七 后端工程师';
+console.log(emp5.info); //index.js:1051 赵七 后端工程师
+
+
+/**
+ * 8、原型 js的函数和对象都有原型 如果一个函数做为了构造函数
+ * 那么他new出来的对象会继承这个构造函数的原型
+ * 
+ * 访问函数的原型prototype
+ * 访问对向的原型__proto__
+ */
+console.clear();
+
+function Employee8(name, position) {
+    this.name = name;
+    this.position = position;
+    this.singIn = function () {
+        console.log(this.name + '打卡');
+    }
+}
+var emp1 = new Employee8("张三", "前端工程师");
+var emp2 = new Employee8("李四", "后端工程师");
+
+console.log(emp1); //Employee8 {name: "张三", position: "前端工程师", singIn: ƒ}
+console.log(emp2); //Employee8 {name: "李四", position: "后端工程师", singIn: ƒ}
+
+console.log(Employee8.prototype); //index.js:1072 {constructor: ƒ}
+Employee8.prototype.age = 20;
+
+console.log(emp1.age); // 20
+console.log(emp2.age); // 20
+
+Employee8.prototype.info = function () {
+    console.log(this.name, this.age, this.position);
+}
+
+emp1.info(); //index.js:1079 张三 20 前端工程师
+emp2.info(); //index.js:1079 李四 20 后端工程师
+
+console.log(emp1.__proto__); // index.js:1088 {age: 20, info: ƒ, constructor: ƒ}
+console.log(Employee8.prototype); //{age: 20, info: ƒ, constructor: ƒ}
+console.log(emp1.__proto__ === Employee8.prototype); //index.js:1090 true
+console.log(Object.getPrototypeOf(emp2)); // index.js:1091 {age: 20, info: ƒ, constructor: ƒ}
+
+/**
+ * 9、object.create()
+ * 可以让一个对象继承自别一个对象
+ * 新的对象可让他继承别的对象所有的属性
+ * 并且还可以有自己特有的属性
+ * 
+ */
+
+console.clear();
+console.log(emp1); // Employee8 {name: "张三", position: "前端工程师", singIn: ƒ}
+for (key in emp1) {
+    console.log(key);
+}
+/*
+index.js: 1104 name
+index.js: 1104 position
+index.js: 1104 singIn
+index.js: 1104 age
+index.js: 1104 info
+*/
+var manager = Object.create(emp1);
+console.log(manager); /** index.js:1114 Employee8 {}  自的属性为空*/
+for (key in manager) {
+    console.log(key);
+}
+/**
+ * 
+ index.js: 1116 name
+ index.js: 1116 position
+ index.js: 1116 singIn
+ index.js: 1116 age
+ index.js: 1116
+ */
+console.log(manager.name); // index.js:1126 张三
+manager.name = '李四';
+manager.position = '经理';
+console.log(manager); // Employee8 {name: "李四", position: "经理"} 现在有自己的属性了。
+manager.singIn(); /** index.js:1066 李四打卡 */
+console.log(Object.getOwnPropertyNames(manager)); /** index.js:1131 (2) ["name", "position"]  查看自己的属性 */
+
+/**
+ * 10、原型链 
+ * 每个对象的原型上层都还有一个原型直到遇到Null为止，这对链式继承下来就构成了原型链。
+ * js 最顶层的对象是Object 他的原型是Object.prototype 他原型的原型就是null
+ */
+console.clear();
+var protoOfManager = Object.getPrototypeOf(manager);
+console.log(protoOfManager); // Employee8 {name: "张三", position: "前端工程师", singIn: ƒ}
+var protoOfEmp1 = Object.getPrototypeOf(emp1);
+console.log(protoOfEmp1); // index.js:1142 {age: 20, info: ƒ, constructor: ƒ}
+var protoOfEmp = Object.getPrototypeOf(protoOfEmp1);
+console.log(protoOfEmp); // {constructor: ƒ, __defineGetter__: ƒ, __defineSetter__: ƒ, hasOwnProperty: ƒ, __lookupGetter__: ƒ, …}
+var protoOfObj = Object.getPrototypeOf(protoOfEmp);
+console.log(protoOfObj); // null
+console.log(Object.getPrototypeOf(Object.prototype)); // null
+
+console.log(manager.toString); // index.js:1149 ƒ toString() { [native code] }
+console.log(manager.toString()); // index.js:1150 [object Object]
+
+/**
+ * 11、修改原型指向
+ */
+console.clear();
+
+function Manager() {
+
+}
+Manager.prototype.department = "技术部";
+Object.setPrototypeOf(manager, Manager.prototype);
+console.log(manager.department); //  技术部
+console.log(Object.getPrototypeOf(manager)); // index.js:1162 {department: "技术部", constructor: ƒ}
+// console.log(manager.signIn()); 这样就会报错，他的原型已经修改了。
+
+for (key in manager) {
+    console.log(key);
+}
+/**
+ * 
+ index.js: 1166 name
+ index.js: 1166 position
+ index.js: 1166 department
+ */
+
+Object.prototype.am = function () { //这样只要是对象都会继承这个方法
+    console.log('yefeng');
+}
+
+var a = [];
+a.am(); // yefeng
+
+/**
+ * 12、spread 操作符 与 rest 操作符的写法一样 ，用法相反
+ * 用来把对象的属性或者是数组的元素进行分离或者是扩展为单个项目
+ * 
+ */
+var post = {
+    id: 1,
+    title: '标题1',
+    content: '这是内容',
+}
+
+var postClone = {
+    ...post
+};
+console.log(postClone); // index.js:1198 {id: 1, title: "标题1", content: "这是内容"}
+
+console.log(post === postClone); // false 他们两个不是同一个对象
+
+var post2 = {
+    ...post,
+    author: '峰华',
+}
+console.log(post2); // {id: 1, title: "标题1", content: "这是内容", author: "峰华"}
+
+var arr = [1, 2, 3, ];
+var arrClone = [...arr];
+console.log(arrClone); //index.js:1210 (3) [1, 2, 3]
+var arr2 = [...arr, 4, 5, 6];
+console.log(arr2); // index.js:1212 (6) [1, 2, 3, 4, 5, 6]
+
+function savePost(id, title, content) {
+    console.log(id, title, content); // index.js:1215 2 "标题" "内容"
+}
+
+savePost(...[2,'标题','内容']);
+
+/**
+ * 13、destructuring&rest
+ */

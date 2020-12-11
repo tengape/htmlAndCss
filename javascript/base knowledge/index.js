@@ -1220,3 +1220,127 @@ savePost(...[2,'标题','内容']);
 /**
  * 13、destructuring&rest
  */
+console.clear();
+var post = {
+    id: 1,
+    title: '标题1',
+    content: '这是内容',
+}
+var {id, title} = post; // 变量的名字必须同对象里面的属性名称保持一至 如果需要别名就必须要冒号
+console.log(id, title); // index.js:1230 1 "标题1"
+
+var {id, title: headline} = post;
+console.log(id, headline); // index.js:1233 1 "标题1"
+
+var {id, title, comments = "没有评论"} = post; // 可以赋予默认值 不存在的属性
+console.log(comments); // index.js:1236 没有评论
+
+// 数组结构赋值
+
+var [a, b=2] = [1];
+console.log(a, b); // index.js:1241 1 2
+var post2 = {
+    id:2,
+    title:'标题2',
+    content:'这是内容',
+    comments:[
+        {
+            userId:1,
+            comment:'评论1'
+        },
+        {
+            userId: 2,
+            comment: '评论2'
+        },
+        {
+            userId: 3,
+            comment: '评论3'
+        }
+    ]
+}
+
+var {comments:[,{comment}]} = post2;
+console.log(comment); // index.js:1263 评论2
+
+function getId(idKey, obj){
+    let {[idKey] :id} =obj;
+    return id;
+}
+console.log(getId("uersId", {
+    uersId: 3
+})); // 3
+
+var {comments, ...rest} = post2
+console.log(rest); // index.js:1274 {id: 2, title: "标题2", content: "这是内容"}
+function savePostObj({
+    id,
+    title,
+    content,
+    ...rest
+}) {
+    console.log(id, title, content);
+    console.log(rest);
+}
+
+savePostObj({
+    id: 4,
+    title: '标题4',
+    content: '内容4',
+    author:'峰华',
+}); // index.js:1280 4 "标题4" "内容4" index.js:1282 {author: "峰华"}
+
+
+/**
+ * 14、值传递与引用传递 对象为地址引用传递，num str 为值传递
+ */
+console.clear();
+function byReference(arr) {
+    arr[0] = 5;
+}
+var array = [1, 2, ,3];
+byReference(array);
+console.log(array); // index.js:1302 (4) [5, 2, empty, 3]
+
+function byReferenceObj(obj){
+    obj.title = "标题标题";
+}
+var post = {id:1, title:'标题'}
+byReferenceObj(post);
+console.log(post); // index.js:1309 {id: 1, title: "标题标题"}
+
+/**
+ * 15、call&apply&bind 改变this的指向 this.谁调用指向谁
+ */
+var emp = {
+    id:1,
+    name:'峰华',
+    // printInfo(){
+    //     console.log('员工姓名：' + this.name);
+    // },
+    // department: {
+    //     name:'技术部',
+    //     printInfo(){
+    //         console.log("部门名称：" + this.name);
+    //     }
+    // }
+}
+// emp.printInfo(); //员工姓名：峰华
+// emp.department.printInfo(); // index.js:1323 部门名称：技术部
+
+    function printInfo(dep1, dep2, dep3) {
+        console.log('员工姓名：' + this.name, dep1, dep2, dep3);
+    }
+    // printInfo();
+    printInfo.call(emp,'技术部','IT事件部','总裁办公室') // index.js:1331 员工姓名：峰华
+
+    printInfo.apply(emp, ['技术部', 'IT事件部', '总裁办公室']); // apply 可以直接传一个对象 + 一个数组
+
+    var empPrintInfo = printInfo.bind(emp, '技术部', 'IT事件部', '总裁办公室'); // bind 改变this指向 并 返回一个新函数
+
+    empPrintInfo(); // index.js:1331 员工姓名：峰华 技术部 IT事件部 总裁办公室
+/*第七章 面向对象******************************************************************************************************/
+console.clear();
+/**
+ * 
+ */
+

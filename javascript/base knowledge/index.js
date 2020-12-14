@@ -1341,6 +1341,114 @@ var emp = {
 /*第七章 面向对象******************************************************************************************************/
 console.clear();
 /**
- * 
+ * 1、定义class 给 js原型类似 是工厂生产产品的图纸 然后造出来的产品就是对象实例
  */
+
+class Employee10 {
+    //定义构造方法或者是构造函数
+    constructor(name, position){
+        this.name = name,
+        this.position = position;
+    }
+    singIn(){
+        console.log(this.name + '打卡上班');
+    }
+
+    get info(){
+        return this.name + ' ' + this.position;
+    }
+
+    set info(info) {
+        let [name, position] = info.split(" ");
+        this.name = name,
+        this.position = position;
+    }
+}
+
+var emp = new Employee10('峰华', '前端工程师');
+console.log(emp); // Employee10 {name: "峰华", position: "前端工程师"}
+/*
+name: "峰华"
+position: "前端工程师"
+__proto__:
+    constructor: class Employee10
+__proto__: Object
+*/
+
+
+/**
+ * 2.成员方法
+ */
+emp.singIn(); // index.js:1354 峰华打卡上班
+console.log(emp.position); //index.js:1373 前端工程师
+ 
+console.log(emp.info); // index.js:1385 峰华 前端工程师
+
+emp.info = '李四 后端';
+console.log(emp.info); // ;index.js:1388 李四 后端
+console.log(emp.name); // 李四
+console.log(emp.position); // 后端
+
+/**
+ * 3、实现继承
+ */
+
+class Manager1 extends Employee10 { //可以用一个 super 代表父类自身
+    constructor(name, position, dept){
+        super(name, position); // 调用父类的构造函数初始化
+        this.dept = dept;
+    }
+    //重写交类的singIn方法
+    singIn(){
+        super.singIn(); // 调用父类的方法
+        console.log("额外信息：王经理打卡！");
+    }
+}
+
+var manager1 = new Manager1('王五', '经理', '技术部');
+console.log(manager1); // index.js:1401 Manager1 {name: "王五", position: "经理"}
+manager1.singIn(); // index.js:1354 王五打卡上班
+manager1.dept = '技术部';
+console.log(manager1); // Manager1 {name: "王五", position: "经理", dept: "技术部"}
+
+manager1.singIn();
+/**
+ * 
+ 王五打卡上班
+ 额外信息： 王经理打卡！
+ */
+
+ /**
+  * 4.成员变量 （新，还未正式发布，只有部分浏览器支持）
+  */
+
+class Employee11 {
+    dept = "";
+    constructor(name){ // 这里的构造函数 是为了初始化时侯进行一些逻辑处理。
+        this.name = "员工姓名：" + name; 
+    }
+}
+
+var emp = new Employee11('峰华');
+console.log(emp); // index.js:1430 Employee11 {dept: ""}
+emp.dept = '技术部';
+console.log(emp); // index.js:1432 Employee11 {dept: "技术部"}
+
+ /**
+  * 5.静态成员变量 （新，还未正式发布，只有部分浏览器支持）
+  */
+
+class Page { // 中能通过类名来访问他。防止变量作用域冲突
+    static count =0;
+    static increaseViewCount(){
+        Page.count++;
+    }
+}
+
+Page.count++;
+console.log(Page.count); // 1
+Page.increaseViewCount();
+console.log(Page.count); // 2
+
+/*第八章 字符串******************************************************************************************************/
 

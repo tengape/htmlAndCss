@@ -1451,4 +1451,103 @@ Page.increaseViewCount();
 console.log(Page.count); // 2
 
 /*第八章 字符串******************************************************************************************************/
+/**
+ * 1、字符串定义与转义
+ */
+console.clear();
+var str = "hello";
+console.log(str); //index.js:1459 hello
 
+var str2 = new String('你好'); // 用构造函数创建字符串
+console.log(str2); // index.js:1462 String {"你好"}
+console.log(str2[0]); // 你
+ 
+
+// 转义字符 \  \n 换行 \\ 反斜杠 \t tab 
+str = "他说：\n\"我们出去\\玩吧！\"";
+console.log(str); // index.js:1468 他说："我们出\去玩吧！"
+// unicode 字符
+console.log("\u1010"); // index.js:1470 တ
+console.log("\u4310"); // index.js:1471 䌐
+
+/**
+ * 2、字符串的遍历
+ */
+console.clear();
+
+for(let i =0; i< str.length; i++) {
+    console.log(str.charAt(i)); // 就可以打印出每一个字符
+}
+
+for(let c of str){
+    console.log(c); // 就可以打印出每一个字符
+}
+
+/**
+ * 3、字符串裁切
+ */
+console.clear();
+var str = "This is a long string.....";
+console.log(str.slice(0, 4)); // index.js:1491 This
+console.log(str.slice(4)); // index.js:1492  is a long string.....
+console.log(str.slice(0, -1)); // index.js:1493 This is a long string.... 少了一个点
+console.log(str.slice(-6, -1)); //  index.js:1494 g....
+console.log(str.slice(4, 1)); // 开始大于结束，返回是一个空值
+
+console.log(str.substring(0, 4)); // index.js:1497 This
+console.log(str.substring(4)); // index.js:1492  is a long string.....
+console.log(str.substring(0, -1)); // 空，不能接收负数
+console.log(str.substring(-6, -1)); //  空，不能接收负数
+console.log(str.substring(4, 1)); // 如果开始大于结束，会自动交换变成 substring(1,4) index.js:1501 his 
+
+/**
+ * 4、字符拼接
+ */
+console.clear();
+var str1 = 'hello';
+var str2 = "world";
+
+console.log(str1 + str2); // index.js:1510 helloworld
+console.log(str1.concat(str2)); // helloworld
+/**
+ * 5、大小写转换
+ */
+console.log(str1.toUpperCase()); // index.js:1515 HELLO
+console.log("WORLD".toLocaleLowerCase()); // index.js:1516 world
+/**
+ * 6、去除空格
+ */
+var str = "   hello   world   ";
+console.log(str.trim()); // index.js:1521 hello   world
+
+/**
+ * 7、模板字符串
+ */
+
+ var longStr = `MDN will be in maintenance mode, 
+   Monday December 14, 
+         from 7:00 AM until no later than 5:00 PM Pacific Time 
+ (in UTC, Monday December 14, 3:00 PM until Tuesday December 15, 1:00 AM)`;
+
+console.log(longStr);
+/*
+MDN will be in maintenance mode,
+    Monday December 14,
+    from 7: 00 AM until no later than 5: 00 PM Pacific Time( in UTC, Monday December 14, 3: 00 PM until Tuesday December 15, 1: 00 AM)
+*/
+
+var name = '峰华';
+var str = `你好，${name}`;
+console.log(str); // index.js:1541 你好，峰华
+
+
+function greeting(strings, gender){
+    console.log(gender);
+}
+
+var gender = 'M';
+var result = greeting`你好，峰华${gender}`;
+console.log(result);
+
+
+/*第九章 正则表达式******************************************************************************************************/

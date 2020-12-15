@@ -2027,9 +2027,9 @@ try {
     at fetchData1(index.js: 1990)
     at index.js: 1994(anonymous) @ index.js: 1996
     */
-    console.error(e.name); // index.js:2002 ApiError
-    console.error(e.message); // index.js:2003 404
-    console.error(e.url); // index.js:2032 /post
+    console.error(e.name);      // index.js:2002 ApiError
+    console.error(e.message);   // index.js:2003 404
+    console.error(e.url);       // index.js:2032 /post
 }
 
 /**
@@ -2054,5 +2054,135 @@ try {
 
 /*第十二章 异步******************************************************************************************************/
 /**
- * 1、setTimeout
+ * 1、setTimeout 把一段代码推后执行
  */
+console.clear();
+// console.log("第一行代码！");
+// var timer1 = setTimeout(()=>{
+//     console.log("1秒后执行！");
+// },1000);
+// console.log("第二行代码！");
+
+// setTimeout(() => {
+//     clearTimeout(timer1);
+//     console.log("中断了timer1的执行！");
+// }, 500);
+
+/**
+ * 2、setInTerval 每隔一断时间执行一次回调函数
+ */
+// var interval = setInterval(() => {
+//     let date = new Date;
+//     console.log(`${date.getHours()}:${date.getMinutes()}:${date.getSeconds()}`);
+// }, 1000);
+
+// setTimeout(() => { // 5秒以后执行
+//     clearInterval(interval);
+// }, 0); // 5000
+/**
+ * 3、promise 可以完成自定义异步的操作
+ */
+// var promise = new Promise((resolve, reject) => {
+//     setTimeout(() => {
+//         resolve("执行失败！");
+//     }, 2000);
+// });
+
+// // promise.then(value => console.log(value));
+// promise.catch(error => console.log(error));
+// console.log('在 Promise 之前！');
+
+/**
+ * 3、promise链式操作
+ */
+// new Promise((resolve, reject)=>{
+//     setTimeout(() => {
+//         resolve(1);
+//     }, 1000);
+// }).then(value => {
+//     console.log(value); // 1
+//     throw 'then1异常！';
+//     return value + 10;
+// }).then(value=>{
+//     console.log(value); // 11
+//     return new Promise(resolve => resolve(value + 20));
+// }).then(value=> {
+//     console.log(value);
+// }).catch(error => {
+//     console.log(error);
+// });
+
+/**
+ * 4、多个promise同时执行
+ */
+// var p1 = new Promise(resolve => {
+//     setTimeout(() => {
+//         resolve(1);
+//     }, 1000);
+// });
+
+// var p2 = new Promise(resolve => {
+//     setTimeout(() => {
+//         resolve(2);
+//     }, 2000);
+// });
+
+// var p3 = new Promise(resolve => {
+//     setTimeout(() => {
+//         resolve(3);
+//     }, 500);
+// });
+
+// Promise.all([p1, p2, p3]).then(values => {console.log(values)});
+
+/**
+ * 5、 async &await
+ * async & await 是但是不完全是promise的语法糖
+ * 使用async创建的函数就等于创建了一个Promise
+ * 使用async await的好处是用同步的样式执行异步的代码 比较直观
+ * 
+ */
+async function async1(){
+    // setTimeout(() => {
+    //     console.log("async1执行完毕！");
+    // }, 1000);
+    let result2 = await async2();
+    try { // 可以捕获异常
+        let result3 = await async3(); 
+    }catch(e){
+        console.log(e); //  index.js:2153 执行出错 就可以捕获到异常
+    }
+
+    console.log(result2); // 10
+
+}
+
+
+// 在async 的函数里面可以使用await 来接收另一个async函数的结果
+// await 必须在带有async关键字的函数中使用
+
+async function async2() {
+    return new Promise(resolve => {
+        setTimeout(() => {
+            resolve(10);
+        }, 1000);
+    });
+}
+
+
+async function async3() {
+    return new Promise((resolve,reject) => {
+        setTimeout(() => {
+            // resolve(8);
+            reject('执行出错'); //reject 是抛出异常
+        }, 500);
+    });
+}
+
+
+async1(); // 10
+// console.log(async1()); // index.js:2150 Promise {<fulfilled>: undefined}
+
+
+
+

@@ -1215,7 +1215,7 @@ function savePost(id, title, content) {
     console.log(id, title, content); // index.js:1215 2 "标题" "内容"
 }
 
-savePost(...[2,'标题','内容']);
+savePost(...[2, '标题', '内容']);
 
 /**
  * 13、destructuring&rest
@@ -1226,27 +1226,36 @@ var post = {
     title: '标题1',
     content: '这是内容',
 }
-var {id, title} = post; // 变量的名字必须同对象里面的属性名称保持一至 如果需要别名就必须要冒号
+var {
+    id,
+    title
+} = post; // 变量的名字必须同对象里面的属性名称保持一至 如果需要别名就必须要冒号
 console.log(id, title); // index.js:1230 1 "标题1"
 
-var {id, title: headline} = post;
+var {
+    id,
+    title: headline
+} = post;
 console.log(id, headline); // index.js:1233 1 "标题1"
 
-var {id, title, comments = "没有评论"} = post; // 可以赋予默认值 不存在的属性
+var {
+    id,
+    title,
+    comments = "没有评论"
+} = post; // 可以赋予默认值 不存在的属性
 console.log(comments); // index.js:1236 没有评论
 
 // 数组结构赋值
 
-var [a, b=2] = [1];
+var [a, b = 2] = [1];
 console.log(a, b); // index.js:1241 1 2
 var post2 = {
-    id:2,
-    title:'标题2',
-    content:'这是内容',
-    comments:[
-        {
-            userId:1,
-            comment:'评论1'
+    id: 2,
+    title: '标题2',
+    content: '这是内容',
+    comments: [{
+            userId: 1,
+            comment: '评论1'
         },
         {
             userId: 2,
@@ -1259,18 +1268,27 @@ var post2 = {
     ]
 }
 
-var {comments:[,{comment}]} = post2;
+var {
+    comments: [, {
+        comment
+    }]
+} = post2;
 console.log(comment); // index.js:1263 评论2
 
-function getId(idKey, obj){
-    let {[idKey] :id} =obj;
+function getId(idKey, obj) {
+    let {
+        [idKey]: id
+    } = obj;
     return id;
 }
 console.log(getId("uersId", {
     uersId: 3
 })); // 3
 
-var {comments, ...rest} = post2
+var {
+    comments,
+    ...rest
+} = post2
 console.log(rest); // index.js:1274 {id: 2, title: "标题2", content: "这是内容"}
 function savePostObj({
     id,
@@ -1286,7 +1304,7 @@ savePostObj({
     id: 4,
     title: '标题4',
     content: '内容4',
-    author:'峰华',
+    author: '峰华',
 }); // index.js:1280 4 "标题4" "内容4" index.js:1282 {author: "峰华"}
 
 
@@ -1294,17 +1312,21 @@ savePostObj({
  * 14、值传递与引用传递 对象为地址引用传递，num str 为值传递
  */
 console.clear();
+
 function byReference(arr) {
     arr[0] = 5;
 }
-var array = [1, 2, ,3];
+var array = [1, 2, , 3];
 byReference(array);
 console.log(array); // index.js:1302 (4) [5, 2, empty, 3]
 
-function byReferenceObj(obj){
+function byReferenceObj(obj) {
     obj.title = "标题标题";
 }
-var post = {id:1, title:'标题'}
+var post = {
+    id: 1,
+    title: '标题'
+}
 byReferenceObj(post);
 console.log(post); // index.js:1309 {id: 1, title: "标题标题"}
 
@@ -1312,8 +1334,8 @@ console.log(post); // index.js:1309 {id: 1, title: "标题标题"}
  * 15、call&apply&bind 改变this的指向 this.谁调用指向谁
  */
 var emp = {
-    id:1,
-    name:'峰华',
+    id: 1,
+    name: '峰华',
     // printInfo(){
     //     console.log('员工姓名：' + this.name);
     // },
@@ -1327,17 +1349,17 @@ var emp = {
 // emp.printInfo(); //员工姓名：峰华
 // emp.department.printInfo(); // index.js:1323 部门名称：技术部
 
-    function printInfo(dep1, dep2, dep3) {
-        console.log('员工姓名：' + this.name, dep1, dep2, dep3);
-    }
-    // printInfo();
-    printInfo.call(emp,'技术部','IT事件部','总裁办公室') // index.js:1331 员工姓名：峰华
+function printInfo(dep1, dep2, dep3) {
+    console.log('员工姓名：' + this.name, dep1, dep2, dep3);
+}
+// printInfo();
+printInfo.call(emp, '技术部', 'IT事件部', '总裁办公室') // index.js:1331 员工姓名：峰华
 
-    printInfo.apply(emp, ['技术部', 'IT事件部', '总裁办公室']); // apply 可以直接传一个对象 + 一个数组
+printInfo.apply(emp, ['技术部', 'IT事件部', '总裁办公室']); // apply 可以直接传一个对象 + 一个数组
 
-    var empPrintInfo = printInfo.bind(emp, '技术部', 'IT事件部', '总裁办公室'); // bind 改变this指向 并 返回一个新函数
+var empPrintInfo = printInfo.bind(emp, '技术部', 'IT事件部', '总裁办公室'); // bind 改变this指向 并 返回一个新函数
 
-    empPrintInfo(); // index.js:1331 员工姓名：峰华 技术部 IT事件部 总裁办公室
+empPrintInfo(); // index.js:1331 员工姓名：峰华 技术部 IT事件部 总裁办公室
 /*第七章 面向对象******************************************************************************************************/
 console.clear();
 /**
@@ -1346,22 +1368,22 @@ console.clear();
 
 class Employee10 {
     //定义构造方法或者是构造函数
-    constructor(name, position){
+    constructor(name, position) {
         this.name = name,
-        this.position = position;
+            this.position = position;
     }
-    singIn(){
+    singIn() {
         console.log(this.name + '打卡上班');
     }
 
-    get info(){
+    get info() {
         return this.name + ' ' + this.position;
     }
 
     set info(info) {
         let [name, position] = info.split(" ");
         this.name = name,
-        this.position = position;
+            this.position = position;
     }
 }
 
@@ -1381,7 +1403,7 @@ __proto__: Object
  */
 emp.singIn(); // index.js:1354 峰华打卡上班
 console.log(emp.position); //index.js:1373 前端工程师
- 
+
 console.log(emp.info); // index.js:1385 峰华 前端工程师
 
 emp.info = '李四 后端';
@@ -1394,12 +1416,12 @@ console.log(emp.position); // 后端
  */
 
 class Manager1 extends Employee10 { //可以用一个 super 代表父类自身
-    constructor(name, position, dept){
+    constructor(name, position, dept) {
         super(name, position); // 调用父类的构造函数初始化
         this.dept = dept;
     }
     //重写交类的singIn方法
-    singIn(){
+    singIn() {
         super.singIn(); // 调用父类的方法
         console.log("额外信息：王经理打卡！");
     }
@@ -1418,14 +1440,14 @@ manager1.singIn();
  额外信息： 王经理打卡！
  */
 
- /**
-  * 4.成员变量 （新，还未正式发布，只有部分浏览器支持）
-  */
+/**
+ * 4.成员变量 （新，还未正式发布，只有部分浏览器支持）
+ */
 
 class Employee11 {
     dept = "";
-    constructor(name){ // 这里的构造函数 是为了初始化时侯进行一些逻辑处理。
-        this.name = "员工姓名：" + name; 
+    constructor(name) { // 这里的构造函数 是为了初始化时侯进行一些逻辑处理。
+        this.name = "员工姓名：" + name;
     }
 }
 
@@ -1434,13 +1456,13 @@ console.log(emp); // index.js:1430 Employee11 {dept: ""}
 emp.dept = '技术部';
 console.log(emp); // index.js:1432 Employee11 {dept: "技术部"}
 
- /**
-  * 5.静态成员变量 （新，还未正式发布，只有部分浏览器支持）
-  */
+/**
+ * 5.静态成员变量 （新，还未正式发布，只有部分浏览器支持）
+ */
 
 class Page { // 中能通过类名来访问他。防止变量作用域冲突
-    static count =0;
-    static increaseViewCount(){
+    static count = 0;
+    static increaseViewCount() {
         Page.count++;
     }
 }
@@ -1461,7 +1483,7 @@ console.log(str); //index.js:1459 hello
 var str2 = new String('你好'); // 用构造函数创建字符串
 console.log(str2); // index.js:1462 String {"你好"}
 console.log(str2[0]); // 你
- 
+
 
 // 转义字符 \  \n 换行 \\ 反斜杠 \t tab 
 str = "他说：\n\"我们出去\\玩吧！\"";
@@ -1475,11 +1497,11 @@ console.log("\u4310"); // index.js:1471 䌐
  */
 console.clear();
 
-for(let i =0; i< str.length; i++) {
+for (let i = 0; i < str.length; i++) {
     console.log(str.charAt(i)); // 就可以打印出每一个字符
 }
 
-for(let c of str){
+for (let c of str) {
     console.log(c); // 就可以打印出每一个字符
 }
 
@@ -1524,7 +1546,7 @@ console.log(str.trim()); // index.js:1521 hello   world
  * 7、模板字符串
  */
 
- var longStr = `MDN will be in maintenance mode, 
+var longStr = `MDN will be in maintenance mode, 
    Monday December 14, 
          from 7:00 AM until no later than 5:00 PM Pacific Time 
  (in UTC, Monday December 14, 3:00 PM until Tuesday December 15, 1:00 AM)`;
@@ -1541,12 +1563,12 @@ var str = `你好，${name}`;
 console.log(str); // index.js:1541 你好，峰华
 
 
-function greeting(strings, gender){
+function greeting(strings, gender) {
     console.log(gender);
 }
 
 var gender = 'M';
-var result = greeting`你好，峰华${gender}`;
+var result = greeting `你好，峰华${gender}`;
 console.log(result);
 
 
@@ -1557,8 +1579,8 @@ console.clear();
  * 1、创建正则表达式
  */
 var str = "where when what";
-var re = /wh/g;                          // 正则字面值 // g代表全局搜索
-var re2 = new RegExp("wh");             // 正则表达式对象的方式
+var re = /wh/g; // 正则字面值 // g代表全局搜索
+var re2 = new RegExp("wh"); // 正则表达式对象的方式
 
 console.log(re.exec(str)); // "wh", index: 0, input: "where when what", groups: undefined]
 console.log(re.test(str)); // index.js:1564 true
@@ -1687,7 +1709,7 @@ var str = "Tish 1is 2an 3apple";
 console.log(str.replace("Tish", "This")); // index.js:1687 This is an apple
 console.log(str.replace(/\d+/g, "")); // index.js:1688 Tish is an apple
 
-var html= `<span>hello</span><div>word</div>`;
+var html = `<span>hello</span><div>word</div>`;
 console.log(html.replace(/<[^>]*>([^<>]*)<\/[^>]*>/g, '$1')); // index.js:1691 helloword
 
 /**
@@ -1717,7 +1739,7 @@ console.log(Number.isNaN(num)); // index.js:1715 true
 var num = 12.33645;
 var numStr = num.toFixed(2);
 console.log(numStr);
-console.log(typeof(numStr)); // string
+console.log(typeof (numStr)); // string
 console.log(Number.MAX_SAFE_INTEGER); //  index.js:1721 9007199254740991
 console.log(Number.POSITIVE_INFINITY); // index.js:1722 Infinity
 
@@ -1780,15 +1802,15 @@ var postJSON = `{
 console.log(JSON.parse(postJSON)); // 把JSON字符串解析成js对象 {id: 1, title: "标题", comments: Array(2), published: true, author: null}
 
 var person = {
-    id : 1,
-    name : '峰华',
-    skills:["React", "java"]
+    id: 1,
+    name: '峰华',
+    skills: ["React", "java"]
 }
 
 console.log(person); // index.js:1788 {id: 1, name: "峰华", skills: Array(2)}
 
 console.log(JSON.stringify(person)); // 对象转成json {"id":1,"name":"峰华","skills":["React","java"]}
-console.log(JSON.stringify(person, null ,2)); // 也支持缩进
+console.log(JSON.stringify(person, null, 2)); // 也支持缩进
 /*
 
 {
@@ -1821,13 +1843,13 @@ console.log(JSON.parse(comments)); // index.js:1816 (2) [{…}, {…}]
  * 5、set 是一个没有重复元素的集合
  */
 
- console.clear();
+console.clear();
 
- var set = new Set();
- set.add(1);
- set.add(3);
- set.add(5);
- console.log(set); // Set(3) {1, 3, 5}
+var set = new Set();
+set.add(1);
+set.add(3);
+set.add(5);
+console.log(set); // Set(3) {1, 3, 5}
 
 set.add(3)
 console.log(set); // index.js:1833 Set(3) {1, 3, 5} 不能添加重复的元素
@@ -1849,8 +1871,12 @@ console.log(set); // index.js:1847 Set(2) {1, 5}
 set.clear();
 console.log(set); // index.js:1850 Set(0) {}
 // set 也可以添加对象，但同一对象指的是指向同一内存地址，而不是同一内容
-var obj1 = {id:1};
-var obj2 = {id:1};
+var obj1 = {
+    id: 1
+};
+var obj2 = {
+    id: 1
+};
 set.add(obj1);
 set.add(obj2);
 
@@ -1862,8 +1888,10 @@ console.log(set); // index.js:1857 Set(2) {{…}, {…}}
 
 var map = new Map();
 
-var objKey = {key:2 }
-map.set(1,'值1');
+var objKey = {
+    key: 2
+}
+map.set(1, '值1');
 map.set(objKey, '值2');
 map.set("key 3", '值3');
 console.log(map); // Map(3) {1 => "值1", {…} => "值2", "key 3" => "值3"}
@@ -1874,7 +1902,7 @@ console.log(map.get(objKey)); // index.js:1872 值2
 console.log(map.has("key 3")); // index.js:1874 true
 
 map.forEach((key, value) => {
-    console.log(key,value);
+    console.log(key, value);
 });
 /**
 值1 1
@@ -1888,7 +1916,7 @@ var iterator = map.entries(); //生成一个迭代器
 console.log(iterator); // MapIterator {1 => "值1", {…} => "值2", "key 3" => "值3"}
 console.log(iterator.next().value); // index.js:1889 (2) [1, "值1"]
 console.log(iterator.next()); // console.log(iterator.next().value); // index.js:1889 (2) [1, "值1"]
-for(let [key ,value] of map){
+for (let [key, value] of map) {
     console.log(key, value);
 }
 
@@ -1899,3 +1927,132 @@ console.log(map); // index.js:1896 Map(2) {{…} => "值2", "key 3" => "值3"}
 
 /*第十一章 异常******************************************************************************************************/
 console.clear();
+/**
+ * 1、异常介绍
+ */
+//console.log(l);
+/**
+ * 
+ * index.js: 1905 Uncaught ReferenceError: l is not defined
+ at index.js: 1905(anonymous) @ index.js: 1905
+ */
+var emp = undefined;
+// console.log(emp.name);
+
+/**
+ * 
+ * index.js: 1912 Uncaught TypeError: Cannot read property 'name' of undefined
+ at index.js: 1912
+ */
+
+/**
+ * 2、捕获异常
+ * try{}catch{}
+ */
+
+try {
+    var emp = undefined;
+    console.log(emp.name);
+} catch (err) {
+    console.error(err);
+    console.error('错误已处理');
+    /**
+     * TypeError: Cannot read property 'name' of undefined
+     */
+} finally { // finally 不管有没有异常总会执行
+    console.log("总会执行"); // index.js:1939 这行会执行
+}
+
+
+console.log('这行会执行'); // index.js:1935 这行会执行
+
+/**
+ * 3、throw 抛出异常
+ */
+function fetchData() {
+    console.log("获取数据....");
+    throw '404'; // index.js:1939 这行会执行 自定义抛出异常
+}
+
+try {
+    fetchData();
+}catch(e){
+    if(e === '404'){
+        console.error('未查询到数据！'); // index.js:1981 未查询到数据！
+    }
+}
+/**
+ * 4、Error对象
+ */
+
+ function fetchData1() {
+     console.log("获取数据....");
+     throw new Error("404");
+ }
+
+ try {
+     fetchData1();
+ } catch (e) {
+     console.error(e);
+     /*
+     index.js: 1996 Error: 404
+     at fetchData1(index.js: 1990)
+     at index.js: 1994(anonymous) @ index.js: 1996
+     */
+    console.error(e.name); // index.js:2002 Error
+    console.error(e.message); // index.js:2003 404
+ }
+
+ // 自定义 Error
+ class ApiError extends Error {
+     constructor(url, ...params){
+         super(...params);
+         this.url = url;
+         this.name = "ApiError";
+     }
+ }
+
+
+ function fetchData2() {
+     console.log("获取数据....");
+     throw new ApiError('/post','404');
+ }
+
+try {
+    fetchData2();
+} catch (e) {
+    console.error(e);
+    /*
+    index.js: 1996 Error: 404
+    at fetchData1(index.js: 1990)
+    at index.js: 1994(anonymous) @ index.js: 1996
+    */
+    console.error(e.name); // index.js:2002 ApiError
+    console.error(e.message); // index.js:2003 404
+    console.error(e.url); // index.js:2032 /post
+}
+
+/**
+ * 5、捕获多个异常
+ */
+  console.clear();
+  function fetchData3() {
+      console.log("获取数据....");
+      //console.log(v);
+      throw new ApiError('/post', '404');
+  }
+
+  try {
+      fetchData3();
+  } catch (e) {
+      if (e instanceof ReferenceError) {
+          console.log("程序异常..."); // index.js:2049 程序异常...
+      }else if (e instanceof ApiError) {
+          console.log("API 异常"); // API 异常
+      }
+  }
+
+/*第十二章 异步******************************************************************************************************/
+/**
+ * 1、setTimeout
+ */

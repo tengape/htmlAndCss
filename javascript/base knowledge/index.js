@@ -1551,3 +1551,351 @@ console.log(result);
 
 
 /*第九章 正则表达式******************************************************************************************************/
+
+console.clear();
+/**
+ * 1、创建正则表达式
+ */
+var str = "where when what";
+var re = /wh/g;                          // 正则字面值 // g代表全局搜索
+var re2 = new RegExp("wh");             // 正则表达式对象的方式
+
+console.log(re.exec(str)); // "wh", index: 0, input: "where when what", groups: undefined]
+console.log(re.test(str)); // index.js:1564 true
+
+console.log(re2.exec(str)); // ["wh", index: 0, input: "where when what", groups: undefined]
+console.log(re2.test(str)); // index.js:1567 true
+console.clear();
+console.log(re.exec(str)); // ["wh", index: 11, input: "where when what", groups: undefined]
+console.log(re.exec(str)); // index.js:1570 null
+
+/**
+ * 2、字符匹配
+ * test 判断匹配的字符是否存在
+ */
+var str = `This str contains 123 
+CAPITALIZED letters and _-&^% symbols`;
+
+console.log(/T/.test(str)); //index.js:1578 true
+console.log(/This/.test(str)); //index.js:1578 true
+console.log(/Thiss/.test(str)); //index.js:1578 fase
+console.log(/12/.test(str)); //index.js:1578 true
+console.log(/1234/.test(str)); //index.js:1578 fase
+console.log(/_-&/.test(str)); //index.js:1578 true
+
+/**
+ * 3、特殊字符匹配
+ * match 会把匹配到的结果返回回来
+ * .号代表任意字符
+ * \d 数字0-9
+ * \w [A-Z][a-z][0-9]_
+ * \s 空格，换行符
+ */
+console.log(str.match(/Th.s/g)); // index.js:1591 ["This"]
+console.log(str.match(/1.3/g)); // index.js:1592 ["123"]
+
+console.log(str.match(/\d/g)); // index.js:1595 (3) ["1", "2", "3"]
+console.log(str.match(/\w/g)); // ["T", "h", "i", "s", "s", "t", "r", "c", "o", "n", "t", "a", "i", "n", "s", "1", "2", "3", "C", "A", "P", "I", "T", "A", "L", "I", "Z", "E", "D", "l", "e", "t", "t", "e", "r", "s", "a", "n", "d", "_", "s", "y", "m", "b", "o", "l", "s"]
+console.log(str.match(/\s/g)); // [" ", " ", " ", " ", "↵", " ", " ", " ", " "]
+console.log("你好".match(/\u4f60/g)); // index.js:1600 ["你"]
+
+/**
+ * 4、匹配次数
+ * * 代表多次或者0次
+ * + 匹配1次或者多次
+ * ? 匹配1次或者0次
+ * {} 可以精确匹配出现了多少次
+ */
+console.clear();
+console.log(str.match(/This.*/g)); //index.js:1607 ["This str contains 123 "]
+console.log(str.match(/t+/g)); // ["t", "t", "tt"] 
+console.log(str.match(/t?/g)); // ["", "", "", "", "", "", "t", "", "", "", "", "", "t", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "t", "t", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", ""]
+console.log(str.match(/t{2}/g)); // index.js:1613 ["tt"];
+console.log(str.match(/\d{1,3}/g)); // index.js:1614 ["123"]
+console.log(str.match(/\d{1,}/g)); // index.js:1614 ["123"] 代表只少出现1次以上
+
+/**
+ * 5、区间、逻辑和界定符
+ * [] 中包含的任意字符
+ * ^ 取反
+ * | 或
+ * $ 结尾
+ * \b 边界
+ */
+console.clear();
+console.log(str.match(/[abc]/g)); // index.js:1621 (4) ["c", "a", "a", "b"]
+console.log(str.match(/[a-z]/g)); // ["h", "i", "s", "s", "t", "r", "c", "o", "n", "t", "a", "i", "n", "s", "l", "e", "t", "t", "e", "r", "s", "a", "n", "d", "s", "y", "m", "b", "o", "l", "s"]
+console.log(str.match(/[A-Z]/g)); // ["T", "C", "A", "P", "I", "T", "A", "L", "I", "Z", "E", "D"]
+console.log(str.match(/[0-9]/g)); // index.js:1626 (3) ["1", "2", "3"]
+console.log(str.match(/[^0-9]/g)); //  ["T", "h", "i", "s", " ", "s", "t", "r", " ", "c", "o", "n", "t", "a", "i", "n", "s", " ", " ", "↵", "C", "A", "P", "I", "T", "A", "L", "I", "Z", "E", "D", " ", "l", "e", "t", "t", "e", "r", "s", " ", "a", "n", "d", " ", "_", "-", "&", "^", "%", " ", "s", "y", "m", "b", "o", "l", "s"]
+
+console.log(str.match(/[\-]/g)); //  index.js:1629 ["-"]
+console.log(str.match(/[\-_&\^]/g)); //  index.js:1631 (4) ["_", "-", "&", "^"]
+console.log(str.match(/This|contains/g)); //  index.js:1632 (2) ["This", "contains"]
+
+var str = "this athata this and that";
+console.log(str.match(/^this/g)); // index.js:1635 ["this"] 匹配开头的this 第一个
+console.log(str.match(/that$/g)); // index.js:1638 ["that"] 结尾
+console.log(str.match(/\bthat\b/g)); // index.js:1639 ["that"] 边界
+
+/**
+ * 6、分组
+ * () 对模式进行分组
+ */
+
+console.clear();
+var str = `this that this and that`;
+
+console.log(/(th).*(th)/.exec(str));
+/*
+
+(3)["this that this and th", "th", "th", index: 0, input: "this that this and that", groups: undefined] 0: "this that this and th"
+1: "th"
+2: "th"
+groups: undefinedindex: 0 input: "this that this and that"
+length: 3 __proto__: Array(0)
+
+*/
+var str = `aaab abb cddaa`;
+console.log(str.match(/(aa){2}/g));
+
+
+/**
+ * 7、常用正则表达式
+ */
+var mobileRe = /^1[3-9]\d{9}/g
+console.log(mobileRe.test('13818886666')); // index.js:1667 true
+var emailRe = /^([a-zA-Z0-9_\-\.]+)@([a-zA-Z0-9_\-\.]+)\.([a-zA-Z]{2,5})$/g
+
+console.log(emailRe.test('glen.cn@163.com')); //index.js:1669 true
+console.log(emailRe.test('glen.cn@163.commmmmm')); //index.js:1670 false
+
+
+var usernameRe = /^[a-zA-Z][a-zA-Z0-9_]{5,14}$/g;
+console.log(usernameRe.test("abc")); // index.js:1675 false
+console.log(usernameRe.test("$aaa")); // index.js:1675 false
+console.log(usernameRe.test("abc0_123a")); // index.js:1675 true
+console.log(usernameRe.test("A52222222222")); // index.js:1675 false
+
+
+/**
+ * 8、字符串替换
+ */
+console.clear();
+
+var str = "Tish 1is 2an 3apple";
+console.log(str.replace("Tish", "This")); // index.js:1687 This is an apple
+console.log(str.replace(/\d+/g, "")); // index.js:1688 Tish is an apple
+
+var html= `<span>hello</span><div>word</div>`;
+console.log(html.replace(/<[^>]*>([^<>]*)<\/[^>]*>/g, '$1')); // index.js:1691 helloword
+
+/**
+ * 9、字符串分隔
+ */
+var tags = "thml, css, javascript";
+console.log(tags.split(",")); // index.js:1697 (3) ["thml", " css", " javascript"]
+var str = "This | is , an & apple";
+console.log(str.split(/\W+/g)); // index.js:1699 (4) ["This", "is", "an", "apple"]
+
+/*第十章 内置对象******************************************************************************************************/
+/**
+ * 1、Number
+ */
+var strNum = "15";
+var num = Number.parseInt(strNum);
+console.log(num);
+console.log(strNum);
+
+console.log(Number.parseFloat("12.34"));
+var strNum = 'abc';
+var num = parseInt(strNum);
+console.log(num); // index.js:1713 NaN
+console.log(typeof num); // index.js:1713 number
+console.log(Number.isNaN(num)); // index.js:1715 true
+
+var num = 12.33645;
+var numStr = num.toFixed(2);
+console.log(numStr);
+console.log(typeof(numStr)); // string
+console.log(Number.MAX_SAFE_INTEGER); //  index.js:1721 9007199254740991
+console.log(Number.POSITIVE_INFINITY); // index.js:1722 Infinity
+
+/**
+ * 2、Math
+ */
+console.clear();
+console.log(Math.PI); // index.js:1728 3.141592653589793
+console.log(Math.abs(-6)); // 6
+console.log(Math.sin(Math.PI / 2)); //1
+console.log(Math.floor(2.98)); // 2 向下取整，不管小数位后面是什么。 都去掉
+console.log(Math.ceil(3.1)); // 4 向上取整，不管小数位后碳是什么，都加1
+console.log(Math.pow(10, 3)); // 10的3次方 index.js:1733 1000
+console.log(Math.trunc(2.945)); // 2  直接把小数点后面的去掉
+console.log(Math.random()); // index.js:1735 0.28598146597804663 反回0-1之间的小数
+
+/**
+ * 3、Date
+ */
+console.clear();
+
+var date = new Date();
+console.log(date); // Tue Dec 15 2020 11:11:47 GMT+0800 (中国标准时间)
+console.log(date.getFullYear()); // index.js:1744 2020
+console.log(date.getMonth()); // index.js:1744 11
+console.log(date.getDay()); // index.js:1744 2 周几
+console.log(date.getDate()); // index.js:1744 2 15 一家月的第几天
+console.log(date.getHours()); // index.js:1744 11 点
+console.log(date.getDay()); // index.js:1744 2 周几
+console.log(date.getSeconds()); // index.js:1744 0 第多少秒
+console.log(date.getTime()); // index.js:1744 index.js:1751 1608002058503 时间戳
+console.log(date.toLocaleDateString()); // index.js:1752 2020/12/15
+
+date.setFullYear(2022);
+console.log(date.toLocaleDateString()); // index.js:1755 2022/12/15 
+date.setTime(1608002131495);
+console.log(date.toLocaleDateString()); //  index.js:1757 2020/12/15
+
+/**
+ * 4、JSON对象介绍
+ */
+
+var postJSON = `{
+    "id":1,
+    "title":"标题",
+    "comments":[
+        {
+            "userId":1,
+            "comment":"评论1"
+        },
+        {
+            "userId": 2,
+            "comment": "评论2"
+        }
+    ],
+    "published":true,
+    "author":null
+}`
+
+console.log(JSON.parse(postJSON)); // 把JSON字符串解析成js对象 {id: 1, title: "标题", comments: Array(2), published: true, author: null}
+
+var person = {
+    id : 1,
+    name : '峰华',
+    skills:["React", "java"]
+}
+
+console.log(person); // index.js:1788 {id: 1, name: "峰华", skills: Array(2)}
+
+console.log(JSON.stringify(person)); // 对象转成json {"id":1,"name":"峰华","skills":["React","java"]}
+console.log(JSON.stringify(person, null ,2)); // 也支持缩进
+/*
+
+{
+    "id": 1,
+    "name": "峰华",
+    "skills": [
+        "React",
+        "java"
+    ]
+}
+*/
+// json 最顶层也可以是个数组
+
+var comments = `[
+        {
+            "userId":1,
+            "comment":"评论1"
+        },
+        {
+            "userId": 2,
+            "comment": "评论2"
+        }
+    ]`;
+
+console.log(JSON.parse(comments)); // index.js:1816 (2) [{…}, {…}]
+
+
+
+/**
+ * 5、set 是一个没有重复元素的集合
+ */
+
+ console.clear();
+
+ var set = new Set();
+ set.add(1);
+ set.add(3);
+ set.add(5);
+ console.log(set); // Set(3) {1, 3, 5}
+
+set.add(3)
+console.log(set); // index.js:1833 Set(3) {1, 3, 5} 不能添加重复的元素
+
+
+console.log(set.has(3)); // index.js:1836 true 判断集合里是否包含元素
+console.log(set.has(4)); // index.js:1837 false
+
+//遍历
+
+set.forEach(value => {
+    console.log(value);
+});
+
+//删除
+set.delete(3);
+console.log(set); // index.js:1847 Set(2) {1, 5}
+// 清空
+set.clear();
+console.log(set); // index.js:1850 Set(0) {}
+// set 也可以添加对象，但同一对象指的是指向同一内存地址，而不是同一内容
+var obj1 = {id:1};
+var obj2 = {id:1};
+set.add(obj1);
+set.add(obj2);
+
+console.log(set); // index.js:1857 Set(2) {{…}, {…}}
+
+/**
+ * 5、map 是一组键值对的数据结构，不过Map的key和value可以任意数据类型
+ */
+
+var map = new Map();
+
+var objKey = {key:2 }
+map.set(1,'值1');
+map.set(objKey, '值2');
+map.set("key 3", '值3');
+console.log(map); // Map(3) {1 => "值1", {…} => "值2", "key 3" => "值3"}
+
+console.log(map.get(1)); // index.js:1869 值1
+console.log(map.get(objKey)); // index.js:1872 值2
+
+console.log(map.has("key 3")); // index.js:1874 true
+
+map.forEach((key, value) => {
+    console.log(key,value);
+});
+/**
+值1 1
+ index.js: 1877 值2 {
+     key: 2
+ }
+ index.js: 1877 值3 key 3
+ */
+
+var iterator = map.entries(); //生成一个迭代器
+console.log(iterator); // MapIterator {1 => "值1", {…} => "值2", "key 3" => "值3"}
+console.log(iterator.next().value); // index.js:1889 (2) [1, "值1"]
+console.log(iterator.next()); // console.log(iterator.next().value); // index.js:1889 (2) [1, "值1"]
+for(let [key ,value] of map){
+    console.log(key, value);
+}
+
+map.delete(1);
+console.log(map); // index.js:1896 Map(2) {{…} => "值2", "key 3" => "值3"}
+
+
+
+/*第十一章 异常******************************************************************************************************/
+console.clear();

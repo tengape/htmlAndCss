@@ -1,4 +1,44 @@
+<!-- TOC -->
+
+- [mysql 学习](#mysql-学习)
+  - [数据库相关概念](#数据库相关概念)
+  - [配置文件 my.ini](#配置文件-myini)
+  - [dos命令起停mysql服务](#dos命令起停mysql服务)
+  - [dos命令登录数据库](#dos命令登录数据库)
+  - [mysql常见命令](#mysql常见命令)
+  - [SQL基础](#sql基础)
+    - [1、DQL语言学习](#1dql语言学习)
+      - [1.1、基础查询](#11基础查询)
+      - [1.2、条件查询](#12条件查询)
+      - [1.3、排序查询](#13排序查询)
+      - [1.4、常见查询](#14常见查询)
+      - [1.5、常见函数](#15常见函数)
+      - [1.6、分组函数](#16分组函数)
+      - [1.7、分组查询](#17分组查询)
+      - [1.8、连接查询](#18连接查询)
+      - [1.9、子查询](#19子查询)
+      - [1.10、分页查询](#110分页查询)
+      - [1.11、union联合查询](#111union联合查询)
+    - [2、DML语言的学习](#2dml语言的学习)
+      - [2.1、插入语句](#21插入语句)
+      - [2.2、修改语句](#22修改语句)
+      - [2.3、删除语句](#23删除语句)
+    - [3、DDL语言的学习](#3ddl语言的学习)
+      - [3.1、库和表的管理](#31库和表的管理)
+      - [3.2、常见数据类型介绍](#32常见数据类型介绍)
+      - [3.3、常见约束](#33常见约束)
+    - [4、TCL语言的学习](#4tcl语言的学习)
+      - [4.1、事务和事务处理](#41事务和事务处理)
+    - [5、DCL语言的学习](#5dcl语言的学习)
+    - [5、视图的讲解](#5视图的讲解)
+    - [6、存储过程和函数](#6存储过程和函数)
+    - [7、流程控制结构](#7流程控制结构)
+
+<!-- /TOC -->
+
+<a id="markdown-mysql-学习" name="mysql-学习"></a>
 # mysql 学习
+<a id="markdown-数据库相关概念" name="数据库相关概念"></a>
 ## 数据库相关概念
 ```
     DB:数据库（database）:存储数据的“仓库”。它保存了一系列有组织的数据。
@@ -6,6 +46,7 @@
     SQL:结构化查询语言（Structure Query Language） 专门用来与数据库通信的语言。
         1、不是某个特定数据库供应商专有语言，几乎所有DBMS都支持SQL
 ```
+<a id="markdown-配置文件-myini" name="配置文件-myini"></a>
 ## 配置文件 my.ini
 ```
     1、port 端口
@@ -14,10 +55,12 @@
     4、character-set-server 字符集设置
     5、default-storage-engine 默认数据库引擎
 ```
+<a id="markdown-dos命令起停mysql服务" name="dos命令起停mysql服务"></a>
 ## dos命令起停mysql服务
 *   net stop mysql0815
 *   net start mysql0815
 
+<a id="markdown-dos命令登录数据库" name="dos命令登录数据库"></a>
 ## dos命令登录数据库
 ```
     mysql [-h主机名 -p端口号] -u用户名 -p密码
@@ -26,6 +69,7 @@
     mysql -u root -pvertrigo 本机3306端口可以简写
     退出:exit
 ```
+<a id="markdown-mysql常见命令" name="mysql常见命令"></a>
 ## mysql常见命令
 ```
     show databases; 显示所有数据
@@ -51,6 +95,7 @@
         B、单行注释：-- 注释文字
         C、多行注释： /* 注释文字 */
 ```
+<a id="markdown-sql基础" name="sql基础"></a>
 ## SQL基础
 ```
     SQL主要分成四部分：
@@ -59,11 +104,13 @@
     （3）数据控制。包括对基本表和视图的授权，完整性规则的描述，事务控制等内容。
     （4）嵌入式SQL的使用规定。涉及到SQL语句嵌入在宿主语言程序中使用的规则。
 ```
+<a id="markdown-1dql语言学习" name="1dql语言学习"></a>
 ### 1、DQL语言学习
 ```
     DQL: Data Query languge
     主要是查询的，主要的关键字就是select
 ```
+<a id="markdown-11基础查询" name="11基础查询"></a>
 #### 1.1、基础查询
 ```
     语法：
@@ -130,32 +177,51 @@
     -- last_name,first_name,commission_pct 使用concat链接且用逗号隔开 其中commission_pct中有可能有null ,null 同任何字符连接都等于null 所以必须使用 IFNULL判断
     -- SELECT CONCAT(`last_name`,',',`first_name`,',',IFNULL(`commission_pct`,0) ) AS out_put FROM employees;  -- K_ing,Steven,0.00
 ```
+<a id="markdown-12条件查询" name="12条件查询"></a>
 #### 1.2、条件查询
+<a id="markdown-13排序查询" name="13排序查询"></a>
 #### 1.3、排序查询
+<a id="markdown-14常见查询" name="14常见查询"></a>
 #### 1.4、常见查询
+<a id="markdown-15常见函数" name="15常见函数"></a>
 #### 1.5、常见函数
+<a id="markdown-16分组函数" name="16分组函数"></a>
 #### 1.6、分组函数
+<a id="markdown-17分组查询" name="17分组查询"></a>
 #### 1.7、分组查询
+<a id="markdown-18连接查询" name="18连接查询"></a>
 #### 1.8、连接查询
+<a id="markdown-19子查询" name="19子查询"></a>
 #### 1.9、子查询
+<a id="markdown-110分页查询" name="110分页查询"></a>
 #### 1.10、分页查询
+<a id="markdown-111union联合查询" name="111union联合查询"></a>
 #### 1.11、union联合查询
+<a id="markdown-2dml语言的学习" name="2dml语言的学习"></a>
 ### 2、DML语言的学习
 ```
     DML: Data Manipulation Language 数据操纵语言
     主要指数据的增删改: delete\update\insert\call
 ```
+<a id="markdown-21插入语句" name="21插入语句"></a>
 #### 2.1、插入语句
+<a id="markdown-22修改语句" name="22修改语句"></a>
 #### 2.2、修改语句
+<a id="markdown-23删除语句" name="23删除语句"></a>
 #### 2.3、删除语句
+<a id="markdown-3ddl语言的学习" name="3ddl语言的学习"></a>
 ### 3、DDL语言的学习
 ```
     DDL:Data Definition Language  数据定义语言
     建库、建表、设置约束等：create\drop\alter
 ```
+<a id="markdown-31库和表的管理" name="31库和表的管理"></a>
 #### 3.1、库和表的管理
+<a id="markdown-32常见数据类型介绍" name="32常见数据类型介绍"></a>
 #### 3.2、常见数据类型介绍
+<a id="markdown-33常见约束" name="33常见约束"></a>
 #### 3.3、常见约束
+<a id="markdown-4tcl语言的学习" name="4tcl语言的学习"></a>
 ### 4、TCL语言的学习
 ```
     TCL:TCL（Transaction Control Language）事务控制语言
@@ -163,15 +229,20 @@
     ROLLBACK  回滚
     SET TRANSACTION
 ```
+<a id="markdown-41事务和事务处理" name="41事务和事务处理"></a>
 #### 4.1、事务和事务处理
+<a id="markdown-5dcl语言的学习" name="5dcl语言的学习"></a>
 ### 5、DCL语言的学习
 ```
     DCL（Data Control Language）数据库控制语言  授权，角色控制等
     GRANT 授权
     REVOKE 取消授权
 ```
+<a id="markdown-5视图的讲解" name="5视图的讲解"></a>
 ### 5、视图的讲解
+<a id="markdown-6存储过程和函数" name="6存储过程和函数"></a>
 ### 6、存储过程和函数
+<a id="markdown-7流程控制结构" name="7流程控制结构"></a>
 ### 7、流程控制结构
 
 

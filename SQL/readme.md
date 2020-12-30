@@ -168,7 +168,9 @@
     -- SELECT CONCAT(`last_name`,',',`first_name`,',',IFNULL(`commission_pct`,0) ) AS out_put FROM employees;  -- K_ing,Steven,0.00
 ```
 #### 1.2、条件查询
+```
 
+```
 #### 1.3、排序查询
 #### 1.4、常见查询
 #### 1.5、常见函数

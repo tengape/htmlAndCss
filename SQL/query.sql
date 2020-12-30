@@ -69,3 +69,10 @@ USE myemployees;
 -- SELECT IFNULL(commission_pct,0) AS 结果, commission_pct FROM employees;
 -- last_name,first_name,commission_pct 使用concat链接且用逗号隔开 其中commission_pct中有可能有null ,null 同任何字符连接都等于null 所以必须使用 IFNULL判断
 -- SELECT CONCAT(`last_name`,',',`first_name`,',',IFNULL(`commission_pct`,0) ) AS out_put FROM employees;  -- K_ing,Steven,0.00
+
+
+--进阶2:条件查寻
+/*
+    语法:
+    select 查询列表 from 表名 where 筛选条件;
+*/

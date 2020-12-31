@@ -14,14 +14,13 @@
       - [综合练习](#综合练习)
       - [复习](#复习-1)
       - [1.3、排序查询](#13排序查询)
-      - [1.4、常见查询](#14常见查询)
-      - [1.5、常见函数](#15常见函数)
-      - [1.6、分组函数](#16分组函数)
-      - [1.7、分组查询](#17分组查询)
-      - [1.8、连接查询](#18连接查询)
-      - [1.9、子查询](#19子查询)
-      - [1.10、分页查询](#110分页查询)
-      - [1.11、union联合查询](#111union联合查询)
+      - [1.4、常见函数](#14常见函数)
+      - [1.5、分组函数](#15分组函数)
+      - [1.6、分组查询](#16分组查询)
+      - [1.7、连接查询](#17连接查询)
+      - [1.8、子查询](#18子查询)
+      - [1.9、分页查询](#19分页查询)
+      - [1.10、union联合查询](#110union联合查询)
     - [2、DML语言的学习](#2dml语言的学习)
       - [2.1、插入语句](#21插入语句)
       - [2.2、修改语句](#22修改语句)
@@ -595,14 +594,149 @@
         LENGTH(email) DESC,
         department_id ASC
 ```
-#### 1.4、常见查询
-#### 1.5、常见函数
-#### 1.6、分组函数
-#### 1.7、分组查询
-#### 1.8、连接查询
-#### 1.9、子查询
-#### 1.10、分页查询
-#### 1.11、union联合查询
+#### 1.4、常见函数
+```
+    #进阶4：常见函数
+    /*
+        概念：类似编程语言当中的方法，将一组逻辑语句封装在方法体中，对外暴露方法名
+        好处：
+            1、隐藏了实现细节
+            2、提高代码的重用性
+        调用：
+            select 函数名(实参列表)
+            [FROM 表]
+        特点：
+            1、叫什么（函数名）
+            2、干什么（函数功能）
+        分类：
+            1、单行函数
+                如：concat、length、ifnull 等
+                A、字符函数
+                B、数学函数
+                C、日期函数
+                D、其他函数【补充】
+                E、流程控制函数【补充】
+            2、分组函数
+                功能：做统计使用，又称为统计函数、聚合函数、组函数
+        
+    */
+    #一、字符函数
+    #1.LENGTH(str) 获取参数值的 字节个数
+    SELECT LENGTH('jonh'); -- 4
+    SELECT LENGTH('张三丰hahaha'); -- 15 1中文占三个字节
+    SHOW VARIABLES LIKE '%char%'; -- character_set_client utf8 获取当前客户端数据编码
+
+    #2.concat 拼接字符串
+    SELECT CONCAT(last_name,'_',first_name) FROM employees; -- K_ing_Steven
+
+    #3.upper、lower
+    SELECT UPPER('john'); -- JOHN
+
+    #示例：将姓变大写、名变小写，然后拼接
+    SELECT CONCAT(UPPER(last_name),'_',LOWER(first_name)) 姓名 FROM employees;
+
+    #4.substr、substring SQL中索引从1开始
+    #截取从指定索引处后面所有字符
+    SELECT SUBSTR('李莫悉爱上了陆展元' ,7) out_put; -- 陆展元
+
+    #截取从指定索引处指定字符长度的字符
+    SELECT SUBSTR('李莫悉爱上了陆展元' ,1,3) out_put; -- 李莫悉
+
+    #案例：姓名中首字符大写，其他字符小写然后用_拼接，显示
+    SELECT CONCAT(UPPER(SUBSTR(last_name,1,1)),'_',LOWER(SUBSTR(last_name,2))) AS 姓名 FROM employees;
+    -- R_ogers
+    -- G_ee
+    -- P_hiltanker
+    -- L_adwig
+    -- S_tiles
+    -- S_eo
+    -- P_atel
+    -- R_ajs
+    -- D_avies
+    -- M_atos
+    -- V_argas
+    -- R_ussell
+    -- P_artners
+
+    #5.INSTR(str,substr) 返回substr 在str 里面的第一次出现的起始索引，如果没有的话就返回0
+    SELECT INSTR('杨不悔爱上了殷六侠','殷六侠') AS out_put ; -- 7
+
+    #6.TRIM([remstr FROM] str) -- 去掉前后空格
+    SELECT LENGTH(TRIM('   张翠山  ')) AS out_put; -- 9
+
+    #指定去掉前后字符
+    SELECT TRIM('a' FROM 'aaaaaaaaa张aaaaaaaaa翠aaaaaaaaa山aaaaaaaaa') AS out_put; -- 张aaaaaaaaa翠aaaaaaaaa山
+
+    #7.LPAD(str,len,padstr)  用指定的字符实现左填充指定的长度
+    SELECT LPAD('殷素素',10,'*') AS out_put; -- *******殷素素
+
+    #8.RPAD(str,len,padstr) 用指定的字符实现右填充指定的长度
+    SELECT RPAD('殷素素',10,'*') AS out_put; -- 殷素素*******
+
+    #9.`REPLACE`(str,from_str,to_str) 替换
+    SELECT REPLACE('张无忌爱上了周芷若','周芷若','赵敏') AS out_put; -- 张无忌爱上了赵敏
+
+
+
+    #二、数学函数
+    #1、round 四舍五入
+    SELECT ROUND(1.65); -- 2
+    SELECT ROUND(1.567,2); -- 1.57 小数点后保留两位
+
+    #2、CEIL(X) 向上取整 返回>=该参数的最小整数
+    SELECT CEIL(1.52); -- 2
+    SELECT CEIL(1.02); -- 2
+    SELECT CEIL(-1.02); -- 1
+
+    #3、floor 向下取整，返回<=该参数的最大整数
+    SELECT FLOOR(9.99); -- 9
+    SELECT FLOOR(-9.99); -- -10
+
+    #4、truncate 截断
+    SELECT TRUNCATE(1.65,1); -- 1.6 
+
+    #MOD 取余
+    -- MOD(a,b) = a-a/b*b
+    SELECT mod(-10,-3); -- -1;
+    -- -10 - -10/-3 * -3 = -1
+
+    SELECT MOD(10,3);  -- 1
+    SELECT 10%3; -- 1
+
+
+    #三、日期函数
+    #1、now返回当前系统时期+时间
+    SELECT NOW(); -- 2020-12-31 18:15:37
+
+    #2、curdate()返回当前系统日期 不含时间
+    SELECT CURDATE(); -- 2020-12-31
+
+    #3、curtime() 返回当前的时间不含时期
+    SELECT CURTIME(); -- 18:17:21
+
+    #4、可以获取指定时期时间的部分，年、月、日、小时、分钟、钞
+    SELECT YEAR(NOW()); -- 2020
+    SELECT YEAR(hiredate) FROM employees;
+
+    SELECT MONTH(NOW()); -- 12
+    SELECT MONTHNAME(NOW()); -- December 代name的都是英文
+    SELECT DAY(NOW()); -- 31
+    SELECT HOUR(NOW()); -- 18
+    SELECT MINUTE(NOW()); -- 21
+    SELECT SECOND(NOW()); -- 45
+
+    #5、str_to_date() 将日期格式的字符转换成指定格式的日期
+    SELECT STR_TO_DATE('2020-09-05','%Y-%m-%d'); -- 2020-09-05
+
+    #6、date_format() 将日期转换成字符
+    SELECT DATE_FORMAT('2020-09-05','%Y年%m月%d日'); -- 2020年09月05日
+```
+#### 1.5、分组函数
+#### 1.6、分组查询
+#### 1.7、连接查询
+#### 1.8、子查询
+#### 1.9、分页查询
+#### 1.10、union联合查询
 ### 2、DML语言的学习
 ```
     DML: Data Manipulation Language 数据操纵语言

@@ -176,3 +176,18 @@ WHERE department_id <> 90;
 --     employees
 -- WHERE 
 --     last_name LIKE '_$_%' ESCAPE '$'; -- 结果也是一样的 ESCAPE 指定转义字符
+-- 2.between adn 
+-- 案例1：查询员工编号在100在120之间的员工信息
+-- SELECT
+--     *
+-- FROM
+--     employees
+-- WHERE
+--     employee_id >=100 AND employee_id <= 120
+
+SELECT
+    *
+FROM
+    employees
+WHERE
+    employee_id  BETWEEN 100 AND  120

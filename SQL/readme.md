@@ -9,7 +9,10 @@
   - [SQL基础](#sql基础)
     - [1、DQL语言学习](#1dql语言学习)
       - [1.1、基础查询](#11基础查询)
+      - [复习](#复习)
       - [1.2、条件查询](#12条件查询)
+      - [综合练习](#综合练习)
+      - [复习](#复习-1)
       - [1.3、排序查询](#13排序查询)
       - [1.4、常见查询](#14常见查询)
       - [1.5、常见函数](#15常见函数)
@@ -167,11 +170,316 @@
     -- last_name,first_name,commission_pct 使用concat链接且用逗号隔开 其中commission_pct中有可能有null ,null 同任何字符连接都等于null 所以必须使用 IFNULL判断
     -- SELECT CONCAT(`last_name`,',',`first_name`,',',IFNULL(`commission_pct`,0) ) AS out_put FROM employees;  -- K_ing,Steven,0.00
 ```
-#### 1.2、条件查询
+#### 复习
+```
+    一、语法
+        select 查询列表
+        from 表名;
+
+    二、特点
+        1、查询列表可以是字段、常量、表达式、函数，也可以是多个
+        2、查询结果一个虚拟表
+
+    三、示例
+        1、查询单个字段
+            select 字段名 from 表名;
+        2、查询多个字段
+            select 字段名,字段名 from 表名;
+        3、查询所有字段
+            select * from 表名;
+        4、查询常量
+            select 常量值
+            注意：字符型和日期型的常量值必须用单引号引起来，数值型不需要
+        5、查询函数
+            select 函数名(实参列表);
+        6、查询表达式
+            select 100/1234;
+        7、起别名 
+            A、AS
+            B、空格
+        8、去重 
+            select distinct 字段名 from 表名; 其中 字段名，只能放一个字段
+            select distinct a, b from 表名; 这样是不可以的。
+        9、+
+            作用：做加法运算
+            select 数值+数值; 直接运算
+            select 字符+数值; 先试图将字符转换成数值，如果转换成功，则继续运算，否刚转换成0，再做运算
+            select null+值，结果都为null;
+        10、【补充】concat函数
+            功能：拼接字符
+            select concat(字符1，字符2，字符3,...)
+        11、【补充】IFNULL 函数
+            功能：判断某字段或表达式是否为null,如果为null 返回指定的值，否则返回原本的值
+            select ifnull(commission_pct, 0) from employees;
+        12、【补充】ISNULL 函数
+            功能：判断某个字段或表达式是否为null，如果是则返回1，返则返回0；
 ```
 
+#### 1.2、条件查询
+```
+    -- 进阶2:条件查寻
+    /*
+        语法:
+        select 查询列表 from 表名 where 筛选条件;
+        分类:
+            1、按条件表达式筛选
+                简单条件运算符： > < = !=或者<> >= <=
+            2、按逻辑表达式筛选
+                作用：用于连接条件表达式
+                逻辑运算符： & || ! (与或非) 
+                and or not SQL推荐使用
+            3、模糊查询
+                LIKE 
+                BETWEEN AND 
+                IN
+                IS NULL
+    */
+
+    -- 1、按条件表达式筛选
+    -- 案例1：查询工资>12000的员工信息
+    -- SELECT * FROM employees WHERE salary > 12000;
+    -- 案例2： 查询部门编号不等 90号的员工和部门编号
+    -- SELECT last_name,department_id FROM employees WHERE department_id != 90;
+    /*
+    建义保用<> 代替 !=
+    SELECT last_name, department_id
+    FROM employees
+    WHERE department_id <> 90;
+    */
+
+
+    -- 2、逻辑表达式筛选 
+    -- 案例1：查询工资在10000到20000之间的员工名、工资及奖金
+    -- SELECT
+    --     last_name,
+    --     salary,
+    --     commission_pct
+    -- FROM
+    --     employees
+    -- WHERE
+    --     salary >= 10000 and salary <= 20000;
+
+    -- 案例2：查询部门编号不是在90到110之间，或者工资高于15000的员工信息
+    -- SELECT
+    --     *
+    -- FROM
+    --     employees
+    -- WHERE
+    --     department_id < 90 OR department_id > 110 OR salary > 15000;
+
+    -- 或者
+
+    -- SELECT
+    --     *
+    -- FROM
+    --     employees
+    -- WHERE
+    --    NOT(department_id >= 90 AND department_id <= 110) OR salary > 15000;
+
+    -- 3、模糊查询
+    /*
+        like
+        特点：
+            1、一般和通配符搭配使用
+                通配符：
+                % 任意多个字符，包含0个字符
+                _ 任意单个字符
+        between and 
+        in
+        is null | is not null
+    */
+    -- 1、LIKE
+    -- 案例1：查询员工名中包含字符a的员工信息
+    -- SELECT
+    --     *
+    -- FROM
+    --     employees
+    -- WHERE
+    --     last_name LIKE '%a%'
+
+    -- 案例2：查询员工名中第三个字符为e,第五个字符为a的员工名和工资
+    -- SELECT
+    --     last_name,
+    --     salary
+    -- FROM
+    --     employees
+    -- WHERE 
+    --     last_name LIKE '__n_l%';
+
+    -- 案例3：查询员工名中第二个字符为_的员工名
+    -- SELECT
+    --     last_name,
+    --     salary
+    -- FROM
+    --     employees
+    -- WHERE 
+    --     last_name LIKE '_\_%'; -- 通过\来转义 也可以通ESCAPE来转义，建义使用ESCAPE 例如
+
+    -- SELECT
+    --     last_name,
+    --     salary
+    -- FROM
+    --     employees
+    -- WHERE 
+    --     last_name LIKE '_$_%' ESCAPE '$'; -- 结果也是一样的 ESCAPE 指定转义字符
+    -- 2.between and
+    /*
+        A、使用between and 可以提高语句的简洁度
+        B、包含临界值 例如 BETWEEN 100 AND 200 实际就包换 100和200 之间的数值
+        C、两个临界值不能调换顺序
+    */
+    -- 案例1：查询员工编号在100在120之间的员工信息
+    -- SELECT
+    --     *
+    -- FROM
+    --     employees
+    -- WHERE
+    --     employee_id >=100 AND employee_id <= 120
+    -- 
+    -- 
+    -- SELECT
+    --     *
+    -- FROM
+    --     employees
+    -- WHERE
+    --     employee_id  BETWEEN 100 AND  120
+    #3 in
+    /*
+        含义：判断某个字段的值是否属于in列表中的某一项
+        特点：
+            A、使用in比使用or提高了语句简便度
+            B、in列表的值类型必须一致或兼容
+    */
+    #案例：查询员工的工种编号是 IT_PROG、AD_VP、AD_PRES中的一个员工名和工程编号
+    -- SELECT
+    -- 	last_name,
+    -- 	job_id
+    -- FROM
+    -- 	employees
+    -- WHERE
+    -- 	job_id IN('IT_PROG','AD_VP','AD_PRES');
+
+    #4、is NULL
+    /*
+        = 或者<>不能用于判断null值
+        is null 或 is not null 可以判断 null 值
+    */
+    #案例1：查询没有奖金的员工名和奖金率
+    SELECT
+        last_name,
+        commission_pct
+    FROM
+        employees
+    WHERE
+        commission_pct IS NULL -- =号不能判断Null值要使用IS NULL
+
+    #案例2：查询有奖金的员工名和奖金率
+    SELECT
+        last_name,
+        commission_pct
+    FROM
+        employees
+    WHERE
+        commission_pct IS NOT NULL -- =号不能判断Null值要使用IS NULL
+
+    #安全等于 <=> 也可以判断 Null 值
+    #案例1：查询没有奖金的员工名和奖金率
+    SELECT
+        last_name,
+        commission_pct
+    FROM
+        employees
+    WHERE
+        commission_pct <=>  NULL 
+
+    #案例2：查询工资为12000的员工信息
+    SELECT
+        last_name,
+        salary
+    FROM
+        employees
+    WHERE
+        salary <=>  12000
+
+    # is null pk <=>
+    -- is null: 仅仅可以判断null值  建义使用这个 
+    -- <=>:即可以判断null值，也可以判断普通数值
+    #案例2：查询员工号为176的员工的姓名和部门号和年薪
+    SELECT
+        last_name,
+        department_id,
+        salary*12*(1+IFNULL(commission_pct,0)) AS 年薪 -- IFNULL 必须有这个，因为同null做运算最终也会等于null
+    FROM
+        employees
+    -- K_ing	90	288000.00
+    -- Kochhar	90	204000.00
+    -- De Haan	90	204000.00
+    -- Hunold	60	108000.00
+    -- Ernst	60	72000.00
+    -- Austin	60	57600.00
+    -- Pataballa	60	57600.00
+
+```
+#### 综合练习
+```
+    #综合练习
+    #1、查询没有奖金、且工资小于18000的salary, last_name
+    SELECT
+        last_name,
+        salary
+    FROM
+        employees
+    WHERE
+        commission_pct IS NULL AND salary < 18000
+
+    #2、查询employees表中，job_id不为 ‘IT’ 或者 工资为12000的员工信息
+    SELECT
+        *
+    FROM
+        employees
+    WHERE 
+        job_id <> 'IT' OR salary = 12000
+
+    #3、查寻部departments表的结构，查询效果如下
+    DESC departments
+    -- department_id	int(4)	NO	PRI		auto_increment
+    -- department_name	varchar(3)	YES			
+    -- manager_id	int(6)	YES			
+    -- location_id	int(4)	YES	MUL		
+
+    #4、查寻部门departments表中涉及到了哪些位置编号
+    SELECT
+        DISTINCT location_id
+    FROM
+        departments
+```
+#### 复习
+```
+    一、语法
+        select 查询列表
+        from 表名
+        where 筛选条件
+
+    二、筛选条件的分类
+        1、简单条件运算符
+            > <> < = != <=> <= >=
+        2、逻辑运算符
+            && and 
+            || or 
+            ! not
+        3、模糊查询
+            like:一般搭配通配符使用，用于判断字符型数值 ,数字型也可以支持。
+                通配符：%任意多个字符，_任意单个字符
+            between and
+            in
+            is null / is not null 用于判断null值
+            is null PK <=>
+                    普通类型的数值    null值    可读性
+            is null    ×              √          √
+            <=>        √              √          ×
 ```
 #### 1.3、排序查询
+
 #### 1.4、常见查询
 #### 1.5、常见函数
 #### 1.6、分组函数

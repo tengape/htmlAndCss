@@ -618,6 +618,44 @@
                 E、流程控制函数【补充】
             2、分组函数
                 功能：做统计使用，又称为统计函数、聚合函数、组函数
+        常见函数总结：
+            字符函数
+                LENGTH(str)
+                CONCAT(str1,str2,...)
+                SUBSTR(str FROM pos FOR len)
+                INSTR(str,substr)
+                TRIM([remstr FROM] str)
+                UPPER(str)
+                LOWER(str)
+                LPAD(str,len,padstr)
+                RPAD(str,len,padstr)
+                REPLACE(str,from_str,to_str)
+            数学函数
+                ROUND(X)
+                CEIL(X)
+                FLOOR(X)
+                TRUNCATE(X,D)
+                MOD
+            日期函数
+                NOW()
+                CURDATE()
+                CURDATE()
+                YEAR()
+                MONTH(date)
+                MONTHNAME(date)
+                DAY
+                HOUR
+                MINUTE(time)
+                SECOND(time)
+                STR_TO_DATE(str,format)
+                DATE_FORMAT(date,format)
+            其他函数
+                VERSION()
+                DATABASE()
+                USER()
+            控制函数
+                IF
+                CASE
         
     */
     #一、字符函数
@@ -728,8 +766,238 @@
     #5、str_to_date() 将日期格式的字符转换成指定格式的日期
     SELECT STR_TO_DATE('2020-09-05','%Y-%m-%d'); -- 2020-09-05
 
+    /*
+        %Y 四位的年份
+        %y 2位的年份
+        %m 月份（01，02......12）
+        %c 月份 (1, 2, 3, 12);
+        %d 日(01,02);;
+        %H 小时(24小时制)
+        %i 分钟(00,01,59)
+        %s 秒(00,01,59)
+    */
+
+    #查询入职日期为 1992-4-3的员工人信息
+    SELECT
+        *
+    FROM
+        employees
+    WHERE
+        hiredate = '1992-04-03'
+
+    SELECT
+        *
+    FROM
+        employees
+    WHERE
+        hiredate = STR_TO_DATE('4-3 1992','%c-%d %Y');
+
+    -- 100	Steven	K_ing	SKING	515.123.4567	AD_PRES	24000			90	1992-04-03 00:00:00
+    -- 101	Neena	Kochhar	NKOCHHAR	515.123.4568	AD_VP	17000		100	90	1992-04-03 00:00:00
+    -- 102	Lex	De Haan	LDEHAAN	515.123.4569	AD_VP	17000		100	90	1992-04-03 00:00:00
+    -- 103	Alexander	Hunold	AHUNOLD	590.423.4567	IT_PROG	9000		102	60	1992-04-03 00:00:00
+    -- 104	Bruce	Ernst	BERNST	590.423.4568	IT_PROG	6000		103	60	1992-04-03 00:00:00
+
+    -- SELECT 
+    -- 	*
+    -- FROM
+    -- 	employees
+    -- WHERE 
+    -- 	hiredate BETWEEN STR_TO_DATE('1998-01-01','%Y-%m-%d') AND STR_TO_DATE('2020-01-01','%Y-%m-%d');
+
     #6、date_format() 将日期转换成字符
     SELECT DATE_FORMAT('2020-09-05','%Y年%m月%d日'); -- 2020年09月05日
+
+    #查询有奖金的员工和入职日期（**月**日 **年）
+    SELECT last_name, DATE_FORMAT(hiredate,'%m月%d日 %y年') AS 入职日期 FROM employees WHERE commission_pct IS NOT NULL;
+
+    -- Russell	12月23日 02年
+    -- Partners	12月23日 02年
+    -- Errazuriz	12月23日 02年
+    -- Cambrault	12月23日 02年
+
+    #四、其他函数
+    SELECT VERSION(); -- 查询版本号
+    SELECT DATABASE(); -- 查询当前数据库
+    SELECT USER(); -- 查询当前用户 root@localhost
+
+    #五、流程控制函数
+    #1、if函数：可以实现 if else 的效果
+    SELECT IF(10>5,'大','小'); -- 大
+    SELECT last_name, commission_pct, IF(commission_pct IS NULL,'没有奖金，哈哈','有奖金，嘻嘻') FROM employees
+
+    -- Rajs		没有奖金，哈哈
+    -- Davies		没有奖金，哈哈
+    -- Matos		没有奖金，哈哈
+    -- Vargas		没有奖金，哈哈
+    -- Russell	0.4	有奖金，嘻嘻
+    -- Partners	0.3	有奖金，嘻嘻
+    -- Errazuriz	0.3	有奖金，嘻嘻
+
+    #2、case函数的使用一，类似于switch case 的效果
+    /*
+        switch(变量或表达式){
+            case 常量1：语句1; break;
+            default:语句n; break;
+        }
+        mysql 中
+        case 要判断的字段或表达式
+        when 常量1 then 要显示的值1或语句1; 如果是个值就不用放分号。
+        when 常量2 then 要显示的值2或语句2;
+        ...
+        else 要显示的值n语句n;
+        end
+    */
+
+    #案例：查询员工的工资，要求
+    /*
+        部门号 = 30，显示的工资为1.1倍
+        部门号 = 40，显示的工资为1.2位
+        部门号 = 50， 显示的工资为1.3位
+        其他部门，显示的工资为原工资
+    */
+
+    SELECT
+        salary 原始工资,
+        department_id,
+        CASE department_id
+        WHEN 30 THEN salary * 1.1
+        WHEN 40 THEN salary * 1.2
+        WHEN 50 THEN salary * 1.3
+        ELSE salary
+        END AS 新工资
+        
+    FROM
+        employees
+
+    -- 7700	100	7700.00
+    -- 7800	100	7800.00
+    -- 6900	100	6900.00
+    -- 11000	30	12100.00
+    -- 3100	30	3410.00
+    -- 2900	30	3190.00
+    -- 2800	30	3080.00
+    -- 2600	30	2860.00
+    -- 2500	30	2750.00
+    -- 8000	50	10400.00
+    -- 8200	50	10660.00
+    -- 7900	50	10270.00
+
+    #3.case函数的使用二，类似于 多重if
+    /*
+        if(条件1){
+            语句1;
+        }else if (条件2){
+            语句2;
+        }
+        ...
+        else {
+            语句n;
+        }
+        mysql中
+        case 
+        when 条件1 then 要显示的值1或(语句1;)
+        when 条件2 then 要显示的值2或(语句2;)
+        ...
+        else 要显示的值n或显示的(语句n;)
+        end
+    */
+    #案例：查询员式的并新工资
+    /*
+        如果工资 >20000,显示A级别
+        如果工资 >15000,显示B级别
+        如果工资 >10000,显示C级别
+        否则，显示D级别
+    */
+
+    SELECT salary,
+    CASE 
+    WHEN salary > 20000 THEN 'A'
+    WHEN salary > 15000 THEN 'B'
+    WHEN salary > 10000 THEN 'C'
+    ELSE 'D'
+    END AS 工资级别
+    FROM
+        employees;
+
+    -- 9000	D
+    -- 6000	D
+    -- 4800	D
+    -- 4800	D
+    -- 4200	D
+    -- 12000	C
+    -- 9000	D
+    -- 8200	D
+    -- 7700	D
+    -- 7800	D
+    -- 6900	D
+
+    /*
+        综合练习
+    */
+    #1、显示系统时间（注：日期+时间）
+    SELECT NOW();
+
+
+    #2、查询员工号，姓名，工资以及工资提高百分之20%的结果（new salary）
+    SELECT
+        employee_id,
+        last_name,
+        salary,
+        salary * 1.2 'new salary'
+    FROM
+        employees;
+
+
+    -- 100	K_ing	24000	28800.00
+    -- 101	Kochhar	17000	20400.00
+    -- 102	De Haan	17000	20400.00
+    -- 103	Hunold	9000	10800.00
+    -- 104	Ernst	6000	7200.00
+
+    #3、将员工的姓名按首字母排序，并写出姓名的长度（length）
+    SELECT
+        last_name,
+    SUBSTR(last_name,1,1),
+        LENGTH(last_name) as length
+    FROM
+        employees
+    ORDER BY
+        SUBSTR(last_name,1,1) DESC
+
+    -- Zlotkey	Z	7
+    -- Weiss	W	5
+    -- Walsh	W	5
+    -- Whalen	W	6
+    -- Vollman	V	7
+    -- Vargas	V	6
+
+    #4、
+    SELECT CONCAT(last_name,' earns',salary,' monthly but wants ', salary*3) AS 'Dream Salary' FROM employees;
+
+    -- K_ing earns24000.00 monthly but wants 72000.00
+    -- Kochhar earns17000.00 monthly but wants 51000.00
+    -- De Haan earns17000.00 monthly but wants 51000.00
+    -- Hunold earns9000.00 monthly but wants 27000.00
+    -- Ernst earns6000.00 monthly but wants 18000.00
+    -- Austin earns4800.00 monthly but wants 14400.00
+    -- Pataballa earns4800.00 monthly but wants 14400.00
+
+    #5、作用case-when,
+    SELECT
+        job_id AS job,
+        CASE job_id
+        WHEN 'AD_PRES' THEN 'A'
+        wHEN 'ST_MAN' THEN 'B'
+        wHEN 'IT_PROG' THEN 'C'
+        wHEN 'SA_REP' THEN 'D'
+        wHEN 'ST_CLERK' THEN 'E'
+        END AS Grade,
+        last_name
+    FROM
+        employees
+    WHERE 
+        job_id = 'AD_PRES'
 ```
 #### 1.5、分组函数
 #### 1.6、分组查询

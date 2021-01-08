@@ -14,10 +14,14 @@
       - [综合练习](#综合练习)
       - [复习](#复习-1)
       - [1.3、排序查询](#13排序查询)
+      - [复习](#复习-2)
       - [1.4、常见函数](#14常见函数)
       - [1.5、分组函数](#15分组函数)
+      - [复习](#复习-3)
       - [1.6、分组查询](#16分组查询)
+      - [复习](#复习-4)
       - [1.7、连接查询](#17连接查询)
+      - [复习](#复习-5)
       - [1.8、子查询](#18子查询)
       - [1.9、分页查询](#19分页查询)
       - [1.10、union联合查询](#110union联合查询)
@@ -38,6 +42,7 @@
 
 <!-- /TOC -->
 # mysql 学习
+[mysql学习资料](https://www.bilibili.com/video/BV12b411K7Zu?p=75)
 ## 数据库相关概念
 ```
     DB:数据库（database）:存储数据的“仓库”。它保存了一系列有组织的数据。
@@ -594,6 +599,20 @@
         LENGTH(email) DESC,
         department_id ASC
 ```
+#### 复习
+```
+一、语法
+    select 查询列表
+    from 表
+    where 筛选条件
+    order by 排序列表 [asc|desc]
+
+二、特点
+    1、asc:升序 如果不写默认升序
+       desc:降序
+    2、排序列表 支持 单个字段、多个字段、函数、表达式、别名
+    3、order by的位置一般放在查询语句的最后 (除limit语句之外)
+```
 #### 1.4、常见函数
 ```
     #进阶4：常见函数
@@ -1073,6 +1092,97 @@
     #3、查询部门编号为90的员工个数
     SELECT COUNT(*) FROM employees WHERE department_id = 90; -- 3
 ```
+#### 复习
+```
+    一、概述
+        功能：类似于方法
+        好处：提高重用性和隐藏实现细节
+        调用：select 函数名(实参列表);
+        
+    二、单行函数
+        1、字符函数
+            concat:字符连接
+            substr:截取子串
+            upper:变大写
+            lower:变小写
+            replace:替换
+            length:获取字节长度
+            trim:去前后空格
+            lpad:左填充
+            rpad:右填充
+            instr:获取子串第一次出现的索引
+        2、数学函数
+            ceil:向上取整
+            round:四舍五入
+            mod:取模
+            floor:向下取整
+            truncate:截断
+            rand:获取随机数，返回0-1之间的小数
+        3、日期函数
+            now:返回当前日期+时间
+            year:返回年
+            month:返回月
+            day:返回日
+            date_format:将日期转换成字符
+            curdate:返回当前日期
+            str_to_date:将字符串转换成日期
+            curtime:返回当前时间
+            hour:小时
+            minute:分钟
+            second:秒
+            datediff:返回两个日期相差的天数 《日期差异》 
+                DATEDIFF() 函数返回两个日期之间的天数。
+                date1 和 date2 参数是合法的日期或日期/时间表达式。 只有值的日期部分参与计算。
+                SELECT * from action where DATEDIFF(startDate,endDate) = 3;
+            timestampdiff:是间差 《时间戳差异》
+            monthname:以英文形式返回月
+        4、其他函数
+            version 当前数据库服务器的版本
+            database 当前打开的数据库
+            user 当前用户
+            password('字符'):返回该字符的密码形式
+                SELECT PASSWORD('王世宇')
+                *8870AAAFE12B61750DDE665DC26658921ECECD24
+            md5('字符'):返回该字符的md5加密形式
+        5、流程控制函数
+            if(条件表达式, 表达式1，表达式2)：如果条件表达式成产，返回表达式1，否则返回表达式2
+            case情况1 类似switch case
+                case 变量或表达式或字段
+                when 常量1 then 值1
+                when 常量2 then 值2
+                ...
+                else 值n
+                end
+            case情况2 类似多重if else
+                case 
+                when 条件1 then 值1
+                when 条件2 then 值2
+                ...
+                else 值n
+                end
+            
+    三、分组函数
+        1、分类
+            max 最大值
+            min 最小值
+            sum 和
+            avg 平均值
+            count 计算个数
+        2、特点
+            A、语法：select max(字段) from 表名;
+            B、sum和avg 一般用于处理数值型,max、min、count可以处理任何类型
+            C、以上分组函数都忽略null
+            D、都可以搭配distinct使用，实现去重的统计
+                select sum(distinct 字段) from 表;
+            E、count函数
+                count(字段)：统计该字段非空值的个数
+                count(*):统计结果集的行数
+                count(1):统计结果集的行数
+                效率上：
+                MyISAM存储引擎：count(*)最高
+                InnoDB存储引擎：count(*)和count(1)效率>count(字段)
+            F、和分组函数一同查询的字段，要求是group by后出现的字段
+```
 #### 1.6、分组查询
 ```
 /*
@@ -1289,7 +1399,456 @@ GROUP BY job_id
 -- 1	AD_ASST
 
 ```
+#### 复习
+```
+    一、语法
+        5、select 分组函数,分组后的字段
+        1、from 表
+        2、[where 筛选条件]
+        3、group by 分组条件
+        4、[having 分组后的筛选]
+        6、[order by 排序列表]
+    二、特点
+```
+
+名称|使用关键字|筛选的表|位置
+--|:--:|:--:|:--
+分组前筛选|where|原始表| group by的前面
+分组后筛选|having|分组后的结果|group by的后面
+
 #### 1.7、连接查询
+```
+#进阶6：连接查询
+/*
+	含义：又称多表查询，当查询的字段来自于多个表时，就会用到连接查询
+	笛卡尔乘积现象：表1有m行，表2有n行，结果=m*n行
+	发生原因：没有有效的连接条件
+	如何避免：添加有效的连接条件
+	分类：
+		按年代分类：
+			SQL92标准：仅仅支持内连接
+			SQL99标准【推荐】：支持内连接+外连接（左外和右外）+交叉连接
+		按功能分类：
+			内连接：
+				等值连接
+				非等值连接
+				自连接
+			外连接：
+				左外连接
+				右外连接
+				全外连接
+			交叉连接(笛卡尔)
+*/
+USE girls;
+SELECT * FROM beauty;
+-- 1	柳岩	女	1988-02-03 00:00:00	18209876577		8
+-- 2	苍老师	女	1987-12-30 00:00:00	18219876577		9
+-- 3	Angelababy	女	1989-02-03 00:00:00	18209876567		3
+-- 4	热巴	女	1993-02-03 00:00:00	18209876579		2
+-- 5	周冬雨	女	1992-02-03 00:00:00	18209179577		9
+-- 6	周芷若	女	1988-02-03 00:00:00	18209876577		1
+-- 7	岳灵珊	女	1987-12-30 00:00:00	18219876577		9
+-- 8	小昭	女	1989-02-03 00:00:00	18209876567		1
+-- 9	双儿	女	1993-02-03 00:00:00	18209876579		9
+-- 10	王语嫣	女	1992-02-03 00:00:00	18209179577		4
+-- 11	夏雪	女	1993-02-03 00:00:00	18209876579		9
+-- 12	赵敏	女	1992-02-03 00:00:00	18209179577		1
+USE girls;
+SELECT * FROM boys;
+-- 1	张无忌	100
+-- 2	鹿晗	800
+-- 3	黄晓明	50
+-- 4	段誉	300
+
+USE girls;
+SELECT name, boyName FROM beauty, boys;
+-- 柳岩	张无忌
+-- 柳岩	鹿晗
+-- 柳岩	黄晓明
+-- 柳岩	段誉
+-- 苍老师	张无忌
+-- 苍老师	鹿晗
+-- 苍老师	黄晓明
+-- 苍老师	段誉
+USE girls;
+SELECT name,boyName 
+FROM beauty, boys
+WHERE beauty.boyfriend_id = boys.id
+
+-- Angelababy	黄晓明
+-- 热巴	鹿晗
+-- 周芷若	张无忌
+-- 小昭	张无忌
+-- 王语嫣	段誉
+-- 赵敏	张无忌
+
+#一、sql92标准
+#1、等值连接
+/*
+	1、多表等值连接的结果为多表的交集部分
+	2、n表连接，至少需要n-1个连接条件
+	3、多表的顺序没有要求
+	4、一般需要为表起别名
+	5、可以搭配前面介绍的所有子句使用，比如排序、分组、筛选
+*/
+#案例1、查询女神名和男神名
+USE girls;
+SELECT name,boyName 
+FROM beauty, boys
+WHERE beauty.boyfriend_id = boys.id
+
+#案例2、查询员工名和对应的部门名
+SELECT last_name, department_name
+FROM employees, departments
+WHERE employees.department_id = departments.department_id;
+
+#2、为表起别名
+/*
+	好处：
+	A、提高语句的简洁度
+	B、区分多个重名的字段
+	注意：如果为表起了别名，则查询的字段就不能使用原来的表名来限定
+*/
+#查询员工名、工程号、工种名
+USE myemployees;
+SELECT last_name,e.job_id,job_title
+FROM employees AS e, jobs j -- AS 也可以省略
+WHERE e.job_id = j.job_id;
+
+#3、两个表的顺序是否可以调换
+USE myemployees;
+SELECT last_name,e.job_id,job_title
+FROM jobs j, employees AS e -- AS 也可以省略
+WHERE e.job_id = j.job_id;
+
+
+#4、可以加筛选条件
+#案例：查询有奖金的员工名、部门名
+SELECT last_name,department_name, commission_pct
+FROM employees e, departments d
+WHERE e.department_id = e.department_id
+AND e.commission_pct IS NOT NULL
+
+
+#案例2：查询城市名中第二个字符为o的部门名和城市名
+SELECT d.department_name, l.city
+FROM departments d , locations l
+WHERE d.location_id = l.location_id 
+AND l.city LIKE '_o%';
+
+#5、可以加分组？
+#案例1、查询每个城市的部门个数
+SELECT COUNT(*) 个数, l.city
+FROM departments d, locations l
+WHERE d.location_id = l.location_id
+GROUP BY l.city
+
+-- 1	London
+-- 1	Munich
+-- 1	Oxford
+-- 21	Seattle
+-- 1	South San Francisco
+-- 1	Southlake
+-- 1	Toronto
+
+#案例2、查询有奖金的每个部门的部门名和部门的领导编号和该部门的最低工资
+
+SELECT
+	d.department_name,
+	d.manager_id,
+	MIN(e.salary)
+FROM
+	departments d, employees e
+WHERE
+	d.department_id = e.department_id
+	AND commission_pct IS NOT NULL
+GROUP BY
+	d.department_id,d.manager_id
+
+
+#6、可以加排序
+#案例：查询每个工程的工程名和员工的个数，并且按员工个数降序
+
+SELECT	job_title, COUNT(*) n
+FROM employees e, jobs j
+WHERE e.job_id = j.job_id
+GROUP BY job_title
+ORDER BY n DESC
+
+-- Sales Representative	30
+-- Shipping Clerk	20
+-- Stock Clerk	20
+-- Purchasing Clerk	5
+-- Stock Manager	5
+-- Accountant	5
+-- Programmer	5
+
+#7、可以实现三表连接
+#案例：查询员工名、部门名、所在城市
+SELECT last_name, department_name, city
+FROM employees e, departments d, locations l
+WHERE e.department_id = d.department_id
+AND	d.location_id = l.location_id
+AND city LIKE 's%'
+ORDER BY department_name DESC
+
+-- Whalen	Adm	Seattle
+-- Hartstein	Mar	Toronto
+-- Fay	Mar	Toronto
+-- Raphaely	Pur	Seattle
+
+#二、非等值连接
+#案例1：查询员工的工资和工资级别
+
+SELECT salary, grade_level
+FROM employees e, job_grades g
+WHERE e.salary BETWEEN g.lowest_sal AND g.highest_sal;
+
+#三、自链接（自已链接自己）
+
+#案例：查询 员工名和上级的名称
+SELECT e.employee_id,e.last_name,e.manager_id,m.employee_id m_id,m.last_name m_l_n
+FROM employees e,employees m
+WHERE e.manager_id = m.employee_id
+
+-- 101	Kochhar	100	100	K_ing
+-- 102	De Haan	100	100	K_ing
+-- 103	Hunold	102	102	De Haan
+-- 104	Ernst	103	103	Hunold
+-- 105	Austin	103	103	Hunold
+
+
+/*
+	练习
+*/
+
+#1、显示员工表的最大工资，工资平均值
+SELECT MAX(salary), AVG(salary) FROM employees;
+
+#2、查询员工表的employee_id, job_id,last_name,按department_id降序,salary升序
+SELECT employee_id, job_id,last_name FROM employees ORDER BY department_id DESC , salary ASC
+
+#3、查询员工表的job_id中包含 a 和e 的,并且a在e前面
+SELECT job_id FROM employees WHERE job_id LIKE '%a%e%';
+
+#4、已知 student里面有id(学号)，name,gradeId(年级编号) ; 已知表grade,里面有id(年级编号),name(年级名) ; 已知表result里面有id,score,studentNo(学号) 要求查询姓名、年级名、成绩
+SELECT s.name,g.name,r.score
+FROM student s, grade g, result r
+WHERE s.id = r.studentNo 
+AND g.id = s.gradeid;
+
+#5、显示当前日期、以及去前后空格、截取子字符串的函数
+SELECT NOW();
+SELECT TRIM(字符 FROM str);
+SELECT SUBSTR(str FROM pos FOR len);
+
+SELECT PASSWORD('王世宇')
+
+#二、sql99语法
+/*
+	语法：
+		SELECT 查询列表
+		FROM 表1 别名 [连接类型]
+		JOIN 表2 别名 ON 连接条件
+		[WHERE 筛选条件]
+		[GROUP BY]
+		[HAVING]
+		[ORDER BY]
+		
+	内连接（*）：inner 都是求交集数据
+	外连接
+		左外（*）:left [outer]
+		右外（*）:right [outer]
+		全外:full [outer]
+	交叉连接: cross
+*/
+
+#、一）内连接
+/*
+	语法：
+		SELECT 查询列表
+		FROM 表1 别名
+		INNER JOIN 表2 别名 ON 连接条件
+
+	分类：
+		等值
+		非等值
+		自连接
+	特点：
+		1、添加排序、分组、筛选
+		2、inner 可以省略
+		3、筛选条件放在where后面，连接条件放在on后面，提高分离性，便于阅读
+		4、inner join 连接和sql92语法中的等值连接效果是一样的，都是查询多表的交集
+*/
+#1、等值连接
+#案例1、查询员工名、部门名
+SELECT last_name, department_name
+FROM employees e
+INNER JOIN departments d
+ON e.department_id = d.department_id;
+
+
+#案例2、查询名字中包含e的员工名和工种名（筛选）
+SELECT last_name, job_title
+FROM employees e
+INNER JOIN jobs j
+ON e.job_id = j.job_id
+WHERE e.last_name LIKE '%e%';
+
+
+#案例3、查询部门个数>3的城市名和部门个数（分组+筛选）
+SELECT city, COUNT(*),department_name
+FROM departments d
+INNER JOIN locations l
+ON d.location_id = l.location_id
+GROUP BY city
+HAVING COUNT(*) > 3
+
+
+#案例4、查询哪个部门的部门员工个数>3的部门名和员工个数，并按个数降序（排序）
+SELECT COUNT(*), department_name
+FROM employees e
+INNER JOIN departments d
+ON e.department_id = d.department_id
+GROUP BY department_name
+HAVING COUNT(*) > 3
+ORDER BY COUNT(*) DESC
+
+#案例5、查询员工名、部门名、工程名、并按部门名降序
+SELECT last_name, department_name, job_title
+FROM employees e
+INNER JOIN departments d ON e.department_id = d.department_id
+INNER JOIN jobs j 			 ON e.job_id = j.job_id
+ORDER BY department_name DESC
+
+#2、非等值连接
+#查询员工的工资级别
+SELECT  COUNT(*),grade_level
+FROM employees e
+INNER JOIN job_grades g ON e.salary BETWEEN g.lowest_sal AND g.highest_sal
+GROUP BY grade_level
+HAVING COUNT(*) > 2
+ORDER BY grade_level DESC
+
+#3、自连接
+#查询员工的名字，还有他上级的名字
+SELECT e.last_name, m.last_name
+FROM employees e
+INNER JOIN employees m ON e.manager_id = m.employee_id
+WHERE e.last_name LIKE '%k%'
+
+#二、外连接
+/*
+	应该场景：用于查询一个表中有，另一个表中没有的记录
+	特点：
+	1、外连接的查询结果为主表中的所有记录，如果从表中有和它匹配的，则显示匹配的值，如果从表中没有则显示null，外连接查询结果 = 内边接结果 + 主表中有需从表没有的记录。
+	2、左外连接，left join左边的是主表
+		 右外连接，right join右边的是主表
+	3、左外和右外交换两个表的顺序，可以实现同样的效果
+	4、全外连接 = 内连接的结果 + 表1中有但表2没有的 + 表2中有但表1中没有的
+*/
+#引入：查询没有男朋友的女神名
+USE girls;
+SELECT * FROM beauty;
+SELECT * FROM boys;
+#左外连接
+SELECT b.name
+FROM beauty b
+LEFT OUTER JOIN boys bo ON b.boyfriend_id = bo.id
+WHERE bo.id IS NULL
+
+#右外连接
+SELECT b.name, bo.*
+FROM boys bo
+right OUTER JOIN beauty b ON b.boyfriend_id = bo.id
+WHERE bo.id IS NULL
+
+#查询哪个部门没有员工
+#左外
+USE myemployees;
+SELECT d.*,e.employee_id
+FROM departments d
+LEFT OUTER JOIN employees e on d.department_id = e.department_id
+WHERE e.department_id IS NULL
+
+#右外
+SELECT d.*,e.employee_id
+FROM employees e
+RIGHT OUTER JOIN departments d on d.department_id = e.department_id
+WHERE e.department_id IS NULL
+
+#三、交叉连接
+USE girls;
+SELECT b.*, bo.* 
+FROM beauty b
+CROSS JOIN boys bo;
+
+#sql92 和sql99 pk
+-- 功能：sql99支持的较多
+-- 可读性：sql99实现连接条件和筛选条件的分离，可读性较高
+
+```
+#### 复习
+```
+    一、含义
+        当查询中涉及到了多个表的字段，需要使用多表连接
+        select 字段1,字段2
+        from 表1,表2,...
+
+        笛卡尔乘积：当查询多个表时，没有添加有效的连接条件，导致多个表所有行实现完全连接
+        如何解决：添加有效条件
+    二、分类
+        按年代分类
+            sql92:
+                等值
+                    语法：
+                        select 查询列表
+                        from 表1 别名, 表2 别名
+                        where 表1.key = 表2.key
+                        [and 筛选条件]
+                        [group by 分组字段]
+                        [having 分组后的筛选]
+                        [order by 排序字段]
+                    特点
+                    1、一般为表起别名
+                    2、多表的顺序可以调换
+                    3、n表连接至少需要n-1个连接条件
+                    4、等值连接的结果是多表的交集部分
+
+                非等值
+                    语法：
+                        select 查询列表
+                        from 表1 别名, 表2 别名
+                        where 非等值的连接条件
+                        [and 筛选条件]
+                        [group by 分组字段]
+                        [having 分组后的筛选]
+                        [order by 排序字段]
+
+                自连接
+                    语法：
+                        select 查询列表
+                        from 表 别名1, 表 别名2
+                        where 别名1.key = 别名2.key
+                        [and 筛选条件]
+                        [group by 分组字段]
+                        [having 分组后的筛选]
+                        [order by 排序字段]
+                        
+                也支持一部分外连接(用于oracle、sqlserver、mysql不支持)
+                
+            sql99【推荐使用】:
+                内连接
+                    等值
+                    非等值
+                    自连接
+                外连接
+                    左外
+                    右外
+                    全外(mysql不支持)
+                交叉连接
+
+```
 #### 1.8、子查询
 #### 1.9、分页查询
 #### 1.10、union联合查询

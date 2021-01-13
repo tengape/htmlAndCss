@@ -2218,6 +2218,30 @@ WHERE d.department_id in (
 -- Exe
 -- Fin
 -- Acc
+
+#案例2：查询没有女朋友的男神信息
+USE girls;
+SELECT bo.*
+FROM boys bo
+WHERE bo.id not in (
+	SELECT boyfriend_id
+	FROM beauty
+);
+
+-- 4	段誉	300
+
+#EXISTS
+SELECT bo.*
+FROM boys bo
+WHERE NOT EXISTS (
+	SELECT boyfriend_id
+	FROM beauty b
+	WHERE bo.id = b.boyfriend_id
+);
+
+-- 4	段誉	300
+学习到 94
+https://www.bilibili.com/video/BV12b411K7Zu?p=94
 ```
 #### 1.9、分页查询
 #### 1.10、union联合查询

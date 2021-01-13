@@ -1850,6 +1850,375 @@ CROSS JOIN boys bo;
 
 ```
 #### 1.8、子查询
+```
+#进阶7：子查询
+/*
+含义：
+	出现在其他语句中的select语句，称为子查询或内查询
+	外部的查询语句，称为主查询或外查询
+分类：
+	按子查询出现的位置：
+		select 后面：
+			仅仅标量子查询
+		from 后面
+			表子查询
+		where 或having后面 ☆
+			标量子查询（单行） ☆
+			列子查询 （多行）☆
+
+			行子查询(列得较少)
+		exists 后面（相关子查询）
+			表子查询
+
+	按功能（结果信的行列数不同）:
+		标量子查询(结果集只有一行一列)
+		列子查询(结果集只有一列多行)
+		行子查询(结果集有一行多列)
+		表子查询(结果集一般为多行多列)
+*/
+
+#一、where 或having后面
+/*
+分类：
+	#1、标量子查询（单行子查询） 一行一列
+	#2、列子查询（多行子查询）
+	#3、行子查询（多列多行）
+特点：
+	1、子查询放在小括号内
+	2、子查询一般放在条件的右侧
+	3、标量子查询，一般搭配着单行操作符使用
+		> < >= <= = <>
+	4、列子查询，一般搭配着多行操作符使用
+		in、  等于列表中的任意一个
+		not in、不是列表中的任意一个
+		any/some、 和子查询返回的某一个值比较 min
+		all 和子查询返回的所有值比较	max
+	5、子查询的执行优先于主查询执行，主查询的条件用到了子查询的结果
+
+*/
+
+
+#1、标量子查询
+#案例1：谁的工资比 abel高？
+#第一步：查询abel的工资
+SELECT salary FROM employees WHERE last_name = 'Abel';
+
+#第二步：查询员工的信息，满足salary > 第一步的结果
+SELECT *
+FROM employees
+WHERE salary > (
+	SELECT salary FROM employees WHERE last_name = 'Abel'
+);
+
+-- 100	Steven	K_ing	SKING	515.123.4567	AD_PRES	24000			90	1992-04-03 00:00:00
+-- 101	Neena	Kochhar	NKOCHHAR	515.123.4568	AD_VP	17000		100	90	1992-04-03 00:00:00
+-- 102	Lex	De Haan	LDEHAAN	515.123.4569	AD_VP	17000		100	90	1992-04-03 00:00:00
+-- 108	Nancy	Greenberg	NGREENBE	515.124.4569	FI_MGR	12000		101	100	1998-03-03 00:00:00
+-- 145	John	Russell	JRUSSEL	011.44.1344.429268	SA_MAN	14000	0.4	100	80	2002-12-23 00:00:00
+-- 146	Karen	Partners	KPARTNER	011.44.1344.467268	SA_MAN	13500	0.3	100	80	2002-12-23 00:00:00
+-- 147	Alberto	Errazuriz	AERRAZUR	011.44.1344.429278	SA_MAN	12000	0.3	100	80	2002-12-23 00:00:00
+-- 168	Lisa	Ozer	LOZER	011.44.1343.929268	SA_REP	11500	0.25	148	80	2014-03-05 00:00:00
+-- 201	Michael	Hartstein	MHARTSTE	515.123.5555	MK_MAN	13000		100	20	2016-03-03 00:00:00
+-- 205	Shelley	Higgins	SHIGGINS	515.123.8080	AC_MGR	12000		101	110	2016-03-03 00:00:00
+
+
+#案例2：返回job_id 与 141号员工相同，salary比143号员工多的员工姓名,job_id 和工资
+#第一步：查询141号员工的job_id
+SELECT job_id
+FROM employees
+WHERE employee_id = 141
+#第二步：查询143号员工的salary
+SELECT salary
+FROM employees
+WHERE employee_id = 143
+#第三步：查询员工的 姓名,job_id 和工资 要求 job_id = 第一步 并且 salary > 第二步
+
+SELECT last_name,job_id,salary
+FROM employees
+WHERE job_id = (
+		SELECT job_id
+		FROM employees
+		WHERE employee_id = 141
+) AND salary > (
+		SELECT salary
+		FROM employees
+		WHERE employee_id = 143
+);
+
+-- Nayer	ST_CLERK	3200
+-- Mikkilineni	ST_CLERK	2700
+-- Bissot	ST_CLERK	3300
+-- Atkinson	ST_CLERK	2800
+-- Mallin	ST_CLERK	3300
+-- Rogers	ST_CLERK	2900
+-- Ladwig	ST_CLERK	3600
+-- Stiles	ST_CLERK	3200
+-- Seo	ST_CLERK	2700
+-- Rajs	ST_CLERK	3500
+-- Davies	ST_CLERK	3100
+
+#案例3、返回公司工资最少的员工的last_name,job_id,salary
+#第一步：查询公司的最低工资
+SELECT MIN(salary)
+FROM employees
+
+#第二步 查询 last_name,job_id,salary ，要求 salary = 第一步
+SELECT last_name,job_id,salary 
+FROM employees 
+WHERE salary =  (
+		SELECT MIN(salary) 
+		FROM employees
+);
+
+-- Olson	ST_CLERK	2100
+
+#案例4：查询最低工资大于50号部门 最低工资的部门id和其最低工资
+#1、查询50号部门的最低工资
+SELECT MIN(salary)
+FROM employees
+WHERE department_id = 50
+#2、查询每个部门的最低工资
+SELECT MIN(salary)
+FROM employees
+GROUP BY department_id
+#3、在2基础上筛选，满足min(salary) > 1
+SELECT MIN(salary),department_id
+FROM employees
+GROUP BY department_id
+HAVING MIN(salary) > (
+	SELECT MIN(salary)
+	FROM employees
+	WHERE department_id = 50
+);
+
+-- 7000.00	
+-- 4400.00	10
+-- 6000.00	20
+-- 2500.00	30
+-- 6500.00	40
+-- 4200.00	60
+-- 10000.00	70
+-- 6100.00	80
+-- 17000.00	90
+-- 6900.00	100
+-- 8300.00	110
+
+#非法使用标量子查询
+
+
+#2、列子查询（多行子查询）
+#案例1、返回location_id是1400或1700的部门中的所有员工姓名
+SELECT
+	department_id
+FROM
+	departments
+WHERE 
+	location_id  in (1400,1700);
+-- 	location_id = 1400 OR
+-- 	location_id = 1700
+
+SELECT last_name
+FROM employees
+WHERE department_id in (
+		SELECT
+			department_id
+		FROM
+			departments
+		WHERE 
+			location_id  in (1400,1700)
+);
+
+#案例2:返回其它工种中比job_id为IT_PROG工种任一工资低的员工的工号、姓名、job_id以及salary
+#1、查询job_id为IT_PROG部门任一工资
+SELECT DISTINCT salary 
+FROM employees
+WHERE job_id = 'IT_PROG'
+#2、查询员工的工号、姓名、job_id以及salary < any (1)的任意一个
+SELECT last_name,employee_id,job_id,salary
+FROM employees
+WHERE salary < ANY (
+		SELECT DISTINCT salary 
+		FROM employees
+		WHERE job_id = 'IT_PROG'
+) AND job_id != 'IT_PROG';
+
+#或者
+SELECT last_name,employee_id,job_id,salary
+FROM employees
+WHERE salary < (
+		SELECT MAX(salary)
+		FROM employees
+		WHERE job_id = 'IT_PROG'
+) AND job_id != 'IT_PROG';
+
+-- Chen	110	FI_ACCOUNT	8200
+-- Sciarra	111	FI_ACCOUNT	7700
+-- Urman	112	FI_ACCOUNT	7800
+-- Popp	113	FI_ACCOUNT	6900
+-- Khoo	115	PU_CLERK	3100
+-- Baida	116	PU_CLERK	2900
+
+#案例3：返回其它工种中比job_id为IT_PROG工种所有工资低的员工的工号、姓名、job_id以及salary
+SELECT last_name,employee_id,job_id,salary
+FROM employees
+WHERE salary < all (
+		SELECT DISTINCT salary 
+		FROM employees
+		WHERE job_id = 'IT_PROG'
+) AND job_id != 'IT_PROG';
+
+-- Khoo	115	PU_CLERK	3100
+-- Baida	116	PU_CLERK	2900
+-- Tobias	117	PU_CLERK	2800
+-- Himuro	118	PU_CLERK	2600
+-- Colmenares	119	PU_CLERK	2500
+-- Nayer	125	ST_CLERK	3200
+-- Mikkilineni	126	ST_CLERK	2700
+-- Landry	127	ST_CLERK	2400
+
+
+#3、行子查询（结果集一行多列或多行多列）
+#案例1、查询员工编号最小并且工资最高的员工信息
+
+#第1步查询最小编号
+SELECT MIN(employee_id)
+FROM employees
+#第2步查询最大工资
+SELECT MAX(salary)
+FROM employees
+#第3步查询员工信息
+SELECT *
+FROM employees
+WHERE employee_id = (
+	SELECT MIN(employee_id)
+	FROM employees
+)AND salary = (
+	SELECT MAX(salary)
+	FROM employees
+);
+
+-- 100	Steven	K_ing	SKING	515.123.4567	AD_PRES	24000			90	1992-04-03 00:00:00
+
+#用行子查询方式
+SELECT  *
+FROM employees
+WHERE (employee_id, salary ) = (
+	SELECT MIN(employee_id),MAX(salary)
+	FROM employees
+);
+
+-- 100	Steven	K_ing	SKING	515.123.4567	AD_PRES	24000			90	1992-04-03 00:00:00
+
+#二、放在select后面
+/*
+	里面只能是标量子查询（1行1列）
+*/
+#案例1：查询每个部门的员工个数
+SELECT d.*, (
+	SELECT COUNT(*) 
+	FROM employees e
+	WHERE e.department_id = d.department_id
+) 个数
+FROM departments d;
+
+
+-- 10	Adm	200	1700	1
+-- 20	Mar	201	1800	2
+-- 30	Pur	114	1700	6
+-- 40	Hum	203	2400	1
+-- 50	Shi	121	1500	45
+-- 60	IT	103	1400	5
+-- 70	Pub	204	2700	1
+-- 80	Sal	145	2500	34
+
+#案例2：查询员工号=102的部门名
+SELECT (SELECT department_name
+				FROM departments d
+				INNER JOIN employees e ON d.department_id = e.department_id
+				where e.employee_id = 102) 部门名;
+
+
+#三、from后面
+/*
+	将子查询结果充当一张表，要求必须起别名
+*/
+#案例1：查询每个部门的平均工资的工资等
+
+#1、查询每个部门的平均工资
+SELECT AVG(salary), department_id
+FROM employees
+GROUP BY department_id;
+
+#2、连接1的结果集和job_grades表，筛选条件平均工资 BETWEEN lowest_sal and highest_sal
+SELECT ag_dep.*,g.grade_level
+FROM	(
+	SELECT AVG(salary) AS ag, department_id
+	FROM employees
+	GROUP BY department_id
+) ag_dep
+INNER JOIN job_grades g ON ag_dep.ag BETWEEN lowest_sal and highest_sal
+
+-- 7000		C
+-- 4400	10	B
+-- 9500	20	C
+-- 4150	30	B
+-- 6500	40	C
+-- 3475.555556	50	B
+-- 5760	60	B
+-- 10000	70	D
+-- 8955.882353	80	C
+-- 19333.333333	90	E
+-- 8600	100	C
+-- 10150	110	D
+
+#四、exists 后面(相关子查询) 
+/*
+	语法：
+	EXISTS(完整的查询语句)
+	结果：1或0
+*/
+SELECT EXISTS(SELECT employee_id FROM employees WHERE salary = 30000);
+
+#案例1：查询有员工的部门名
+SELECT department_name
+FROM departments d
+WHERE EXISTS (
+	SELECT * 
+	FROM employees e
+	WHERE d.department_id = e.department_id
+);
+
+-- Adm
+-- Mar
+-- Pur
+-- Hum
+-- Shi
+-- IT
+-- Pub
+-- Sal
+-- Exe
+-- Fin
+-- Acc
+
+#使用in的方式
+SELECT department_name
+FROM departments d
+WHERE d.department_id in (
+	SELECT department_id
+	FROM employees
+);
+-- Adm
+-- Mar
+-- Pur
+-- Hum
+-- Shi
+-- IT
+-- Pub
+-- Sal
+-- Exe
+-- Fin
+-- Acc
+```
 #### 1.9、分页查询
 #### 1.10、union联合查询
 ### 2、DML语言的学习

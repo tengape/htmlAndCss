@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        #mes {
+            width: 200px;
+            height: 300px;
+            border: 1px solid black ;
+        }
+
+    </style>
+</head>
+
+<body>
+    <script>
+        onload = function(){
+            let btn = document.getElementById('btn')
+            let toMes = document.getElementById('toMes');
+            let mes = document.getElementById('mes');
+            btn.onclick = function(){
+                let val = toMes.value;
+                let oDiv = document.createElement('div');
+                oDiv.innerHTML = val;
+                mes.appendChild(oDiv);
+                toMes.value = '';
+            }
+        }
+    </script>
+    <div id="mes"></div>
+    <textarea name="" id="toMes" cols="30" rows="10"></textarea>
+    <input type="button" value="发送" id="btn">
+</body>
+
+</html>

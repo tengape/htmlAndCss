@@ -93,6 +93,7 @@
         .login .login-body h3 {
             font-size: 24px;
             color: #262626;
+            text-align: center;
         }
 
         .login .login-body .tabs-nav {
@@ -102,6 +103,10 @@
 
         .nav-scroll {
             border-bottom: 1px solid #595959;
+        }
+
+        input::-webkit-input-placeholder {
+            color: #c0bdbd;
         }
 
         .pane-password,
@@ -141,6 +146,10 @@
             border-radius: 4px;
             border: 1px solid #d9d9d9;
             transition: border-color .2s cubic-bezier(.645, .045, .355, 1);
+            padding-left: 5px;
+            font-size: 12px;
+            font-weight: 500;
+            box-sizing: border-box;
         }
 
         .form-pone-password div input:hover {
@@ -152,14 +161,18 @@
             outline: none;
         }
 
-        .form-pone-password :first-child {
-            margin-bottom: 5px;
+        .input-account {
+            margin-bottom: 15px;
         }
 
         .form-pone-mobile input {
             border-radius: 4px;
             border: 1px solid #d9d9d9;
             transition: border-color .2s cubic-bezier(.645, .045, .355, 1);
+            padding-left: 5px;
+            box-sizing: border-box;
+            font-size: 12px;
+            font-weight: 500;
         }
 
         .form-pone-mobile input:hover {
@@ -174,17 +187,22 @@
         .form-pone-mobile div:first-child input {
             width: 100%;
             height: 33px;
-            margin-bottom: 5px;
+            margin-bottom: 15px;
         }
 
         .form-pone-mobile .phone-number {
             height: 33px;
-            width: 77%;
+            width: 72%;
         }
 
         .form-pone-mobile button {
             height: 33px;
-            width: 20%;
+            width: 25%;
+            box-sizing: border-box;
+            padding: 0 5px;
+            border: 1px solid #d9d9d9;
+            border-radius: 4px;
+            color: #6b6969;
         }
 
         .form-pone-mobile button:hover {
@@ -194,17 +212,31 @@
             cursor: pointer;
         }
 
-        .tabs-content span {
+        .forget-password {
+            margin-top: 5px;
+            font-weight: 500;
+            font-size: 14px;
+            color: #414040;
             font-size: 13px;
             float: right;
         }
+
+        .forget-password:hover {
+            color: #268dff;
+        }
+
 
         .tabs-content span:hover {
             cursor: pointer;
         }
 
+        .login-btn {
+            position: absolute;
+            bottom: 90px;
+            width: 78%;
+        }
+
         .login-btn button {
-            margin-top: 90px;
             width: 100%;
             height: 40px;
             background: #268dff;
@@ -240,14 +272,13 @@
             <div class="logo"><img src="./img/log.png" alt=""></div>
             <div class="infomation">
                 <div><span><i class="en-chz"></i> 简体中文</span></div>
-                <div><span><i class="download"></i>资源下载</span></div>
+                <div><span><i class="download"></i> 资源下载</span></div>
             </div>
 
         </div>
         <div class="login">
             <div class="login-body">
-                <h3>Hi，欢迎来到</h3>
-                <h3>数字项目管理平台！</h3>
+                <h3>欢迎来到隧道人员安全管理平台</h3>
                 <div class="tabs-nav">
                     <div class="nav-scroll">
                         <div class="pane-password tab active">
@@ -263,15 +294,17 @@
                 <div class="tabs-content">
                     <div class="tab">
                         <form action="" class="form-pone-password">
-                            <div><input type="text" autocomplete="off" placeholder="请输入您的账号"></div>
+                            <div><input type="text" autocomplete="off" placeholder="请输入您的账号" class="input-account">
+                            </div>
                             <div><input type="text" autocomplete="off" placeholder="请输入您的密码"></div>
                         </form>
-                        <span>忘记密码</span>
+                        <span class="forget-password">忘记密码</span>
                         <div class="clear"></div>
                     </div>
                     <div class="tab" style="display: none;">
                         <form action="" class="form-pone-mobile">
-                            <div><input type="text" autocomplete="off" placeholder="请输入你的手机号"></div>
+                            <div><input type="text" autocomplete="off" placeholder="请输入你的手机号"
+                                    class="input-mobile-number"></div>
                             <div><input type="text" autocomplete="off" placeholder="请输入你的验证码"
                                     class="phone-number">-<button type="button" class="">获取验证码</button></div>
                         </form>

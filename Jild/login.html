@@ -60,6 +60,7 @@
 
         .infomation span:hover {
             cursor: pointer;
+            color: #74b3fc;
         }
 
         .download::before {
@@ -109,6 +110,19 @@
             color: #c0bdbd;
         }
 
+        .account {
+            position: relative;
+        }
+
+        .account span {
+            position: absolute;
+            top: 35px;
+            left: 5px;
+            font-size: 12px;
+            color: red;
+
+        }
+
         .pane-password,
         .pane-mobile {
             float: left;
@@ -142,7 +156,7 @@
 
         .form-pone-password div input {
             width: 100%;
-            height: 33px;
+            height: 36px;
             border-radius: 4px;
             border: 1px solid #d9d9d9;
             transition: border-color .2s cubic-bezier(.645, .045, .355, 1);
@@ -160,22 +174,59 @@
             border-color: #268dff;
             outline: none;
         }
+
         .password {
             position: relative;
         }
-        .eye::before {
+
+        .password span {
+            position: absolute;
+            top: 35px;
+            left: 5px;
+            font-size: 12px;
+            color: red;
+        }
+
+        .close-eye::before {
             font-family: 'icomoon';
             content: '\e9d1';
             position: absolute;
             right: 5px;
-            top: 8px;
+            top: 10px;
             opacity: 0.3;
         }
-        .eye:hover{
+
+        .close-eye:hover {
             cursor: pointer;
         }
+
+        .eye::before {
+            font-family: 'icomoon';
+            content: '\e9ce';
+            position: absolute;
+            right: 5px;
+            top: 10px;
+            opacity: 0.3;
+        }
+
+        .eye:hover {
+            cursor: pointer;
+        }
+
         .input-account {
             margin-bottom: 15px;
+        }
+
+        .mobile-phone {
+            position: relative;
+        }
+
+        .mobile-phone span {
+            position: absolute;
+            top: 35px;
+            left: 5px;
+            font-size: 12px;
+            color: red;
         }
 
         .form-pone-mobile input {
@@ -199,7 +250,7 @@
 
         .form-pone-mobile div:first-child input {
             width: 100%;
-            height: 33px;
+            height: 36px;
             margin-bottom: 15px;
         }
 
@@ -238,6 +289,17 @@
             color: #268dff;
         }
 
+        .mobile-code {
+            position: relative;
+        }
+
+        .mobile-code span {
+            position: absolute;
+            top: 35px;
+            left: 5px;
+            font-size: 12px;
+            color: red;
+        }
 
         .tabs-content span:hover {
             cursor: pointer;
@@ -291,7 +353,7 @@
         </div>
         <div class="login">
             <div class="login-body">
-                <h3>欢迎来到隧道人员安全管理平台</h3>
+                <h3></h3>
                 <div class="tabs-nav">
                     <div class="nav-scroll">
                         <div class="pane-password tab active">
@@ -307,19 +369,31 @@
                 <div class="tabs-content">
                     <div class="tab">
                         <form action="" class="form-pone-password">
-                            <div><input type="text" autocomplete="off" placeholder="请输入您的账号" class="input-account">
+                            <div class="account">
+                                <input type="text" autocomplete="off" placeholder="请输入您的账号" class="input-account">
+                                <span style="display: none;">请输入正确的账号</span>
                             </div>
-                            <div class="password"><i class="eye"></i><input type="password" autocomplete="off" placeholder="请输入您的密码"></div>
+                            <div class="password">
+                                <i class="close-eye"></i>
+                                <input type="password" autocomplete="off" placeholder="请输入您的密码">
+                                <span style="display: none;">请输入正确的密码</span>
+                            </div>
                         </form>
                         <span class="forget-password">忘记密码</span>
                         <div class="clear"></div>
                     </div>
                     <div class="tab" style="display: none;">
                         <form action="" class="form-pone-mobile">
-                            <div><input type="text" autocomplete="off" placeholder="请输入你的手机号"
-                                    class="input-mobile-number"></div>
-                            <div><input type="text" autocomplete="off" placeholder="请输入你的验证码"
-                                    class="phone-number">-<button type="button" class="">获取验证码</button></div>
+                            <div class="mobile-phone">
+                                <input type="text" autocomplete="off" placeholder="请输入你的手机号"
+                                    class="input-mobile-number">
+                                <span style="display: none;">请输入正确的手机号码</span>
+                            </div>
+                            <div class="mobile-code">
+                                <input type="text" autocomplete="off" placeholder="请输入你的验证码"
+                                    class="phone-number">-<button type="button" class="">获取验证码</button>
+                                <span style="display: none;">请输入正确短信验证码</span>
+                            </div>
                         </form>
                     </div>
                 </div>
@@ -350,7 +424,77 @@
                 }
 
             }
+            //处理密码是否为可见
+            let tage = true;
+            let oEye = document.getElementsByClassName('close-eye')[0];
+            oEye.onclick = function (e) {
+                tage ? this.className = 'eye' : this.className = 'close-eye';
+                tage ? this.parentNode.children[1].type = 'text' : this.parentNode.children[1].type =
+                    'password';
+                tage = !tage;
+            }
+            //处理账户为空的情况
+            let inputAccount = document.getElementsByClassName('input-account')[0];
+            let spanTag = document.getElementsByClassName('account')[0].getElementsByTagName('span')[0];
+            inputAccount.onblur = function (e) {
+                this.value.trim() == '' ? spanTag.style.display = 'block' : spanTag.style.display = 'none';
+            }
+            //处理密码为空的情况
+            let inputPassword = document.getElementsByClassName('password')[0].getElementsByTagName('input')[0];
+            let pSpanTag = document.getElementsByClassName('password')[0].getElementsByTagName('span')[0];
+            inputPassword.onblur = function (e) {
+                this.value == '' ? pSpanTag.style.display = 'block' : pSpanTag.style.display = 'none';
+            }
 
+            //处理手机号码
+            let inputMobileNumber = document.getElementsByClassName('input-mobile-number')[0];
+            let spanMobileNumber = document.getElementsByClassName('mobile-phone')[0].getElementsByTagName('span')[
+                0];
+            inputMobileNumber.onblur = function (e) {
+                isPoneAvailable(this.value) ? spanMobileNumber.style.display = 'none' : spanMobileNumber.style
+                    .display = 'block';
+            }
+            // 处理验证码
+            let inputPhoneCode = document.getElementsByClassName('phone-number')[0];
+            let spanCode = document.getElementsByClassName('mobile-code')[0].getElementsByTagName('span')[0];
+            inputPhoneCode.onblur = function(e){
+                isNumber(this.value) ? spanCode.style.display = 'none' : spanCode.style.display = 'block';
+            }
+            loadProfile();
+        }
+
+        // 判断是否为手机号
+        function isPoneAvailable(pone) {
+            var myreg = /^[1][3,4,5,6,7,8,9][0-9]{9}$/;
+            if (!myreg.test(pone)) {
+                return false;
+            } else {
+                return true;
+            }
+        }
+        // 判断是否为6位数字
+        function isNumber(number) {
+            var reg = /^\d{6}\b/;
+            if (reg.test(number)) {
+                return true;
+            } else {
+                return false;
+            }
+        }
+
+        //设置登录标题
+        function loadProfile(){
+            let url = 'profile.json';
+            let request = new XMLHttpRequest();
+            request.open("get",url);
+            request.send(null);
+            request.onload = function(){
+                if(request.status == 200){
+                    let json = JSON.parse(request.responseText);
+                    let h3Title = document.getElementsByClassName('login-body')[0].getElementsByTagName('h3')[0];
+                    h3Title.innerHTML = json['title'];
+                }
+            }
         }
     </script>
 </body>

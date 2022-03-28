@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        *{
+            margin: 0;
+            padding: 0;
+        }
+        body {
+            overflow: hidden;
+        }
+        div {
+            width: 500px;
+            height: 800px;
+            position: absolute;
+            border: 1px solid red;
+            background-color: antiquewhite;
+            right: -502px;
+            top: 100px;
+            display: block;
+            transition: all 0.5s;
+        }
+    </style>
+</head>
+<body>
+    <button value="">点击</button>
+    <div>
+
+    </div>
+    <script>
+        var oBtn = document.getElementsByTagName('button')[0];
+        var oDiv = document.getElementsByTagName('div')[0];
+        var t = true;
+        oBtn.onclick = function(){
+            t?oDiv.style.right = '2px':oDiv.style.right='-502px';
+            t=!t;
+        }
+    </script>
+</body>
+</html>

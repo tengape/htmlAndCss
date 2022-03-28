@@ -25,7 +25,7 @@
         }
 
         body {
-            background: #fff url(./image/background2.jpg) no-repeat center center fixed;
+            background: #fff url(./image/background1.jpg) no-repeat center center fixed;
             background-size: cover;
         }
 
@@ -105,7 +105,6 @@
         .nav-scroll {
             border-bottom: 1px solid #595959;
         }
-
         input::-webkit-input-placeholder {
             color: #c0bdbd;
         }
@@ -168,10 +167,12 @@
 
         .form-pone-password div input:hover {
             border-color: #bfbfbf;
+            background-color: #f6f6f6;
         }
 
         .form-pone-password div input:focus {
             border-color: #268dff;
+            background-color: #fff;
             outline: none;
         }
 
@@ -241,10 +242,12 @@
 
         .form-pone-mobile input:hover {
             border-color: #bfbfbf;
+            background-color: #f6f6f6;
         }
 
         .form-pone-mobile input:focus {
             border-color: #268dff;
+            background-color: #fff;
             outline: none;
         }
 
@@ -353,7 +356,7 @@
         </div>
         <div class="login">
             <div class="login-body">
-                <h3></h3>
+                <h3>隧道人员安全管理平台</h3>
                 <div class="tabs-nav">
                     <div class="nav-scroll">
                         <div class="pane-password tab active">
@@ -402,8 +405,7 @@
                 </div>
             </div>
         </div>
-        <div class="footer">Copyright @ Glodon Company Limited 1998-2021 All Rights Reseved ｜ 经营性网站备案信息 京ICP备10021606号-1
-            京公网安备11010802021391号</div>
+        <div class="footer"></div>
     </div>
     <script>
         window.onload = function () {
@@ -491,8 +493,12 @@
             request.onload = function(){
                 if(request.status == 200){
                     let json = JSON.parse(request.responseText);
+                    // 加载标题
                     let h3Title = document.getElementsByClassName('login-body')[0].getElementsByTagName('h3')[0];
                     h3Title.innerHTML = json['title'];
+                    // 加载面脚内容
+                    let ofooter = document.getElementsByClassName('footer')[0];
+                    ofooter.innerHTML = json['footer'];
                 }
             }
         }

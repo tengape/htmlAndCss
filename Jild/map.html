@@ -1,0 +1,507 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>吉联达隧道人员安全管理平台</title>
+    <link rel="stylesheet" href="./css/style.css">
+    <link rel="stylesheet" href="./css/fengmap/fengmap.css">
+    <link rel="stylesheet" href="./css/fengmap/toolBarStyle.css">
+    <style>
+        @font-face {
+            /* 电脑中没有的字体，我们需要声明 */
+            font-family: 'icomoon';
+            src: url('fonts/icomoon.eot?7kkyc2');
+            src: url('fonts/icomoon.eot?7kkyc2#iefix') format('embedded-opentype'),
+                url('fonts/icomoon.ttf?7kkyc2') format('truetype'),
+                url('fonts/icomoon.woff?7kkyc2') format('woff'),
+                url('fonts/icomoon.svg?7kkyc2#icomoon') format('svg');
+            font-weight: normal;
+            font-style: normal;
+        }
+
+        .search-location-personal {
+            left: 24px;
+            top: 24px;
+            position: absolute;
+            z-index: 10000;
+        }
+
+        .search-location-personal input {
+            width: 230px;
+            height: 30px;
+            border-radius: 4px;
+            border: 1px solid #d9d9d9;
+            padding-left: 5px;
+            font-size: 12px;
+            font-weight: 500;
+            transition: border-color .2s cubic-bezier(.645, .045, .355, 1);
+        }
+
+        .search-location-personal input:focus {
+            border-color: #268dff;
+            background-color: #fff;
+            outline: none;
+        }
+
+        .search-location-personal span::before {
+            font-family: 'icomoon';
+            content: '\e987';
+        }
+
+        .search-location-personal span {
+            position: absolute;
+            top: 8px;
+            right: 10px;
+            color: #ccc;
+        }
+
+        input::-webkit-input-placeholder {
+            color: #c0bdbd;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <div class="top">
+            <img src="./image/log.png" alt="" class="logo">
+            <div class="toolbar">
+                <ul>
+                    <li><img src="./image/icon/clothes.png" alt=""></li>
+                    <li><img src="./image//icon/cc-bell-o.png" alt=""></li>
+                    <li><img src="./image/icon/user.png" alt=""></li>
+                    <li>吉联达</li>
+                    <li><img src="./image/icon/arrow-down.png" alt=""></li>
+                </ul>
+            </div>
+        </div>
+        <div class="left">
+            <ul id="menu">
+                <li>
+                    <a href="#"><img src="./image/icon/index.png"> 项目概况</a>
+                </li>
+                <li><a href="#" class="menu-nav"><img src="./image/icon/location.png">人员定位<img
+                            src="./image/icon/arrow-left.png" class="arrow"></a>
+                    <ul class="node-nav" style="display: none;">
+                        <li><a href="#">实时地图</a></li>
+                        <li><a href="#">电量统计</a></li>
+                        <li><a href="#">报警记录</a></li>
+                        <li><a href="#">轨迹回放</a></li>
+                    </ul>
+                </li>
+                <li>
+                    <a href="#" class="menu-nav"><img src="./image/icon/md-stats.png" alt=""> 数据分析<img
+                            src="./image/icon/arrow-left.png" class="arrow"></a>
+                    <ul class="node-nav" style="display: none;">
+                        <li><a href="#">图标统计</a></li>
+                        <li><a href="#">场内人员</a></li>
+                        <li><a href="#">场内车辆</a></li>
+                        <li><a href="#">场外统计</a></li>
+                        <li><a href="#">考勤记录</a></li>
+                        <li><a href="#">原始记录</a></li>
+                    </ul>
+                </li>
+                <li>
+                    <a href="#" class="menu-nav"><img src="./image/icon/environmentalequipment.png">感知数据<img
+                            src="./image/icon/arrow-left.png" class="arrow"></a>
+
+                    <ul class="node-nav" style="display: none;">
+                        <li><a href="#">图标统计</a></li>
+                        <li><a href="#">报警数据</a></li>
+                        <li><a href="#">原始记录</a></li>
+                    </ul>
+                </li>
+            </ul>
+        </div>
+        <div class="right">
+            <div class="search-location-personal"><input type="text" placeholder="输入姓名查询"><span></span></div>
+            <div id="fengmap"></div>
+        </div>
+    </div>
+    <script src="./js/common.js"></script>
+    <script src="./js/fengmap/fengmap.map-nologo.min.js"></script>
+    <script src="./js/fengmap/fengmap.plugin.min.js"></script>
+    <script src="./js/fengmap/fengmap.analyser.min.js"></script>
+    <script src="https://cdn.staticfile.org/jquery/1.10.2/jquery.min.js"></script>
+    <script src="https://unpkg.com/mqtt/dist/mqtt.min.js"></script>
+    <script>
+        var originLocatinData; // MQTT定位过来的原始定位数据     
+        var mapLocationIconData = []; // 地图定位数据,用于存储地图页面定位数据
+        var _originUuid = null; // 原uuid 第一次创建的uuid
+
+        var map; // 定位地图
+        var _index = 0; // 计速器，用于控制接收MQTT 接收数据的速度
+
+        window.onload = function () {
+            loadMap();
+        }
+        /**
+         * 加载地图
+         */
+        function loadMap() {
+            var options = {
+                appName: '蜂鸟研发SDK_2_0',
+                key: '57c7f309aca507497d028a9c00207cf8',
+                mapID: '1321274646113083394',
+                container: document.getElementById('fengmap')
+            }
+            map = new fengmap.FMMap(options);
+            map.on('loaded', function () {
+                /**
+                 * 向地图场景中添加模型文件
+                 */
+                loadMqtt();
+                //加载工具
+                loadMapTool();
+            });
+
+            /**
+             * 加载地图工具栏
+             * /
+             */
+            function loadMapTool() {
+                /* 放大缩小 */
+                var toolbar = new fengmap.FMZoomControl({
+                    position: fengmap.FMControlPosition.LEFT_BOTTOM,
+                    offset: {
+                        x: 30,
+                        y: -50
+                    }
+                });
+                toolbar.addTo(map)
+                /* 指南针 */
+                var compass = new fengmap.FMCompass({
+                    backgroundImageURL: './image/compass.png',
+                    backgroundImageSize: 80,
+                    position: fengmap.FMControlPosition.RIGHT_BOTTOM
+                });
+                compass.addTo(map);
+                compass.on('click', function () {
+                    map.setRotation({
+                        rotation: 0,
+                        animate: true,
+                        duration: 0.3,
+                        finish: function () {
+                            console.log('setRotation');
+                        }
+                    })
+                });
+                /* 楼层控制 */
+                var scrollFloorCtlOpt = {
+                    position: fengmap.FMControlPosition.RIGHT_TOP,
+                    floorButtonCount: 5,
+                    offset: {
+                        x: -20,
+                        y: 20
+                    },
+                    viewModeControl: true,
+                    floorModeControl: true,
+                    needAllLayerBtn: true
+
+                };
+                scrollFloorControl = new fengmap.FMToolbar(scrollFloorCtlOpt);
+                scrollFloorControl.addTo(map)
+            }
+
+            /**
+             * 地图点击事件
+             */
+            var t = true;
+            map.on('click', function (e) {
+                /* 获取定位图标 */
+                if (e.targets != null && e.targets.length > 0 && e.targets[0].identification ==
+                    'locationIcon') {
+                    let locationIcon = e.targets[0];
+                    // console.log(locationIcon.personId);
+                    /* 找到 personID 在mapLocationIconData 数组中 对应的 定位图标对象 */
+                    let locationObjectArray = mapLocationIconData.filter((m) => {
+                        return m.personId == locationIcon.personId;
+                    });
+                    t ? (locationObjectArray[0].infoWindow.visible = true) : (locationObjectArray[0].infoWindow
+                        .visible =
+                        false);
+                    t = !t;
+                }
+            });
+        }
+        /**
+         * 加载mqtt
+         */
+        function loadMqtt() {
+            const options = {
+                clean: true,
+                connectTimeout: 4000,
+                clientId: 'MQTT_FX_Client',
+            }
+            const connectUrl = 'ws://192.168.2.115:9001/mqtt'
+            const client = mqtt.connect(connectUrl, options);
+            //成功连接后触发的回调
+            client.on("connect", function (connack) {
+                client.subscribe("/Location/LocationdataList", {
+                    qos: 2
+                });
+            });
+            client.on('message', (topic, message, packet) => {
+
+                if (JSON.parse(message).data.length == 0) {
+                    delAllLocationIcon(); // 清除地图上的所有定位图标
+                } else {
+                    originLocatinData = JSON.parse(message).data;
+                    var uuid = JSON.parse(message).uuid;
+                    /* 过滤搜索数据 */
+                    let oSearchInput = document.getElementsByTagName('input');
+                    let searchValue = oSearchInput[0].value.trim();
+                    if (searchValue != '') {
+                        let searchData = originLocatinData.filter((o) => {
+                            // return o.personName == searchValue;
+                            return o.personName.indexOf(searchValue) >-1;
+                        });
+                        if(searchData.length == 0){
+                            delAllLocationIcon();
+                        }else{
+                            if (_index % 5 == 0) dealLocationOriginMQTTData(searchData, uuid);
+                        }
+                    } else {
+                        if (_index % 5 == 0) dealLocationOriginMQTTData(originLocatinData, uuid);
+                    }
+                    _index++;
+                }
+            });
+        }
+        //处理从MQTT 过来的源始数据
+        function dealLocationOriginMQTTData(originLocatinData, uuid) {
+            // console.warn(mapLocationIconData);
+            /* 先判断 地图图标、文字标签、信息窗是否为空 如果为空就创建地图图标、文字标签、信息窗 */
+            if (mapLocationIconData.length == 0) {
+                _originUuid = originLocatinData[0].uuid;
+                for (let index = 0; index < originLocatinData.length; index++) {
+                    /* 创建定位图标到地图 并保存到 mapLocationIconData 数组中 */
+                    //console.log();
+                    mapLocationIconData.push(createLocationIcon(originLocatinData[index], uuid));
+                }
+            } else {
+                /**
+                 * 如果地图上面已经有定位图标了
+                 * 就需要用 originLocatinData 里面的每一条定位 数据 去找
+                 * mapLocationIconData 里面的数据做对比，
+                 * 第 1 步 根据 originLocatinData（定位数据） 的 personId 去查找 mapLocationIconData（定位图标） 的personID  
+                 * 如果存在就更新对就原座标、电量、uuid，如果不存在就 创建调用createLocationIcon(originLocatinData[index],uuid)
+                 * 第 2 步 根据 这次更新 uuid，不同这次的 uuid的定位图标全部都 remove 掉 
+                 * 
+                 *
+                 */
+                /*记录上一次的uuid*/
+                _originUuid = mapLocationIconData[0].uuid;
+                /* 1 查找 personId */
+                for (let i = 0; i < originLocatinData.length; i++) {
+                    let isPersonalId = mapLocationIconData.filter((m) => {
+                        return m.personId == originLocatinData[i].personId;
+                    });
+                    //console.log(isPersonalId.length);
+                    if (isPersonalId.length > 0) {
+                        /* 查找到 personId 更新 mapLocationIconData 里面的数据 */
+                        updateMapLocationIcon(originLocatinData[i], isPersonalId[0], uuid);
+                    } else {
+                        // 没有查找到 personId 就创建图标
+                        mapLocationIconData.push(createLocationIcon(originLocatinData[i], uuid));
+                    }
+                }
+                /**
+                 * 删除 uuid 为 originUuid 的数据 更新mapLocationIconData 数组
+                 * 
+                 */
+                deleteOriginUuid(mapLocationIconData);
+            }
+        }
+
+        /**
+         * 删除为 源uuid的数据
+         */
+        function deleteOriginUuid(mapLocationIconData) {
+            // console.log(_originUuid);
+            /* 先找出要删除的uuid对应的元素 */
+            var oldUUID = mapLocationIconData.filter((m) => {
+                return m.uuid == _originUuid;
+            });
+            /* 再删除对应的元素 */
+            for (let index = 0; index < oldUUID.length; index++) {
+                oldUUID[index].mapLcationIcon.remove();
+                oldUUID[index].textMarker.remove();
+                oldUUID[index].infoWindow.remove();
+                let i = mapLocationIconData.indexOf(oldUUID[index]);
+                index > -1 && mapLocationIconData.splice(index, 1);
+            }
+        }
+
+        /* 删除所有定位图标 */
+        function delAllLocationIcon() {
+            // console.log('删除数据');
+            for (let index = 0; index < mapLocationIconData.length; index++) {
+                mapLocationIconData[index].mapLcationIcon.remove();
+                mapLocationIconData[index].textMarker.remove();
+                mapLocationIconData[index].infoWindow.remove();
+            }
+            mapLocationIconData = [];
+        }
+
+        // 更新已有的定位图标
+        /**
+         * @originLocation 原定位数据
+         * @mapLocationIcon 定位图标对象集合 包含定位图标、文字标签、信息窗
+         * @uuid 最新的uuid
+         */
+        function updateMapLocationIcon(originLocation, mapLocationIcon, uuid) {
+            /* 生成新的座标 */
+            var coordinate = {
+                x: map.getBound().min.x + (parseFloat(originLocation.nX)),
+                y: map.getBound().min.y + (parseFloat(originLocation.nY) + 20),
+            }
+            mapLocationIcon.uuid = uuid;
+            // 更新定位图标
+            mapLocationIcon.mapLcationIcon.teamName = originLocation.teamName;
+            mapLocationIcon.mapLcationIcon.personId = originLocation.personId;
+            mapLocationIcon.mapLcationIcon.personName = originLocation.personName;
+            mapLocationIcon.mapLcationIcon.phone = originLocation.phone;
+            mapLocationIcon.mapLcationIcon.nX = originLocation.nX;
+            mapLocationIcon.mapLcationIcon.nY = originLocation.nY;
+            mapLocationIcon.mapLcationIcon.voltage = originLocation.voltage;
+            mapLocationIcon.mapLcationIcon.updateTime = originLocation.updateTime;
+            mapLocationIcon.mapLcationIcon.moveTo({
+                x: coordinate.x,
+                y: coordinate.y,
+                animate: true,
+                duration: 2
+            });
+            // 更新文字标签
+            // map.on('update', function (e) {
+            //     // console.log(originLocation.personName);
+            //     mapLocationIcon.textMarker.text = originLocation.personName;
+
+            // });
+            mapLocationIcon.textMarker.moveTo({
+                x: coordinate.x,
+                y: coordinate.y,
+                animate: true,
+                duration: 2
+            });
+            // 更新信息窗
+            var windowHtml = ` <div class="persnal-detail">
+                <div class="window-top">
+                    <img src="image/personal.png" alt="" width="60" height="64">
+                    <ul>
+                        <li>卡号：${originLocation.cardno}</li>
+                        <li>姓名：${originLocation.personName}</li>
+                        <li>班组：${originLocation.teamName}</li>
+                    </ul>
+                </div>
+                <br>
+                <ul class="bottom-info">
+                    <li>坐标：${originLocation.nX},${originLocation.nY}</li>
+                    <li>电量：${originLocation.voltage}</li>
+                    <li>更新：${originLocation.updateTime}</li>
+                </ul>
+                <div class="trigon"></div>
+            </div>`;
+            mapLocationIcon.infoWindow.content = windowHtml;
+            mapLocationIcon.infoWindow.moveTo({
+                x: coordinate.x,
+                y: coordinate.y,
+                animate: true,
+                duration: 2
+            });
+        }
+
+        // 创建定位图标到地图
+        function createLocationIcon(locationData, uuid) {
+            var locationIconDataObject = {}; /* 定义一个地图数据对象 里面用于存储 定位图标对象、文字标签对象、信息窗口对象 */
+            locationIconDataObject.uuid = uuid;
+            locationIconDataObject.personId = locationData.personId;
+
+            //console.log(locationData);
+            /* 添加定位模型 */
+            var coordinate = {
+                x: map.getBound().min.x + (parseFloat(locationData.nX)),
+                y: map.getBound().min.y + (parseFloat(locationData.nY) + 20),
+            }
+            var locationIconMarker = new fengmap.FMDynamicModel({
+                url: 'image/duck.glb',
+                x: coordinate.x,
+                y: coordinate.y,
+                callback: function () {
+                    //console.log('ok');
+                }
+            });
+            var level = map.getLevel();
+            var floor = map.getFloor(level);
+
+            locationIconMarker.cardno = locationData.cardno;
+            locationIconMarker.teamName = locationData.teamName;
+            locationIconMarker.personId = locationData.personId;
+            locationIconMarker.personName = locationData.personName;
+            locationIconMarker.phone = locationData.phone;
+            locationIconMarker.nX = locationData.nX;
+            locationIconMarker.nY = locationData.nY;
+            locationIconMarker.voltage = locationData.voltage;
+            locationIconMarker.updateTime = locationData.updateTime;
+            locationIconMarker.identification = 'locationIcon'; /*定位图标 标识*/
+
+            /* 将 Marker 添加到地图的指定楼层上 */
+            locationIconMarker.addTo(floor);
+            locationIconDataObject.mapLcationIcon = locationIconMarker;
+
+
+            /*添加文字标签*/
+            var textMarker = new fengmap.FMTextMarker({
+                text: locationData.personName,
+                fontsize: 12,
+                fillColor: "0,0,0",
+                x: coordinate.x,
+                y: coordinate.y,
+                height: 1
+            });
+            textMarker.identification = 'locationTextMarker';
+            textMarker.personId = locationData.personId;
+            textMarker.addTo(floor);
+            locationIconDataObject.textMarker = textMarker;
+
+
+            // 创建信息窗到地图
+            var windowHtml = ` <div class="persnal-detail">
+                <div class="window-top">
+                    <img src="image/personal.png" alt="" width="60" height="64">
+                    <ul>
+                        <li>卡号：${locationData.cardno}</li>
+                        <li>姓名：${locationData.personName}</li>
+                        <li>班组：${locationData.teamName}</li>
+                    </ul>
+                </div>
+                <br>
+                <ul class="bottom-info">
+                    <li>坐标：${locationData.nX},${locationData.nY}</li>
+                    <li>电量：${locationData.voltage}</li>
+                    <li>更新：${locationData.updateTime}</li>
+                </ul>
+                <div class="trigon"></div>
+            </div>`;
+            /* 创建信息窗 */
+            var infoWindowMarker = new fengmap.FMDomMarker({
+                x: coordinate.x,
+                y: coordinate.y,
+                content: windowHtml,
+                height: 2.5
+            });
+            infoWindowMarker.visible = false;
+            infoWindowMarker.personId = locationData.personId;
+            infoWindowMarker.identification = 'infoWindow';
+            infoWindowMarker.addTo(floor);
+            locationIconDataObject.infoWindow = infoWindowMarker;
+            //_originUuid = uuid;
+            return locationIconDataObject;
+        }
+    </script>
+</body>
+
+</html>
